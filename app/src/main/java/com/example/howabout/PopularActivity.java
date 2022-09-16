@@ -40,22 +40,6 @@ public class PopularActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_close = findViewById(R.id.btn_close);
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(PopularActivity.this, "메뉴오픈", Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
-            }
-        });
-        Button btn_hi = findViewById(R.id.btn_hello);
-        btn_hi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Toast.makeText(PopularActivity.this, "Hi", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {

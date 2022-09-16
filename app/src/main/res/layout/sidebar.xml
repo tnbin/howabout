@@ -7,42 +7,67 @@
     android:background="#99F3C5C5"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#ff5757"
-            android:text="메뉴닫기" />
-
-        <Button
-            android:id="@+id/btn_hello"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#ff5757"
-            android:gravity="center"
-            android:text="안녕하세요" />
-
         <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="djsklfjk"
-            android:textSize="20dp" />
+            android:hint="사용자 이름"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/edge_black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="10dp"
+            android:padding="10dp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_weight="2">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_homebar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ff5757"
+                android:text="홈" />
+
+            <Button
+                android:id="@+id/btn_courcebar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ff5757"
+                android:gravity="center"
+                android:text="코스 찾기" />
+
+            <Button
+                android:id="@+id/btn_mypagebar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ff5757"
+                android:gravity="center"
+                android:text="마이페이지" />
+
+            <Button
+                android:id="@+id/btn_mycourcebar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ff5757"
+                android:gravity="center"
+                android:text="내 코스" />
+
+        </LinearLayout>
 
 
     </ScrollView>

@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
@@ -48,24 +49,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_close = findViewById(R.id.btn_close);
-        btn_close.setOnClickListener(new View.OnClickListener() {
+        Button btn_homebar = findViewById(R.id.btn_homebar);
+        btn_homebar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "메뉴오픈", Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
+                Intent intenth=new Intent(MainActivity.this,MainActivity.class);
+                startActivity(intenth);
             }
         });
-        TextView textView=findViewById(R.id.text);
-        textView.setOnTouchListener(lis);
-
-        Button btn_hi = findViewById(R.id.btn_hello);
-        btn_hi.setOnClickListener(new View.OnClickListener() {
+        Button btn_courcebar=findViewById(R.id.btn_courcebar);
+        btn_courcebar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Toast.makeText(MainActivity.this, "Hi", Toast.LENGTH_SHORT).show();
-                Log.i("subin","클릭");
+                Intent intentc=new Intent(MainActivity.this,FindActivity.class);
+                startActivity(intentc);
+            }
+        });
+
+        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
+        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentmp=new Intent(MainActivity.this,MyPageActivity.class);
+                startActivity(intentmp);
+            }
+        });
+        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
+        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentmc=new Intent(MainActivity.this,MyCourseActivity.class);
+                startActivity(intentmc);
             }
         });
 
@@ -103,22 +121,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentpo);
             }
         });
-        Button btn_mycource2=findViewById(R.id.btn_mycource2);
-        btn_mycource2.setOnClickListener(new View.OnClickListener() {
+        Button btn_find=findViewById(R.id.btn_find);
+        btn_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentmc=new Intent(MainActivity.this,MyCourseActivity.class);
-                startActivity(intentmc);
+                Intent intentf=new Intent(MainActivity.this,FindActivity.class);
+                startActivity(intentf);
             }
         });
     }
-    View.OnTouchListener lis=new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            Log.i("subin","터치");
-            return false;
-        }
-    };
+
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
