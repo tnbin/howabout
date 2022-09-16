@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,94 +7,101 @@
     android:orientation="vertical"
     tools:context=".RegistActivity">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/howabout_logo" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/edge_black"
-        android:hint="아이디:"
-        android:padding="10dp"
-        android:textSize="18dp" />
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/howabout_logo" />
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edge_black"
-        android:hint="비밀번호:"
-        android:padding="10dp"
-        android:textSize="18dp" />
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/edge_black"
+            android:hint="아이디:"
+            android:padding="10dp"
+            android:textSize="18dp" />
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edge_black"
-        android:hint="비밀번호 확인:"
-        android:padding="10dp"
-        android:textSize="18dp" />
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edge_black"
+            android:hint="비밀번호:"
+            android:padding="10dp"
+            android:textSize="18dp" />
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edge_black"
-        android:hint="이름:"
-        android:padding="10dp"
-        android:textSize="18dp" />
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edge_black"
+            android:hint="비밀번호 확인:"
+            android:padding="10dp"
+            android:textSize="18dp" />
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edge_black"
-        android:hint="닉네임:"
-        android:padding="10dp"
-        android:textSize="18dp" />
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edge_black"
+            android:hint="이름:"
+            android:padding="10dp"
+            android:textSize="18dp" />
 
-    <RadioGroup
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp">
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edge_black"
+            android:hint="닉네임:"
+            android:padding="10dp"
+            android:textSize="18dp" />
 
-        <RadioButton
+        <RadioGroup
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="80dp"
+                android:text="남자" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여자" />
+        </RadioGroup>
+
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="남자"
-            android:layout_marginLeft="10dp"
-            android:layout_marginEnd="80dp"
-            />
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="#FF5757"
+            android:text="회원가입"
+            android:textSize="18dp" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="여자" />
-    </RadioGroup>
+    </LinearLayout>
 
 
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#FF5757"
-        android:text="회원가입"
-        android:textSize="18dp" />
-
-
-</LinearLayout>
+</ScrollView>
