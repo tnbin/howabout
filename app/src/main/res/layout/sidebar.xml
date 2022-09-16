@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer"
     android:layout_width="240dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="#99CACDCA"
-    android:orientation="vertical"
-    android:id="@+id/drawer"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        >
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="메뉴닫기"
-            android:backgroundTint="#ff5757"
-            android:id="@+id/btn_close"/>
+        android:orientation="vertical">
 
         <Button
+            android:id="@+id/btn_close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#ff5757"
+            android:text="메뉴닫기" />
+
+        <Button
             android:id="@+id/btn_hello"
-            android:text="안녕하세요"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:backgroundTint="#ff5757"
-            android:gravity="center">
+            android:gravity="center"
+            android:text="안녕하세요" />
 
-        </Button>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="djsklfjk"
+            android:textSize="20dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="vertical"
-        >
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/side_list"
-            />
+        android:orientation="vertical">
+
 
 
     </LinearLayout>

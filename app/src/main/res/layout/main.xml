@@ -74,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ex1" />
 
         </LinearLayout>
@@ -95,13 +96,14 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ex1" />
 
                 <Button
-                    android:layout_width="0dp"
                     android:id="@+id/btn_popular"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#fff"
                     android:text="인기 코스"
@@ -117,10 +119,10 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_mycource2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:id="@+id/btn_mycource2"
                     android:layout_weight="1"
                     android:backgroundTint="#fff"
                     android:text="내 코스"
@@ -130,8 +132,9 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ex2" />
             </LinearLayout>
 

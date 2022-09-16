@@ -20,7 +20,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:background="@drawable/edge"
+        android:background="@drawable/edge_black"
         android:hint="아이디:"
         android:padding="10dp"
         android:textSize="18dp" />
@@ -30,7 +30,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edge"
+        android:background="@drawable/edge_black"
         android:hint="비밀번호:"
         android:padding="10dp"
         android:textSize="18dp" />
@@ -40,7 +40,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edge"
+        android:background="@drawable/edge_black"
         android:hint="비밀번호 확인:"
         android:padding="10dp"
         android:textSize="18dp" />
@@ -50,7 +50,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edge"
+        android:background="@drawable/edge_black"
         android:hint="이름:"
         android:padding="10dp"
         android:textSize="18dp" />
@@ -60,7 +60,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edge"
+        android:background="@drawable/edge_black"
         android:hint="닉네임:"
         android:padding="10dp"
         android:textSize="18dp" />

@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
             }
         });
+        TextView textView=findViewById(R.id.text);
+        textView.setOnTouchListener(lis);
 
         Button btn_hi = findViewById(R.id.btn_hello);
         btn_hi.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
                 Toast.makeText(MainActivity.this, "Hi", Toast.LENGTH_SHORT).show();
+                Log.i("subin","클릭");
             }
         });
 
@@ -108,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    View.OnTouchListener lis=new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            Log.i("subin","터치");
+            return false;
+        }
+    };
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
