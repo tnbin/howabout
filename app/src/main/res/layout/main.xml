@@ -22,11 +22,15 @@
                 android:id="@+id/btn_open"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFF"
-                android:src="@drawable/ic_baseline_dehaze_24" />
+                android:src="@drawable/ic_baseline_dehaze_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btn_login"
@@ -91,18 +95,21 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-
+                    android:layout_marginBottom="6dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ex1" />
 
                 <Button
                     android:id="@+id/btn_popular"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:backgroundTint="#fff"
                     android:text="인기 코스"
                     android:textColor="#000"
@@ -118,20 +125,23 @@
 
                 <Button
                     android:id="@+id/btn_find"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:backgroundTint="#fff"
                     android:text="코스 찾기"
+                    android:layout_marginBottom="4dp"
                     android:textColor="#000"
                     android:textSize="20dp" />
 
                 <ImageView
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
+                    android:layout_marginTop="6dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ex2" />
             </LinearLayout>

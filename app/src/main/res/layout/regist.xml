@@ -60,15 +60,6 @@
             android:padding="10dp"
             android:textSize="18dp" />
 
-        <EditText
-            android:layout_width="280dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edge_black"
-            android:hint="닉네임:"
-            android:padding="10dp"
-            android:textSize="18dp" />
 
         <RadioGroup
             android:layout_width="280dp"
@@ -95,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="50dp"
             android:backgroundTint="#FF5757"
             android:text="회원가입"
