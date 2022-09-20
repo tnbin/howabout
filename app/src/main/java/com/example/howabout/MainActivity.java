@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intentl);
-//                startActivityForResult(intentl,1);
+                Log.i("subin","intent 성공");
             }
         });
 

@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/howabout_logo"
-        app:layout_constraintBottom_toTopOf="@+id/ed_id"
+        app:layout_constraintBottom_toTopOf="@+id/ed_loid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,15 +23,15 @@
         app:layout_constraintVertical_bias="0.665" />
 
     <EditText
-        android:id="@+id/ed_id"
+        android:id="@+id/ed_loid"
         android:layout_width="280dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:background="@drawable/edge_black"
         android:hint="아이디:"
         android:padding="10dp"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/ed_pw"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/ed_lopw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         app:layout_constraintVertical_bias="0.947" />
 
     <EditText
-        android:id="@+id/ed_pw"
+        android:id="@+id/ed_lopw"
         android:layout_width="280dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -47,8 +47,8 @@
         android:hint="비밀번호:"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_logindb"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lologin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,13 +56,13 @@
         app:layout_constraintVertical_bias="0.808" />
 
     <Button
-        android:id="@+id/btn_logindb"
+        android:id="@+id/btn_lologin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:backgroundTint="#ff5757"
         android:text="로그인"
-        app:layout_constraintBottom_toTopOf="@+id/btn_regist"
+        app:layout_constraintBottom_toTopOf="@+id/btn_registin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <Button
-        android:id="@+id/btn_regist"
+        android:id="@+id/btn_registin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
