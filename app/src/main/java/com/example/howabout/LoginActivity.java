@@ -3,6 +3,7 @@ package com.example.howabout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +14,13 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_login;
     ImageButton btn_mypage;
     ImageButton btn_mycource1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+
 
         Button btn_regist=findViewById(R.id.btn_regist);
         btn_regist.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
+
 }

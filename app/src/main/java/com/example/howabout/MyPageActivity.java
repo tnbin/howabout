@@ -65,8 +65,6 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmp=new Intent(MyPageActivity.this,MyPageActivity.class);
-                startActivity(intentmp);
             }
         });
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);

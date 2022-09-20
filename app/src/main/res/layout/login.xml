@@ -45,6 +45,7 @@
         android:layout_gravity="center"
         android:background="@drawable/edge_black"
         android:hint="비밀번호:"
+        android:inputType="textPassword"
         android:padding="10dp"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_logindb"

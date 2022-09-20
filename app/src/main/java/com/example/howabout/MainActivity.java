@@ -3,13 +3,18 @@ package com.example.howabout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,6 +22,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
+
 
     DrawerLayout drawerLayout;
     View drawerView;
@@ -54,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intenth=new Intent(MainActivity.this,MainActivity.class);
-                startActivity(intenth);
+
             }
         });
         Button btn_courcebar=findViewById(R.id.btn_courcebar);
@@ -129,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentf);
             }
         });
+
     }
 
 
@@ -153,4 +159,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
 }

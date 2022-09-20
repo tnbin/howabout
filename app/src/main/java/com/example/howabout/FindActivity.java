@@ -79,8 +79,6 @@ public class FindActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentc = new Intent(FindActivity.this, FindActivity.class);
-                startActivity(intentc);
             }
         });
 

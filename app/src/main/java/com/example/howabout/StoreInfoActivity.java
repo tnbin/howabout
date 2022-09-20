@@ -46,16 +46,16 @@ public class StoreInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intenth = new Intent(StoreInfoActivity.this, MainActivity.class);
+                Intent intenth=new Intent(StoreInfoActivity.this,MainActivity.class);
                 startActivity(intenth);
             }
         });
-        Button btn_courcebar = findViewById(R.id.btn_courcebar);
+        Button btn_courcebar=findViewById(R.id.btn_courcebar);
         btn_courcebar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentc = new Intent(StoreInfoActivity.this, FindActivity.class);
+                Intent intentc=new Intent(StoreInfoActivity.this,FindActivity.class);
                 startActivity(intentc);
             }
         });
@@ -65,7 +65,7 @@ public class StoreInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmp = new Intent(StoreInfoActivity.this, MyPageActivity.class);
+                Intent intentmp=new Intent(StoreInfoActivity.this,MyPageActivity.class);
                 startActivity(intentmp);
             }
         });
@@ -74,7 +74,7 @@ public class StoreInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmc = new Intent(StoreInfoActivity.this, MyCourseActivity.class);
+                Intent intentmc=new Intent(StoreInfoActivity.this,MyCourseActivity.class);
                 startActivity(intentmc);
             }
         });
