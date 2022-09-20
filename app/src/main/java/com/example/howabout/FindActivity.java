@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,7 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.io.FileDescriptor;
 
 public class FindActivity extends AppCompatActivity {
 
@@ -61,6 +63,43 @@ public class FindActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 textView.setText(String.format("선택 값은 %d 입니다.", seekBar.getProgress()));
+            }
+        });
+        Button btn_homebar = findViewById(R.id.btn_homebar);
+        btn_homebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intenth = new Intent(FindActivity.this, MainActivity.class);
+                startActivity(intenth);
+            }
+        });
+        Button btn_courcebar = findViewById(R.id.btn_courcebar);
+        btn_courcebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentc = new Intent(FindActivity.this, FindActivity.class);
+                startActivity(intentc);
+            }
+        });
+
+        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
+        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentmp = new Intent(FindActivity.this, MyPageActivity.class);
+                startActivity(intentmp);
+            }
+        });
+        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
+        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentmc = new Intent(FindActivity.this, MyCourseActivity.class);
+                startActivity(intentmc);
             }
         });
     }

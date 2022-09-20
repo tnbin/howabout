@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +42,43 @@ public class MyCourseActivity extends AppCompatActivity {
             }
         });
 
+        Button btn_homebar = findViewById(R.id.btn_homebar);
+        btn_homebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intenth=new Intent(MyCourseActivity.this,MainActivity.class);
+                startActivity(intenth);
+            }
+        });
+        Button btn_courcebar=findViewById(R.id.btn_courcebar);
+        btn_courcebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentc=new Intent(MyCourseActivity.this,FindActivity.class);
+                startActivity(intentc);
+            }
+        });
 
+        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
+        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentmp=new Intent(MyCourseActivity.this,MyPageActivity.class);
+                startActivity(intentmp);
+            }
+        });
+        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
+        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Intent intentmc=new Intent(MyCourseActivity.this,MyCourseActivity.class);
+                startActivity(intentmc);
+            }
+        });
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {

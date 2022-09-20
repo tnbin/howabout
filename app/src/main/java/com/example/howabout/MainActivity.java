@@ -132,20 +132,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode==1){
-//            if (resultCode==RESULT_OK){
-//                Log.i("subin",data.getStringExtra("input"));
-//                btn_login.setVisibility(View.INVISIBLE);
-//                btn_mypage.setVisibility(View.VISIBLE);
-//                btn_mycource1.setVisibility(View.VISIBLE);
-//            }
-//        }
-//    }
-
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {

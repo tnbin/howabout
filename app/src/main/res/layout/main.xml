@@ -41,7 +41,7 @@
                 android:layout_marginRight="15dp"
                 android:backgroundTint="#FF5757"
                 android:text="Login"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <ImageButton
                 android:id="@+id/btn_mypage"
@@ -51,7 +51,7 @@
                 android:layout_toLeftOf="@+id/btn_mycource1"
                 android:backgroundTint="#FF5757"
                 android:src="@drawable/ic_baseline_account_circle_24"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <ImageButton
                 android:id="@+id/btn_mycource1"
@@ -64,7 +64,7 @@
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFF"
                 android:src="@drawable/ic_baseline_add_location_alt_24"
-                android:visibility="invisible" />
+                android:visibility="visible" />
         </RelativeLayout>
 
         <LinearLayout
