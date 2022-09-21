@@ -88,14 +88,12 @@ public class RegistActivity extends AppCompatActivity {
                 final String pwcheck = ed_repwcheck.getText().toString();
                 //b가 editText 포커스 됐을때
                 if (b) {
-                    if (UserPw.length()<8){
-                        warning_pw.setText("비밀번호는 8자 이상 입력해야 합니다");
-                    }
 
                 } else {
                     if (UserPw.equals(pwcheck)) {
                         warning_pwck.setText("");
                         click3 = 1;
+                        Log.i("subin","click30: "+click3);
                     } else {
                         warning_pwck.setText("비밀번호가 일치하지 않습니다");
                     }
@@ -172,6 +170,7 @@ public class RegistActivity extends AppCompatActivity {
                 if (UserName.equals("")) {
                     warning_name.setText("닉네임을 입력해주세요");
                 } else {
+                    warning_name.setText("");
                     if (UserName.length() < 6) {
                         warning_name.setText("닉네임은 6자이상 입력해야합니다");
                     } else if (click1 != 1) {
@@ -181,6 +180,7 @@ public class RegistActivity extends AppCompatActivity {
                 if (UserId.equals("")) {
                     warning_id.setText("아이디를 입력해주세요");
                 } else {
+                    warning_id.setText("");
                     if (UserId.length() < 8) {
                         warning_id.setText("아이디는 8자 이상 입력해야 합니다");
                     } else if (click2 != 1) {
@@ -194,31 +194,46 @@ public class RegistActivity extends AppCompatActivity {
                     if (UserPw.length() < 8) {
                         warning_pw.setText("비밀번호는 8자 이상 입력해야 합니다");
                     }
-                    if (pwcheck.equals("")) {
-                        warning_pwck.setText("비밀번호를 재확인을 입력 해주세요");
-                    } else {
-                        if (click3 != 1) {
-                            warning_pwck.setText("비밀번호가 일치하지 않습니다");
-                        }
-                    }
-                    if (Birth.equals("")) {
-                        spinner.setText("생년월일을 입력해주세요");
-                    } else {
-                        spinner.setText("");
+                }
+                if (pwcheck.equals("")) {
+                    click3=0;
+                    warning_pwck.setText("비밀번호를 재확인을 입력 해주세요");
+                    Log.i("subin","click31: "+click3);
+                } else {
+                    Log.i("subin","click32: "+click3);
+                    if (click3 != 1) {
+                        warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                        Log.i("subin","click33: "+click3);
+                    }else if (click3 == 1){
+                        warning_pwck.setText("비밀번호가 일치합니다");
+                        //UserPw intent시 정보전달
+                        //받는 정보 click3
                     }
                 }
+                if (Birth.equals("")) {
+                    spinner.setText("생년월일을 입력해주세요");
+                } else {
+                    if (1900>Integer.parseInt(Birth)||2023<Integer.parseInt(Birth)){
+                        spinner.setText("올바른 생년월일을 입력해주세요");
+                    }else {
+                        spinner.setText("");
+                        //Birth 정보 intent 시 정보 전달
+                        //spinner_m.getItemAtPosition(i),spinner_d.getItemAtPosition(i) 값도 전달
+                    }
+
+                }
+
                 if (gender == 0) {
                     radio.setText("성별을 선택해주세요");
                 } else {
                     radio.setText("");
+                    //성별 gender =1,2 intent 될때 정보 전달
                 }
             }
         });
 
         //Spinner 월/일
-        spinner_m =
-
-                findViewById(R.id.spinner_m);
+        spinner_m = findViewById(R.id.spinner_m);
 
         final ArrayList<String> list_m = new ArrayList<>();
         for (
@@ -243,9 +258,7 @@ public class RegistActivity extends AppCompatActivity {
             }
         });
 
-        spinner_d =
-
-                findViewById(R.id.spinner_d);
+        spinner_d = findViewById(R.id.spinner_d);
 
         final ArrayList<String> list_d = new ArrayList<>();
         for (
