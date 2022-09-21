@@ -25,8 +25,9 @@ public class RegistActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private Spinner spinner_m;
     private Spinner spinner_d;
-    static int click1=0;
-    static int click2=0;
+    static int click1 = 0;
+    static int click2 = 0;
+    static int click3 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +44,12 @@ public class RegistActivity extends AppCompatActivity {
 
         TextView warning_name = findViewById(R.id.warning_name);
         TextView warning_id = findViewById(R.id.warning_id);
-        TextView warning_pw=findViewById(R.id.warning_pw);
-        TextView warning_pwck=findViewById(R.id.warning_pwck);
-        TextView spinner=findViewById(R.id.spinner);
-        TextView radio=findViewById(R.id.radio);
+        TextView warning_pw = findViewById(R.id.warning_pw);
+        TextView warning_pwck = findViewById(R.id.warning_pwck);
+        TextView spinner = findViewById(R.id.spinner);
+        TextView radio = findViewById(R.id.radio);
 
-//        //텍스트 입력 제한
-//        if (ed_nickname.length()<21){
-//
-//        }else {
-//            warning_name.setText("최대 20자까지 입력가능합니다");
-//        }
+
         //비밀번호 일치확인
         EditText ed_repwcheck = findViewById(R.id.ed_repwcheck);
         ed_repwcheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -62,11 +58,12 @@ public class RegistActivity extends AppCompatActivity {
                 final String UserPw = ed_pw.getText().toString();
                 final String pwcheck = ed_repwcheck.getText().toString();
                 //b가 editText 포커스 됐을때
-                if (b){
+                if (b) {
 
-                }else {
+                } else {
                     if (UserPw.equals(pwcheck)) {
                         warning_pwck.setText("");
+                        click3 = 1;
                     } else {
                         warning_pwck.setText("비밀번호가 일치하지 않습니다");
                     }
@@ -90,8 +87,8 @@ public class RegistActivity extends AppCompatActivity {
                     //validate true 중복이 없음
                     if (validate == true) {
                         warning_name.setText(" ");
-                        click1=1;
-                        Log.i("subin","click1:"+click1);
+                        click1 = 1;
+                        Log.i("subin", "click1:" + click1);
                         Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                         return;
                     } else if (validate == false) {
@@ -116,9 +113,9 @@ public class RegistActivity extends AppCompatActivity {
                 } else {
                     if (validate == true) {
                         warning_id.setText(" ");
-                        click2=1;
-                        Log.i("subin","click1:"+click1);
-                        Log.i("subin","click2: "+click2);
+                        click2 = 1;
+                        Log.i("subin", "click1:" + click1);
+                        Log.i("subin", "click2: " + click2);
                         Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                         return;//검증완료
                     } else if (validate == false) {
@@ -135,32 +132,41 @@ public class RegistActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final String UserPw = ed_pw.getText().toString();
                 final String pwcheck = ed_repwcheck.getText().toString();
-                final String UserName=ed_nickname.getText().toString();
-                final String UserId=ed_id.getText().toString();
-                final String Birth=birth.getText().toString();
+                final String UserName = ed_nickname.getText().toString();
+                final String UserId = ed_id.getText().toString();
+                final String Birth = birth.getText().toString();
 
-                Log.i("subin","click1:"+click1);
-                Log.i("subin","click2: "+click2);
+                Log.i("subin", "click1:" + click1);
+                Log.i("subin", "click2: " + click2);
 
-                if (UserName.equals("")){
+
+                if (UserName.equals("")) {
                     warning_name.setText("닉네임을 입력해주세요");
-                }else if (UserPw.equals("")){
-                    warning_pw.setText("비밀번호를 입력해주세요");
-                }else  if (UserId.equals("")){
+                } else if (!UserName.equals("")) {
+                    if (click1 != 1) {
+                        warning_name.setText("중복 확인을 해주세요");
+                    }
+                }
+                if (UserId.equals("")) {
                     warning_id.setText("아이디를 입력해주세요");
-                }else if (Birth.equals("")){
-                    spinner.setText("생년월일을 입력해주세요");
-                }else if (pwcheck.equals("")){
-                    warning_pwck.setText("비밀번호를 재확인 해주세요");
-                }else{
-                    Toast.makeText(RegistActivity.this,"완료",Toast.LENGTH_SHORT).show();
+                } else if (!UserId.equals("")) {
+                    if (click2 != 1) {
+                        warning_id.setText("중복 확인을 해주세요");
+                    }
+                }
+                if (UserPw.equals("")) {
+                    warning_pw.setText("비밀번호를 입력해주세요");
                 }
 
-                if (click1!=1){
-                    warning_name.setText("중복 확인을 해주세요");
+                if (pwcheck.equals("")) {
+                    warning_pwck.setText("비밀번호를 재확인 해주세요");
+                } else if (!pwcheck.equals("")) {
+                    if (click3 != 1) {
+                        warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                    }
                 }
-                if (click2!=1){
-                    warning_id.setText("중복 확인을 해주세요");
+                if (Birth.equals("")) {
+                    spinner.setText("생년월일을 입력해주세요");
                 }
 
             }
