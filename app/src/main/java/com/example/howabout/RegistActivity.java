@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +31,8 @@ public class RegistActivity extends AppCompatActivity {
     static int click1 = 0;
     static int click2 = 0;
     static int click3 = 0;
-    int gender=0;
+    int gender = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,7 @@ public class RegistActivity extends AppCompatActivity {
         EditText ed_nickname = findViewById(R.id.ed_renickname);
         EditText ed_id = findViewById(R.id.ed_reid);
         EditText ed_pw = findViewById(R.id.ed_repw);
-        RadioGroup radiogroup=findViewById(R.id.radiogroup);
+        RadioGroup radiogroup = findViewById(R.id.radiogroup);
         EditText birth = findViewById(R.id.signBirth);
 
         //경고창 textview
@@ -54,15 +57,30 @@ public class RegistActivity extends AppCompatActivity {
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (i==R.id.btn_man){
-                    gender=1;
-                }else if (i==R.id.btn_woman){
-                    gender=2;
+                if (i == R.id.btn_man) {
+                    gender = 1;
+                } else if (i == R.id.btn_woman) {
+                    gender = 2;
                 }
             }
         });
+        InputFilter[] filters1 = new InputFilter[]{
+                new InputFilter.LengthFilter(20),
+        };
+        ed_nickname.setFilters(filters1);
+        InputFilter[] filters2 = new InputFilter[]{
+                new InputFilter.LengthFilter(30),
+        };
+        InputFilter[] filters3 = new InputFilter[]{
+                new InputFilter.LengthFilter(4),
+        };
+        ed_id.setFilters(filters2);
+        ed_pw.setFilters(filters2);
+
+        birth.setFilters(filters3);
         //비밀번호 일치확인
         EditText ed_repwcheck = findViewById(R.id.ed_repwcheck);
+        ed_repwcheck.setFilters(filters2);
         ed_repwcheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -70,6 +88,9 @@ public class RegistActivity extends AppCompatActivity {
                 final String pwcheck = ed_repwcheck.getText().toString();
                 //b가 editText 포커스 됐을때
                 if (b) {
+                    if (UserPw.length()<8){
+                        warning_pw.setText("비밀번호는 8자 이상 입력해야 합니다");
+                    }
 
                 } else {
                     if (UserPw.equals(pwcheck)) {
@@ -88,21 +109,22 @@ public class RegistActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String UserNick = ed_nickname.getText().toString();
-
+                //validate true 중복이 없음
                 if (UserNick.equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegistActivity.this);
                     dialog = builder.setMessage("닉네임을 입력하세요.").setPositiveButton("확인", null).create();
                     dialog.show();
                     return;
                 } else {
-                    //validate true 중복이 없음
-                    if (validate == true) {
+                    if (UserNick.length() < 6) {
+                        warning_name.setText("닉네임은 6자이상 입력해야합니다");
+                    } else if (validate) {
                         warning_name.setText(" ");
                         click1 = 1;
                         Log.i("subin", "click1:" + click1);
                         Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                         return;
-                    } else if (validate == false) {
+                    } else {
                         warning_name.setText("이미 사용중이거나 탈퇴한 닉네임 입니다.");
                     }
                 }
@@ -122,14 +144,14 @@ public class RegistActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 } else {
-                    if (validate == true) {
+                    if (UserId.length() < 8) {
+                        warning_id.setText("아이디는 8자 이상 입력해야 합니다");
+                    } else if (validate) {
                         warning_id.setText(" ");
                         click2 = 1;
-                        Log.i("subin", "click1:" + click1);
-                        Log.i("subin", "click2: " + click2);
                         Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                         return;//검증완료
-                    } else if (validate == false) {
+                    } else {
                         warning_id.setText("이미 사용중이거나 탈퇴한 아이디 입니다.");
                     }
                 }
@@ -149,44 +171,62 @@ public class RegistActivity extends AppCompatActivity {
 
                 if (UserName.equals("")) {
                     warning_name.setText("닉네임을 입력해주세요");
-                } else if (!UserName.equals("")) {
-                    if (click1 != 1) {
-                        warning_name.setText("중복 확인을 해주세요");
+                } else {
+                    if (UserName.length() < 6) {
+                        warning_name.setText("닉네임은 6자이상 입력해야합니다");
+                    } else if (click1 != 1) {
+                        warning_name.setText("닉네임 중복 확인을 해주세요");
                     }
                 }
                 if (UserId.equals("")) {
                     warning_id.setText("아이디를 입력해주세요");
-                } else if (!UserId.equals("")) {
-                    if (click2 != 1) {
-                        warning_id.setText("중복 확인을 해주세요");
+                } else {
+                    if (UserId.length() < 8) {
+                        warning_id.setText("아이디는 8자 이상 입력해야 합니다");
+                    } else if (click2 != 1) {
+                        warning_id.setText("아이디 중복 확인을 해주세요");
                     }
                 }
                 if (UserPw.equals("")) {
                     warning_pw.setText("비밀번호를 입력해주세요");
-                }
-
-                if (pwcheck.equals("")) {
-                    warning_pwck.setText("비밀번호를 재확인 해주세요");
-                } else if (!pwcheck.equals("")) {
-                    if (click3 != 1) {
-                        warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                } else {
+                    warning_pw.setText("");
+                    if (UserPw.length() < 8) {
+                        warning_pw.setText("비밀번호는 8자 이상 입력해야 합니다");
+                    }
+                    if (pwcheck.equals("")) {
+                        warning_pwck.setText("비밀번호를 재확인을 입력 해주세요");
+                    } else {
+                        if (click3 != 1) {
+                            warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                        }
+                    }
+                    if (Birth.equals("")) {
+                        spinner.setText("생년월일을 입력해주세요");
+                    } else {
+                        spinner.setText("");
                     }
                 }
-                if (Birth.equals("")) {
-                    spinner.setText("생년월일을 입력해주세요");
-                }
-                if (gender==0){
+                if (gender == 0) {
                     radio.setText("성별을 선택해주세요");
+                } else {
+                    radio.setText("");
                 }
             }
         });
 
         //Spinner 월/일
-        spinner_m = findViewById(R.id.spinner_m);
+        spinner_m =
+
+                findViewById(R.id.spinner_m);
+
         final ArrayList<String> list_m = new ArrayList<>();
-        for (int i = 1; i < 13; i++) {
+        for (
+                int i = 1;
+                i < 13; i++) {
             list_m.add(i + "월");
         }
+
         ArrayAdapter spinnerAdapter1 = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, list_m);
         spinner_m.setAdapter(spinnerAdapter1);
 
@@ -203,11 +243,17 @@ public class RegistActivity extends AppCompatActivity {
             }
         });
 
-        spinner_d = findViewById(R.id.spinner_d);
+        spinner_d =
+
+                findViewById(R.id.spinner_d);
+
         final ArrayList<String> list_d = new ArrayList<>();
-        for (int i = 1; i < 32; i++) {
+        for (
+                int i = 1;
+                i < 32; i++) {
             list_d.add(i + "일");
         }
+
         ArrayAdapter spinnerAdapter2 = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, list_d);
         spinner_d.setAdapter(spinnerAdapter2);
 

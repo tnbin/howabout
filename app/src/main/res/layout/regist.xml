@@ -35,7 +35,6 @@
                 android:background="@drawable/edge_black"
                 android:hint="닉네임:"
                 android:inputType="text"
-                android:maxLength="20"
                 android:padding="10dp"
                 android:textSize="15dp" />
 
@@ -73,7 +72,6 @@
                 android:background="@drawable/edge_black"
                 android:hint="아이디:"
                 android:inputType="text"
-                android:maxLength="30"
                 android:padding="10dp"
                 android:textSize="15dp" />
 
@@ -104,7 +102,6 @@
             android:background="@drawable/edge_black"
             android:hint="비밀번호:"
             android:inputType="textPassword"
-            android:maxLength="30"
             android:padding="10dp"
             android:textSize="15dp" />
 
@@ -124,7 +121,6 @@
             android:background="@drawable/edge_black"
             android:hint="비밀번호 확인:"
             android:inputType="textPassword"
-            android:maxLength="30"
             android:padding="10dp"
             android:textSize="15dp" />
 
@@ -181,8 +177,7 @@
                 android:background="@drawable/edge_black"
                 android:hint=" 생년(4자)"
                 android:inputType="date"
-                android:maxLength="4"
-                android:text=""
+                android:paddingLeft="5dp"
                 android:textSize="15dp" />
 
             <Spinner
