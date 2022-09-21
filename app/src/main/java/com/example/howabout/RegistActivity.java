@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class RegistActivity extends AppCompatActivity {
     static int click1 = 0;
     static int click2 = 0;
     static int click3 = 0;
-
+    int gender=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +39,10 @@ public class RegistActivity extends AppCompatActivity {
         EditText ed_nickname = findViewById(R.id.ed_renickname);
         EditText ed_id = findViewById(R.id.ed_reid);
         EditText ed_pw = findViewById(R.id.ed_repw);
-        RadioButton btn_man = findViewById(R.id.btn_man);
-        RadioButton btn_woman = findViewById(R.id.btn_woman);
+        RadioGroup radiogroup=findViewById(R.id.radiogroup);
         EditText birth = findViewById(R.id.signBirth);
 
+        //경고창 textview
         TextView warning_name = findViewById(R.id.warning_name);
         TextView warning_id = findViewById(R.id.warning_id);
         TextView warning_pw = findViewById(R.id.warning_pw);
@@ -49,7 +50,17 @@ public class RegistActivity extends AppCompatActivity {
         TextView spinner = findViewById(R.id.spinner);
         TextView radio = findViewById(R.id.radio);
 
-
+        //gender=1 일 경우 남성,gender=2 일 경우 여성
+        radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i==R.id.btn_man){
+                    gender=1;
+                }else if (i==R.id.btn_woman){
+                    gender=2;
+                }
+            }
+        });
         //비밀번호 일치확인
         EditText ed_repwcheck = findViewById(R.id.ed_repwcheck);
         ed_repwcheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -136,10 +147,6 @@ public class RegistActivity extends AppCompatActivity {
                 final String UserId = ed_id.getText().toString();
                 final String Birth = birth.getText().toString();
 
-                Log.i("subin", "click1:" + click1);
-                Log.i("subin", "click2: " + click2);
-
-
                 if (UserName.equals("")) {
                     warning_name.setText("닉네임을 입력해주세요");
                 } else if (!UserName.equals("")) {
@@ -168,7 +175,9 @@ public class RegistActivity extends AppCompatActivity {
                 if (Birth.equals("")) {
                     spinner.setText("생년월일을 입력해주세요");
                 }
-
+                if (gender==0){
+                    radio.setText("성별을 선택해주세요");
+                }
             }
         });
 
