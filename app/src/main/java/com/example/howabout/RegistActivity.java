@@ -53,6 +53,11 @@ public class RegistActivity extends AppCompatActivity {
         TextView spinner = findViewById(R.id.spinner);
         TextView radio = findViewById(R.id.radio);
 
+        //버튼
+        Button btn_namedoubleck = findViewById(R.id.btn_namedoubleck);
+        Button btn_iddoubleck = findViewById(R.id.btn_iddoubleck);
+        Button btn_regist = findViewById(R.id.btn_regist);
+
         //gender=1 일 경우 남성,gender=2 일 경우 여성
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -64,6 +69,7 @@ public class RegistActivity extends AppCompatActivity {
                 }
             }
         });
+        //입력창 조건 부여
         InputFilter[] filters1 = new InputFilter[]{
                 new InputFilter.LengthFilter(20),
         };
@@ -76,10 +82,12 @@ public class RegistActivity extends AppCompatActivity {
         };
         ed_id.setFilters(filters2);
         ed_pw.setFilters(filters2);
-
         birth.setFilters(filters3);
+
         //비밀번호 일치확인
         EditText ed_repwcheck = findViewById(R.id.ed_repwcheck);
+
+        //비밀번호 일치확인
         ed_repwcheck.setFilters(filters2);
         ed_repwcheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -94,7 +102,7 @@ public class RegistActivity extends AppCompatActivity {
                         warning_pwck.setText("");
                         click3 = 1;
                         //비밀번호 중복체크 click3 0,1
-                        Log.i("subin","click30: "+click3);
+                        Log.i("subin", "click30: " + click3);
                     } else {
                         warning_pwck.setText("비밀번호가 일치하지 않습니다");
                     }
@@ -102,8 +110,6 @@ public class RegistActivity extends AppCompatActivity {
             }
         });
         //닉네임 중복체크
-        Button btn_namedoubleck = findViewById(R.id.btn_namedoubleck);
-
         btn_namedoubleck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,7 +138,6 @@ public class RegistActivity extends AppCompatActivity {
 
         });
         //아이디 중복체크
-        Button btn_iddoubleck = findViewById(R.id.btn_iddoubleck);
         btn_iddoubleck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,7 +165,6 @@ public class RegistActivity extends AppCompatActivity {
         });
 
         //회원가입 버튼
-        Button btn_regist = findViewById(R.id.btn_regist);
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,6 +173,8 @@ public class RegistActivity extends AppCompatActivity {
                 final String UserName = ed_nickname.getText().toString();
                 final String UserId = ed_id.getText().toString();
                 final String Birth = birth.getText().toString();
+                final String spinnerjm = spinner_m.getSelectedItem().toString();
+                final String spinnerjd = spinner_d.getSelectedItem().toString();
 
                 if (UserName.equals("")) {
                     warning_name.setText("닉네임을 입력해주세요");
@@ -201,15 +207,15 @@ public class RegistActivity extends AppCompatActivity {
                     }
                 }
                 if (pwcheck.equals("")) {
-                    click3=0;
+                    click3 = 0;
                     warning_pwck.setText("비밀번호를 재확인을 입력 해주세요");
-                    Log.i("subin","click31: "+click3);
+                    Log.i("subin", "click31: " + click3);
                 } else {
-                    Log.i("subin","click32: "+click3);
+                    Log.i("subin", "click32: " + click3);
                     if (click3 != 1) {
                         warning_pwck.setText("비밀번호가 일치하지 않습니다");
-                        Log.i("subin","click33: "+click3);
-                    }else if (click3 == 1){
+                        Log.i("subin", "click33: " + click3);
+                    } else if (click3 == 1) {
                         warning_pwck.setText("비밀번호가 일치합니다");
                         //click3이 비밀번호 일치 시 UserPw intent시 정보전달
 
@@ -218,10 +224,13 @@ public class RegistActivity extends AppCompatActivity {
                 if (Birth.equals("")) {
                     spinner.setText("생년월일을 입력해주세요");
                 } else {
-                    if (1900>Integer.parseInt(Birth)||2023<Integer.parseInt(Birth)){
+                    if (1900 > Integer.parseInt(Birth) || 2023 < Integer.parseInt(Birth)) {
                         spinner.setText("올바른 생년월일을 입력해주세요");
-                    }else {
+                    } else {
                         spinner.setText("");
+                        Log.i("subin", "B" + Birth);
+                        Log.i("subin", "M" + spinnerjm);
+                        Log.i("subin", "D" + spinnerjd);
                         //Birth 정보 intent 시 정보 전달
                         //spinner_m.getItemAtPosition(i),spinner_d.getItemAtPosition(i) 값도 전달
                     }
@@ -254,7 +263,7 @@ public class RegistActivity extends AppCompatActivity {
         spinner_m.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(RegistActivity.this, "" + spinner_m.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -279,7 +288,6 @@ public class RegistActivity extends AppCompatActivity {
         spinner_d.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(RegistActivity.this, "" + spinner_d.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -287,6 +295,7 @@ public class RegistActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 }
