@@ -11,6 +11,8 @@ import retrofit2.http.PUT;
 public interface RetrofitAPI {
 
 
+    @POST("/login/signUp")
+    Call<Integer>all(@Body UserVo userVo);
 
     @POST("/login/signUp/idcheck")
     Call<Integer> idcheck(@Body IdVo idcheck);

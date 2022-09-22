@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -128,15 +130,15 @@ public class RegistActivity extends AppCompatActivity {
                         warning_pw.setText("");
                         if (UserPw.length() < 8) {
                             warning_pw.setText("비밀번호는 8자 이상 입력해야 합니다");
-                        }else {
-                            inputPw=UserPw;
+                        } else {
+                            inputPw = UserPw;
                         }
                     }
                 } else {
                     if (UserPw.equals(pwcheck)) {
                         warning_pwck.setText("");
-                        inputPwCk=pwcheck;
-                        click3=1;
+                        inputPwCk = pwcheck;
+                        click3 = 1;
                     } else {
                         warning_pwck.setText("비밀번호가 일치하지 않습니다");
                     }
@@ -224,7 +226,7 @@ public class RegistActivity extends AppCompatActivity {
                                     //click2 아이디 중복 체크 0,1
                                     Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                                     return;//검증완료
-                                } else if (resid  == 0) {
+                                } else if (resid == 0) {
                                     warning_id.setText("이미 사용중이거나 탈퇴한 아이디 입니다.");
                                 }
                             }
@@ -273,6 +275,10 @@ public class RegistActivity extends AppCompatActivity {
                 final String spinnerjm = spinner_m.getSelectedItem().toString();
                 final String spinnerjd = spinner_d.getSelectedItem().toString();
 
+                int yy = Integer.parseInt(Birth);
+                int mm = Integer.parseInt(spinnerjm);
+                int dd = Integer.parseInt(spinnerjd);
+
                 if (!inputID.equals(UserId)) {
                     click1 = 0;
                     //ID 다시 검사 하세요~
@@ -282,22 +288,32 @@ public class RegistActivity extends AppCompatActivity {
                     //Name 다시 검사 하세요~
                 }
                 if (!inputPw.equals(UserPw) && !inputPwCk.equals(pwcheck)) {
-                    click3=0;
+                    click3 = 0;
                     //pw
                 }
                 if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {
 
-                    //서버에 call 때려버리기
-                    // return 1 / 0
-                    // if ( 1 >>>
-                    // intent
-                    // 0 >>  다시해라
-                    Intent i;
-                    // go intent;
-                } else {
-                    //다시확인하세요//
-                }
+                    UserVo inputuser = new UserVo(UserName, UserId, UserPw, yy, mm, dd, gender);
+                    Call<Integer> all = RetrofitClient.getApiService().all(inputuser);
+                    all.enqueue(new Callback<Integer>() {
+                        @Override
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                            int allres = response.body();
+                            if (allres == 1) {
+                                Intent intent = new Intent(RegistActivity.this, LoginActivity.class);
+                            } else {
+                                //로그인 실패
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(Call<Integer> call, Throwable t) {
+
+                            Log.i("subin", "연결실패" + t.getMessage());
+                        }
+                    });
+
+                }
             }
         });
 
@@ -308,7 +324,7 @@ public class RegistActivity extends AppCompatActivity {
         for (
                 int i = 1;
                 i < 13; i++) {
-            list_m.add(i + "월");
+            list_m.add(i + "");
         }
 
         ArrayAdapter spinnerAdapter1 = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, list_m);
@@ -333,7 +349,7 @@ public class RegistActivity extends AppCompatActivity {
         for (
                 int i = 1;
                 i < 32; i++) {
-            list_d.add(i + "일");
+            list_d.add(i + "");
         }
 
         ArrayAdapter spinnerAdapter2 = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, list_d);
