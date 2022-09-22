@@ -93,6 +93,7 @@ public class RegistActivity extends AppCompatActivity {
                     if (UserPw.equals(pwcheck)) {
                         warning_pwck.setText("");
                         click3 = 1;
+                        //비밀번호 중복체크 click3 0,1
                         Log.i("subin","click30: "+click3);
                     } else {
                         warning_pwck.setText("비밀번호가 일치하지 않습니다");
@@ -119,6 +120,7 @@ public class RegistActivity extends AppCompatActivity {
                     } else if (validate) {
                         warning_name.setText(" ");
                         click1 = 1;
+                        //닉네임 중복체크 click1 0,1
                         Log.i("subin", "click1:" + click1);
                         Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                         return;
@@ -147,6 +149,7 @@ public class RegistActivity extends AppCompatActivity {
                     } else if (validate) {
                         warning_id.setText(" ");
                         click2 = 1;
+                        //click2 아이디 중복 체크 0,1
                         Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                         return;//검증완료
                     } else {
@@ -171,6 +174,7 @@ public class RegistActivity extends AppCompatActivity {
                     warning_name.setText("닉네임을 입력해주세요");
                 } else {
                     warning_name.setText("");
+                    //닉네임 정보 전달 UserName
                     if (UserName.length() < 6) {
                         warning_name.setText("닉네임은 6자이상 입력해야합니다");
                     } else if (click1 != 1) {
@@ -181,6 +185,7 @@ public class RegistActivity extends AppCompatActivity {
                     warning_id.setText("아이디를 입력해주세요");
                 } else {
                     warning_id.setText("");
+                    //아이디 id intent 시 정보 전달
                     if (UserId.length() < 8) {
                         warning_id.setText("아이디는 8자 이상 입력해야 합니다");
                     } else if (click2 != 1) {
@@ -206,8 +211,8 @@ public class RegistActivity extends AppCompatActivity {
                         Log.i("subin","click33: "+click3);
                     }else if (click3 == 1){
                         warning_pwck.setText("비밀번호가 일치합니다");
-                        //UserPw intent시 정보전달
-                        //받는 정보 click3
+                        //click3이 비밀번호 일치 시 UserPw intent시 정보전달
+
                     }
                 }
                 if (Birth.equals("")) {
