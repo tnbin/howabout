@@ -6,26 +6,26 @@ import com.google.gson.annotations.SerializedName;
 
 public class NickNameVo {
 
-    public NickNameVo(String data) {
-        this.data = data;
+    public NickNameVo(String u_nick) {
+        this.u_nick = u_nick;
     }
 
-    @SerializedName("data")
+    @SerializedName("u_nick")
     @Expose
-    private String data;
+    private String u_nick;
 
-    public String getData() {
-        return data;
+    public String getU_nick() {
+        return u_nick;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setU_nick(String u_nick) {
+        this.u_nick = u_nick;
     }
 
     @Override
     public String toString() {
         return "NickNameVo{" +
-                "data='" + data + '\'' +
+                "u_nick='" + u_nick + '\'' +
                 '}';
     }
 }

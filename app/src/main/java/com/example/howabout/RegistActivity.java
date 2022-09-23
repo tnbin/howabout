@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+import java.util.function.LongFunction;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +36,7 @@ public class RegistActivity extends AppCompatActivity {
     static int click1 = 0;
     static int click2 = 0;
     static int click3 = 0;
-    static int gender = 0;
+    static int gender = 1;
     static int checkBirth = 0;
     String inputID;
     String inputName;
@@ -156,26 +157,28 @@ public class RegistActivity extends AppCompatActivity {
                     warning_name.setText("닉네임을 입력해주세요");
                     return;
                 } else {
-                    if (UserNick.length() < 6) {
-                        warning_name.setText("닉네임은 6자이상 입력해야합니다");
+                    if (UserNick.length() < 3) {
+                        warning_name.setText("닉네임은 3자이상 입력해야합니다");
                     }
-                    //닉네임 6자 이상 입력
+                    //닉네임 3자 이상 입력
                     else {
                         checkName = 1;
                     }
                     if (checkName == 1) {
                         NickNameVo input = new NickNameVo(UserNick);
+                        Log.i("subin","NameCk: "+input);
 
                         Call<Integer> test1 = RetrofitClient.getApiService().nickcheck(input);
                         test1.enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
                                 int res = response.body();
-                                Log.i("subin", "post 성공");
-
+                                Log.i("subin", "Name post 성공");
+                                Log.i("subin","NCK:"+res);
                                 if (res == 1) {
                                     warning_name.setText(" ");
                                     click1 = 1;
+                                    inputName = UserNick;
                                     //닉네임 중복체크 click1 0,1
                                     Log.i("subin", "click1:" + click1);
                                     Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
@@ -187,7 +190,7 @@ public class RegistActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<Integer> call, Throwable t) {
-                                Log.i("subin", "post 실패" + t.getMessage());
+                                Log.i("subin", "NCK post 실패 : " + t.getMessage());
                             }
                         });
                     }
@@ -212,18 +215,21 @@ public class RegistActivity extends AppCompatActivity {
                         //아이디 8자 이상 입력 완료
                         checkId = 1;
                     }
+                    Log.i("subin",""+checkId);
                     if (checkId == 1) {
+                        Log.i("subin",""+checkId);
                         IdVo inputId = new IdVo(UserId);
                         Call<Integer> test2 = RetrofitClient.getApiService().idcheck(inputId);
                         test2.enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                Log.i("subin","id server 연결 성공");
                                 int resid = response.body();
+                                Log.i("subin","Id response"+resid);
                                 if (resid == 1) {
                                     warning_id.setText(" ");
                                     click2 = 1;
                                     inputID = UserId;
-                                    //click2 아이디 중복 체크 0,1
                                     Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                                     return;//검증완료
                                 } else if (resid == 0) {
@@ -233,7 +239,7 @@ public class RegistActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<Integer> call, Throwable t) {
-
+                                Log.i("subin", "id post 실패" + t.getMessage());
                             }
                         });
 
@@ -257,6 +263,8 @@ public class RegistActivity extends AppCompatActivity {
                         } else {
                             spinner.setText("");
                             checkBirth = 1;
+
+                            Log.i("subin","b"+checkBirth);
                         }
                     }
                 }
@@ -271,38 +279,50 @@ public class RegistActivity extends AppCompatActivity {
                 final String pwcheck = ed_repwcheck.getText().toString();
                 final String UserName = ed_nickname.getText().toString();
                 final String UserId = ed_id.getText().toString();
-                final String Birth = birth.getText().toString();
+                final String BirthY = birth.getText().toString();
                 final String spinnerjm = spinner_m.getSelectedItem().toString();
                 final String spinnerjd = spinner_d.getSelectedItem().toString();
 
-                int yy = Integer.parseInt(Birth);
-                int mm = Integer.parseInt(spinnerjm);
-                int dd = Integer.parseInt(spinnerjd);
+                final String Birth = BirthY + "-" + spinnerjm + "-" + spinnerjd;
 
+                Log.i("subin", "001");
                 if (!inputID.equals(UserId)) {
                     click1 = 0;
-                    //ID 다시 검사 하세요~
+                    warning_id.setText("다시 아이디 작성해주세요");
                 }
+                Log.i("subin", "002");
                 if (!inputName.equals(UserName)) {
                     click2 = 0;
-                    //Name 다시 검사 하세요~
+                    warning_name.setText("다시 닉네임 입력해주세요");
                 }
+                Log.i("subin", "003");
                 if (!inputPw.equals(UserPw) && !inputPwCk.equals(pwcheck)) {
                     click3 = 0;
-                    //pw
+                    warning_pw.setText("다시 비밀번호 입력해주세요");
                 }
-                if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {
+                Log.i("subin","n"+click1);
+                Log.i("subin","i"+click2);
+                Log.i("subin","p"+click3);
+                Log.i("subin","b"+checkBirth);
+                Log.i("subin","g"+gender);
 
-                    UserVo inputuser = new UserVo(UserName, UserId, UserPw, yy, mm, dd, gender);
+
+                if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {
+                    Log.i("subin","로그인성공");
+
+                    UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender);
                     Call<Integer> all = RetrofitClient.getApiService().all(inputuser);
                     all.enqueue(new Callback<Integer>() {
                         @Override
                         public void onResponse(Call<Integer> call, Response<Integer> response) {
                             int allres = response.body();
+                            Log.i("subin","all server 연결 성공"+allres);
                             if (allres == 1) {
-                                Intent intent = new Intent(RegistActivity.this, LoginActivity.class);
+                                Log.i("subin", "로그인 성공");
+
                             } else {
                                 //로그인 실패
+                                Log.i("subin", "로그인 실패");
                             }
                         }
 

@@ -10,13 +10,12 @@ import retrofit2.http.PUT;
 
 public interface RetrofitAPI {
 
-
-    @POST("/login/signUp")
-    Call<Integer>all(@Body UserVo userVo);
-
-    @POST("/login/signUp/idcheck")
+    @POST("/login/signUp/idCheck")
     Call<Integer> idcheck(@Body IdVo idcheck);
 
     @POST("/login/signUp/nickCheck")
     Call<Integer> nickcheck(@Body NickNameVo nickNameVo);
+
+    @POST("/login/signUp")
+    Call<Integer>all(@Body UserVo userVo);
 }

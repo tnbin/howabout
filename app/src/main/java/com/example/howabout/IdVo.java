@@ -5,26 +5,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class IdVo {
 
-    public IdVo(String data) {
-        this.data = data;
+
+    public IdVo(String u_id) {
+        this.u_id = u_id;
     }
 
-    @SerializedName("data")
+    @SerializedName("u_id")
     @Expose
-    private String data;
+    private String u_id;
 
-    public String getData() {
-        return data;
+    public String getU_id() {
+        return u_id;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setU_id(String u_id) {
+        this.u_id = u_id;
     }
 
     @Override
     public String toString() {
         return "IdVo{" +
-                "data='" + data + '\'' +
+                "u_id='" + u_id + '\'' +
                 '}';
     }
 }

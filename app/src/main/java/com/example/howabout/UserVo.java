@@ -4,13 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserVo {
-    public UserVo(String u_nick, String u_id, String u_pw, Integer birthYear, Integer birthMonth, Integer birthDay, Integer gender) {
+
+    public UserVo(String u_nick, String u_id, String u_pw, String birth, Integer gender) {
         this.u_nick = u_nick;
         this.u_id = u_id;
         this.u_pw = u_pw;
-        this.birthYear = birthYear;
-        this.birthMonth = birthMonth;
-        this.birthDay = birthDay;
+        this.birth = birth;
         this.gender = gender;
     }
 
@@ -23,15 +22,9 @@ public class UserVo {
     @SerializedName("u_pw")
     @Expose
     private String u_pw;
-    @SerializedName("birthYear")
+    @SerializedName("birth")
     @Expose
-    private Integer birthYear;
-    @SerializedName("birthMonth")
-    @Expose
-    private Integer birthMonth;
-    @SerializedName("birthDay")
-    @Expose
-    private Integer birthDay;
+    private String birth;
     @SerializedName("gender")
     @Expose
     private Integer gender;
@@ -60,28 +53,12 @@ public class UserVo {
         this.u_pw = u_pw;
     }
 
-    public Integer getBirthYear() {
-        return birthYear;
+    public String getBirth() {
+        return birth;
     }
 
-    public void setBirthYear(Integer birthYear) {
-        this.birthYear = birthYear;
-    }
-
-    public Integer getBirthMonth() {
-        return birthMonth;
-    }
-
-    public void setBirthMonth(Integer birthMonth) {
-        this.birthMonth = birthMonth;
-    }
-
-    public Integer getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(Integer birthDay) {
-        this.birthDay = birthDay;
+    public void setBirth(String birth) {
+        this.birth = birth;
     }
 
     public Integer getGender() {
@@ -98,9 +75,7 @@ public class UserVo {
                 "u_nick='" + u_nick + '\'' +
                 ", u_id='" + u_id + '\'' +
                 ", u_pw='" + u_pw + '\'' +
-                ", birthYear=" + birthYear +
-                ", birthMonth=" + birthMonth +
-                ", birthDay=" + birthDay +
+                ", birth='" + birth + '\'' +
                 ", gender=" + gender +
                 '}';
     }
