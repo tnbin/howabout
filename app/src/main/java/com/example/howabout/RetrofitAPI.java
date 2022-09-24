@@ -18,4 +18,7 @@ public interface RetrofitAPI {
 
     @POST("/login/signUp")
     Call<Integer>all(@Body UserVo userVo);
+
+    @POST("/login/signIn")
+    Call<List<UserVo>>login(@Body LoginVo loginVo);
 }

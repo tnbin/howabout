@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,6 +44,7 @@ public class RegistActivity extends AppCompatActivity {
     String inputPw;
     String inputPwCk;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,7 +168,7 @@ public class RegistActivity extends AppCompatActivity {
                     }
                     if (checkName == 1) {
                         NickNameVo input = new NickNameVo(UserNick);
-                        Log.i("subin","NameCk: "+input);
+                        Log.i("subin", "NameCk: " + input);
 
                         Call<Integer> test1 = RetrofitClient.getApiService().nickcheck(input);
                         test1.enqueue(new Callback<Integer>() {
@@ -174,7 +176,7 @@ public class RegistActivity extends AppCompatActivity {
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
                                 int res = response.body();
                                 Log.i("subin", "Name post 성공");
-                                Log.i("subin","NCK:"+res);
+                                Log.i("subin", "NCK:" + res);
                                 if (res == 1) {
                                     warning_name.setText(" ");
                                     click1 = 1;
@@ -215,17 +217,17 @@ public class RegistActivity extends AppCompatActivity {
                         //아이디 8자 이상 입력 완료
                         checkId = 1;
                     }
-                    Log.i("subin",""+checkId);
+                    Log.i("subin", "" + checkId);
                     if (checkId == 1) {
-                        Log.i("subin",""+checkId);
+                        Log.i("subin", "" + checkId);
                         IdVo inputId = new IdVo(UserId);
                         Call<Integer> test2 = RetrofitClient.getApiService().idcheck(inputId);
                         test2.enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                Log.i("subin","id server 연결 성공");
+                                Log.i("subin", "id server 연결 성공");
                                 int resid = response.body();
-                                Log.i("subin","Id response"+resid);
+                                Log.i("subin", "Id response" + resid);
                                 if (resid == 1) {
                                     warning_id.setText(" ");
                                     click2 = 1;
@@ -264,7 +266,7 @@ public class RegistActivity extends AppCompatActivity {
                             spinner.setText("");
                             checkBirth = 1;
 
-                            Log.i("subin","b"+checkBirth);
+                            Log.i("subin", "b" + checkBirth);
                         }
                     }
                 }
@@ -300,15 +302,10 @@ public class RegistActivity extends AppCompatActivity {
                     click3 = 0;
                     warning_pw.setText("다시 비밀번호 입력해주세요");
                 }
-                Log.i("subin","n"+click1);
-                Log.i("subin","i"+click2);
-                Log.i("subin","p"+click3);
-                Log.i("subin","b"+checkBirth);
-                Log.i("subin","g"+gender);
 
 
                 if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {
-                    Log.i("subin","로그인성공");
+                    Log.i("subin", "로그인성공");
 
                     UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender);
                     Call<Integer> all = RetrofitClient.getApiService().all(inputuser);
@@ -316,12 +313,16 @@ public class RegistActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Integer> call, Response<Integer> response) {
                             int allres = response.body();
-                            Log.i("subin","all server 연결 성공"+allres);
+                            Log.i("subin", "all server 연결 성공" + allres);
                             if (allres == 1) {
-                                Log.i("subin", "로그인 성공");
+                                Intent intent=new Intent(RegistActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                                Log.i("subin","success!!");
 
                             } else {
                                 //로그인 실패
+                                Toast.makeText(RegistActivity.this,"로그인 실패",Toast.LENGTH_SHORT).show();
+
                                 Log.i("subin", "로그인 실패");
                             }
                         }
