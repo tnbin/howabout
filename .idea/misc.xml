@@ -10,15 +10,18 @@
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge_howabout.xml" value="0.18" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge_howaboutfull.xml" value="0.18" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_add_location_alt_24.xml" value="0.1655" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.1405" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_dehaze_24.xml" value="0.1555" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1385" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1385" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_my_location_24.xml" value="0.1405" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1405" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1145" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/searchview_background.xml" value="0.1" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/course_info.xml" value="0.264" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/ex.xml" value="0.25364583333333335" />
-        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/find.xml" value="0.1712962962962963" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/find.xml" value="0.264" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/fragment_main.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/login.xml" value="0.264" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/logon2.xml" value="0.2" />
