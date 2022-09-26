@@ -1,4 +1,4 @@
-package com.example.howabout;
+package com.example.howabout.Vo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,6 +11,8 @@ public class UserVo {
         this.u_pw = u_pw;
         this.birth = birth;
         this.gender = gender;
+    }
+    public UserVo(){
     }
 
     @SerializedName("u_nick")

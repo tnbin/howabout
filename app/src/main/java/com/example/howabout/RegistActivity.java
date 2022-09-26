@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,10 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.howabout.Vo.IdVo;
+import com.example.howabout.Vo.NickNameVo;
+import com.example.howabout.Vo.UserVo;
+
 import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-import java.util.function.LongFunction;
 
 import retrofit2.Call;
 import retrofit2.Callback;

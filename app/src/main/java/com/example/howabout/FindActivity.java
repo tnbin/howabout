@@ -130,48 +130,50 @@ public class FindActivity extends AppCompatActivity {
                         double latitude = location.getLatitude();
                         double altitude = location.getAltitude();
 
-                        tv.setText("위치정보 : " + provider + "\n" +
+                        tv.setText("위치정보1 : " + provider + "\n" +
                                 "위도 : " + longitude + "\n" +
                                 "경도 : " + latitude + "\n" +
                                 "고도  : " + altitude);
                     }
 
-                    // 위치정보를 원하는 시간, 거리마다 갱신해준다.
-                    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                            1000,
-                            1,
-                            gpsLocationListener);
-                    lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                            1000,
-                            1,
-                            gpsLocationListener);
+//                    // 위치정보를 원하는 시간, 거리마다 갱신해준다.
+//                    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+//                            1000,
+//                            1,
+//                            gpsLocationListener);
+//                    lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+//                            1000,
+//                            1,
+//                            gpsLocationListener);
+
+
                 }
             }
         });
     }
-
-    final LocationListener gpsLocationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            // 위치 리스너는 위치정보를 전달할 때 호출되므로 onLocationChanged()메소드 안에 위지청보를 처리를 작업을 구현 해야합니다.
-            String provider = location.getProvider();  // 위치정보
-            double longitude = location.getLongitude(); // 위도
-            double latitude = location.getLatitude(); // 경도
-            double altitude = location.getAltitude(); // 고도
-            tv.setText("위치정보 : " + provider + "\n" + "위도 : " + longitude + "\n" + "경도 : " + latitude + "\n" + "고도 : " + altitude);
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
+//
+//    final LocationListener gpsLocationListener = new LocationListener() {
+//        public void onLocationChanged(Location location) {
+//            // 위치 리스너는 위치정보를 전달할 때 호출되므로 onLocationChanged()메소드 안에 위지청보를 처리를 작업을 구현 해야합니다.
+//            String provider = location.getProvider();  // 위치정보
+//            double longitude = location.getLongitude(); // 위도
+//            double latitude = location.getLatitude(); // 경도
+//            double altitude = location.getAltitude(); // 고도
+//            tv.setText("위치정보2 : " + provider + "\n" + "위도 : " + longitude + "\n" + "경도 : " + latitude + "\n" + "고도 : " + altitude);
+//        }
+//
+//        public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//        }
+//
+//        public void onProviderEnabled(String provider) {
+//
+//        }
+//
+//        public void onProviderDisabled(String provider) {
+//
+//        }
+//    };
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override

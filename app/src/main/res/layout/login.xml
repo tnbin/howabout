@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:scaleType="fitXY"
-        android:src="@drawable/howabout_logo"
+        android:src="@drawable/logo2"
         app:layout_constraintBottom_toTopOf="@+id/ed_loid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

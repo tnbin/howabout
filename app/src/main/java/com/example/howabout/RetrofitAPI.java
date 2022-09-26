@@ -1,12 +1,13 @@
 package com.example.howabout;
 
-import java.util.List;
+import com.example.howabout.Vo.IdVo;
+import com.example.howabout.Vo.NickNameVo;
+import com.example.howabout.Vo.UserVo;
+import com.example.howabout.Vo.signInVo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 public interface RetrofitAPI {
 
@@ -20,5 +21,6 @@ public interface RetrofitAPI {
     Call<Integer>all(@Body UserVo userVo);
 
     @POST("/login/signIn")
-    Call<List<UserVo>>login(@Body LoginVo loginVo);
+    Call<signInVo>login(@Body UserVo userVo);
+
 }
