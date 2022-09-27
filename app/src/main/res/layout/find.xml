@@ -55,12 +55,10 @@
             android:layout_weight="4"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ex1" />
+            <RelativeLayout
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <ImageButton
                 android:id="@+id/mylocation"
