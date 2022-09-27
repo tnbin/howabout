@@ -32,17 +32,14 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/map_mycourse"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="4"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ex1" />
+
         </LinearLayout>
 
         <RelativeLayout

@@ -26,6 +26,8 @@ public class MyCourseActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
         ImageButton btn_open = findViewById(R.id.btn_open);
+
+
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
