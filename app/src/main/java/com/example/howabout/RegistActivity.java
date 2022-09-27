@@ -109,10 +109,14 @@ public class RegistActivity extends AppCompatActivity {
                         warning_pw.setText("");
                     }
                 } else {
-                    if (UserPw.equals("")) {
-                        warning_pw.setText("비밀번호를 입력해주세요");
-                    } else {
-                        warning_pw.setText("");
+                    try {
+                        if (UserPw.equals("")) {
+                            warning_pw.setText("비밀번호를 입력해주세요");
+                        } else {
+                            warning_pw.setText("");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -138,12 +142,16 @@ public class RegistActivity extends AppCompatActivity {
                         }
                     }
                 } else {
-                    if (UserPw.equals(pwcheck)) {
-                        warning_pwck.setText("");
-                        inputPwCk = pwcheck;
-                        click3 = 1;
-                    } else {
-                        warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                    try {
+                        if (UserPw.equals(pwcheck)) {
+                            warning_pwck.setText("");
+                            inputPwCk = pwcheck;
+                            click3 = 1;
+                        } else {
+                            warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -155,47 +163,51 @@ public class RegistActivity extends AppCompatActivity {
                 String UserNick = ed_nickname.getText().toString();
                 int checkName = 0;
 
-                if (UserNick.equals("")) {
-                    warning_name.setText("닉네임을 입력해주세요");
-                    return;
-                } else {
-                    if (UserNick.length() < 3) {
-                        warning_name.setText("닉네임은 3자이상 입력해야합니다");
-                    }
-                    //닉네임 3자 이상 입력
-                    else {
-                        checkName = 1;
-                    }
-                    if (checkName == 1) {
-                        NickNameVo input = new NickNameVo(UserNick);
-                        Log.i("subin", "NameCk: " + input);
+                try {
+                    if (UserNick.equals("")) {
+                        warning_name.setText("닉네임을 입력해주세요");
+                        return;
+                    } else {
+                        if (UserNick.length() < 3) {
+                            warning_name.setText("닉네임은 3자이상 입력해야합니다");
+                        }
+                        //닉네임 3자 이상 입력
+                        else {
+                            checkName = 1;
+                        }
+                        if (checkName == 1) {
+                            NickNameVo input = new NickNameVo(UserNick);
+                            Log.i("subin", "NameCk: " + input);
 
-                        Call<Integer> test1 = RetrofitClient.getApiService().nickcheck(input);
-                        test1.enqueue(new Callback<Integer>() {
-                            @Override
-                            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                int res = response.body();
-                                Log.i("subin", "Name post 성공");
-                                Log.i("subin", "NCK:" + res);
-                                if (res == 1) {
-                                    warning_name.setText(" ");
-                                    click1 = 1;
-                                    inputName = UserNick;
-                                    //닉네임 중복체크 click1 0,1
-                                    Log.i("subin", "click1:" + click1);
-                                    Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
-                                    return;
-                                } else {
-                                    warning_name.setText("이미 사용중이거나 탈퇴한 닉네임 입니다.");
+                            Call<Integer> test1 = RetrofitClient.getApiService().nickcheck(input);
+                            test1.enqueue(new Callback<Integer>() {
+                                @Override
+                                public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                    int res = response.body();
+                                    Log.i("subin", "Name post 성공");
+                                    Log.i("subin", "NCK:" + res);
+                                    if (res == 1) {
+                                        warning_name.setText(" ");
+                                        click1 = 1;
+                                        inputName = UserNick;
+                                        //닉네임 중복체크 click1 0,1
+                                        Log.i("subin", "click1:" + click1);
+                                        Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        warning_name.setText("이미 사용중이거나 탈퇴한 닉네임 입니다.");
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<Integer> call, Throwable t) {
-                                Log.i("subin", "NCK post 실패 : " + t.getMessage());
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<Integer> call, Throwable t) {
+                                    Log.i("subin", "NCK post 실패 : " + t.getMessage());
+                                }
+                            });
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -257,17 +269,21 @@ public class RegistActivity extends AppCompatActivity {
                 if (b) {
 
                 } else {
-                    if (Birth.equals("")) {
-                        spinner.setText("생년월일을 입력해주세요");
-                    } else {
-                        if (1900 > Integer.parseInt(Birth) || 2023 < Integer.parseInt(Birth)) {
-                            spinner.setText("올바른 생년월일을 입력해주세요");
+                    try {
+                        if (Birth.equals("")) {
+                            spinner.setText("생년월일을 입력해주세요");
                         } else {
-                            spinner.setText("");
-                            checkBirth = 1;
+                            if (1900 > Integer.parseInt(Birth) || 2023 < Integer.parseInt(Birth)) {
+                                spinner.setText("올바른 생년월일을 입력해주세요");
+                            } else {
+                                spinner.setText("");
+                                checkBirth = 1;
 
-                            Log.i("subin", "b" + checkBirth);
+                                Log.i("subin", "b" + checkBirth);
+                            }
                         }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -304,36 +320,40 @@ public class RegistActivity extends AppCompatActivity {
                 }
 
 
-                if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {
-                    Log.i("subin", "로그인성공");
+                try {
+                    if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {
+                        Log.i("subin", "로그인성공");
 
-                    UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender);
-                    Call<Integer> all = RetrofitClient.getApiService().all(inputuser);
-                    all.enqueue(new Callback<Integer>() {
-                        @Override
-                        public void onResponse(Call<Integer> call, Response<Integer> response) {
-                            int allres = response.body();
-                            Log.i("subin", "all server 연결 성공" + allres);
-                            if (allres == 1) {
-                                Intent intent=new Intent(RegistActivity.this,LoginActivity.class);
-                                startActivity(intent);
-                                Log.i("subin","success!!");
+                        UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender);
+                        Call<Integer> all = RetrofitClient.getApiService().all(inputuser);
+                        all.enqueue(new Callback<Integer>() {
+                            @Override
+                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                int allres = response.body();
+                                Log.i("subin", "all server 연결 성공" + allres);
+                                if (allres == 1) {
+                                    Intent intent = new Intent(RegistActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    Log.i("subin", "success!!");
 
-                            } else {
-                                //로그인 실패
-                                Toast.makeText(RegistActivity.this,"로그인 실패",Toast.LENGTH_SHORT).show();
+                                } else {
+                                    //로그인 실패
+                                    Toast.makeText(RegistActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
 
-                                Log.i("subin", "로그인 실패");
+                                    Log.i("subin", "로그인 실패");
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Integer> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<Integer> call, Throwable t) {
 
-                            Log.i("subin", "연결실패" + t.getMessage());
-                        }
-                    });
+                                Log.i("subin", "연결실패" + t.getMessage());
+                            }
+                        });
 
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

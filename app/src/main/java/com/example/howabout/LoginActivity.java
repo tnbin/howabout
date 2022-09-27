@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.howabout.Vo.UserVo;
 import com.example.howabout.Vo.signInVo;
@@ -20,6 +21,8 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText ed_loid = findViewById(R.id.ed_loid);
         EditText ed_lopw = findViewById(R.id.ed_lopw);
 
-        preferences=getSharedPreferences("UserInfo",MODE_PRIVATE);
+        preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
 
         Button btn_regist = findViewById(R.id.btn_registin);
         btn_regist.setOnClickListener(new View.OnClickListener() {
@@ -43,46 +46,55 @@ public class LoginActivity extends AppCompatActivity {
         btn_logindb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String loginid=ed_loid.getText().toString();
-                String loginpw=ed_lopw.getText().toString();
+                String loginid = ed_loid.getText().toString();
+                String loginpw = ed_lopw.getText().toString();
 
-                UserVo inputlogin=new UserVo();
+                UserVo inputlogin = new UserVo();
                 inputlogin.setU_id(loginid);
                 inputlogin.setU_pw(loginpw);
-                Call<signInVo> login=RetrofitClient.getApiService().login(inputlogin);
+                Call<signInVo> login = RetrofitClient.getApiService().login(inputlogin);
                 login.enqueue(new Callback<signInVo>() {
                     @Override
                     public void onResponse(Call<signInVo> call, Response<signInVo> response) {
-                        Log.i("subin","연결 성공");
-                        String ress= String.valueOf(response.body());
+                        Log.i("subin", "연결 성공");
                         signInVo job = response.body();
-                        Log.i("subin", job.getUserVo().toString());
-                        Log.i("subin",ress);
-                        SharedPreferences.Editor editor=preferences.edit();
-                        editor.putString("userinfo",job.getUserVo().toString());
-//                        editor.putString("userid",ed_loid.getText().toString()); ress 값을 editor에 저장
-//                        editor.putString("userpw",ed_lopw.getText().toString());
+                        String msg = job.getMsg();
+                        String nick = job.getUserVo().getU_nick();
+
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("userinfo", job.getUserVo().toString());
 
                         editor.commit();
 
                         getPreferences();
+                        try {
+                            if (job.getSuccess() == 1) {
+                                Toast.makeText(LoginActivity.this, nick + "님 환영합니다", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "" + msg, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                     }
 
                     @Override
                     public void onFailure(Call<signInVo> call, Throwable t) {
-                        Log.i("subin","연결 실패"+t.getMessage());
+                        Log.i("subin", "연결 실패" + t.getMessage());
+
                     }
                 });
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
+
             }
         });
     }
 
     private void getPreferences() {
-        Log.i("subin","USERINFO"+preferences.getString("userinfo",""));
-//        tv_result.setText("USERID = " + preferences.getString("userid","")
-//                + "\n USERPWD = " + preferences.getString("userpwd",""));
+        Log.i("subin", "USERINFO: " + preferences.getString("userinfo", ""));
     }
 
 }

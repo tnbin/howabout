@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn_login;
     ImageButton btn_mypage;
     ImageButton btn_mycource1;
+    final static int REQUEST_CODE_START_INPUT=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
+
 
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intentl);
-                Log.i("subin","intent 성공");
+                startActivityForResult(intentl,REQUEST_CODE_START_INPUT);
             }
         });
 
@@ -137,6 +138,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==REQUEST_CODE_START_INPUT){
+            if (resultCode==RESULT_OK){
+                Log.i("subin","///////////////////////정보전달");
+                btn_login.setVisibility(View.INVISIBLE);
+                btn_mycource1.setVisibility(View.VISIBLE);
+                btn_mypage.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
