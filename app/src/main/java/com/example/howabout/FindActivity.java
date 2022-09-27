@@ -19,13 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-
 import net.daum.mf.map.api.MapView;
 
-import java.io.FileDescriptor;
 
 public class FindActivity extends AppCompatActivity {
 
@@ -115,11 +114,11 @@ public class FindActivity extends AppCompatActivity {
 //                startActivity(intentmc);
 //            }
 //        });
-
         MapView mapView = new MapView(this);
 
-        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        RelativeLayout mapViewContainer =  findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
+
 
     }
 }
