@@ -67,7 +67,7 @@
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="#81F8F0F0"
                 android:background="@drawable/edge_circle"
-                android:src="@drawable/ic_baseline_my_location_24" />
+                android:src="@drawable/button_back" />
         </FrameLayout>
 
         <LinearLayout
