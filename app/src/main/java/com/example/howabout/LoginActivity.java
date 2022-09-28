@@ -85,10 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<signInVo> call, Throwable t) {
                         Log.i("subin", "연결 실패" + t.getMessage());
-
                     }
                 });
-
             }
         });
     }

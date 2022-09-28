@@ -134,17 +134,18 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mylocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (isTrackingMode == false) {
+                //중심을 현재위치로 가져오는 trackingmode
+                if (!isTrackingMode) {
                     isTrackingMode = true;
+                    Log.i("subin",""+isTrackingMode);
                     if (!checkLocationServicesStatus()) {
-
                         showDialogForLocationServiceSetting();
                     } else {
                         checkRunTimePermission();
                     }
-                } else if (isTrackingMode == true) {
+                } else {
                     isTrackingMode = false;
+                    Log.i("subin",""+isTrackingMode);
                 }
             }
 
@@ -176,12 +177,10 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
         MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-        Log.i("subin", String.format("MapView onCurrentLocationUpdate (%f,%f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
+//        Log.i("subin", String.format("MapView onCurrentLocationUpdate (%f,%f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
         MapPoint currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude);
-
-        Log.i("subin", "");
-
+        Log.i("subin",""+currentMapPoint);
         mapView.setMapCenterPoint(currentMapPoint, true);
         mCurrentLat = mapPointGeo.latitude;
         mCurrentLng = mapPointGeo.longitude;

@@ -407,7 +407,5 @@ public class RegistActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
