@@ -57,27 +57,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-
-            <ImageButton
-                android:id="@+id/btn_up"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="right|bottom"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="300dp"
-                android:background="@drawable/edge_circle"
-                android:backgroundTint="#81F8F0F0"
-                android:src="@drawable/ic_baseline_add_24" />
-            <ImageButton
-                android:id="@+id/btn_down"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="right|bottom"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="250dp"
-                android:background="@drawable/edge_circle"
-                android:backgroundTint="#81F8F0F0"
-                android:src="@drawable/ic_baseline_remove_24" />
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="right|center"
+                android:max="100"
+                android:min="0"
+                android:progress="30"
+                android:progressDrawable="@drawable/seekbar_seekbar1"
+                android:rotation="270"
+                android:splitTrack="true"
+                android:thumbTint="#ff5757"
+                android:translationX="75dp"
+                />
 
             <ImageButton
                 android:id="@+id/mylocation"
@@ -91,47 +84,6 @@
                 android:src="@drawable/button_back" />
 
         </FrameLayout>
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="3"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <SeekBar-->
-<!--                android:id="@+id/seekBar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginLeft="50dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_marginRight="50dp"-->
-<!--                android:max="100"-->
-<!--                android:progress="40"-->
-<!--                android:progressDrawable="@drawable/seekbar_seekbar1"-->
-<!--                android:splitTrack="false"-->
-<!--                android:thumb="@drawable/seek_tumb"-->
-<!--                app:layout_constraintHorizontal_bias="1.0" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginBottom="16dp"-->
-<!--                android:text="기본 값은 20입니다"-->
-<!--                android:textSize="20dp"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/seekBar"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_location"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:textSize="20dp" />-->
-<!--        </LinearLayout>-->
 
     </LinearLayout>
 
