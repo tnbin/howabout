@@ -56,6 +56,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     private boolean isTrackingMode = false;
+    int radius=300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +122,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         });
 
 
-
         mapView = findViewById(R.id.map_view);
         mapView.setCurrentLocationEventListener(this);
 
@@ -151,11 +151,16 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
 
-        SeekBar seekBar=findViewById(R.id.seekbar);
+        SeekBar seekBar = findViewById(R.id.seekbar);
+        seekBar.setMax(1200);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                if (progress % 100 == 0) {
 
+                } else {
+                    seekBar.setProgress((progress / 300) * 300);
+                }
             }
 
             @Override
@@ -165,24 +170,10 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                radius=seekBar.getProgress();
+                Toast.makeText(FindActivity.this,"반경: "+seekBar.getProgress()+"m",Toast.LENGTH_SHORT).show();
             }
         });
-
-//        ImageButton btn_up = findViewById(R.id.btn_up);
-//        ImageButton btn_down = findViewById(R.id.btn_down);
-//        btn_up.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//        btn_down.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
@@ -219,7 +210,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mCurrentLat = mapPointGeo.latitude;
         mCurrentLng = mapPointGeo.longitude;
 
-        mapView.setCurrentLocationRadius(500);
+        Log.i("subin","Current: "+radius);
+        mapView.setCurrentLocationRadius(radius);
         mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
         mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
 //        MapCircle circle1 = new MapCircle(
@@ -236,7 +228,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         try {
             location.put("lat", mCurrentLat);
             location.put("lng", mCurrentLng);
-            location.put("radius", 500);
+            location.put("radius", radius);
+            Log.i("subin", "locationput: "+radius);
         } catch (JSONException e) {
             e.printStackTrace();
         }

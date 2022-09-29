@@ -62,15 +62,14 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="right|center"
-                android:max="100"
+                android:max="1200"
                 android:min="0"
-                android:progress="30"
+                android:progress="300"
                 android:progressDrawable="@drawable/seekbar_seekbar1"
                 android:rotation="270"
-                android:splitTrack="true"
+                android:splitTrack="false"
                 android:thumbTint="#ff5757"
-                android:translationX="75dp"
-                />
+                android:translationX="75dp" />
 
             <ImageButton
                 android:id="@+id/mylocation"
