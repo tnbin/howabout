@@ -32,6 +32,15 @@ import net.daum.mf.map.api.MapCircle;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener {
 
@@ -117,21 +126,43 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mylocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //중심을 현재위치로 가져오는 trackingmode
-                if (!isTrackingMode) {
-                    isTrackingMode = true;
-                    Log.i("subin",""+isTrackingMode);
-                    if (!checkLocationServicesStatus()) {
-                        showDialogForLocationServiceSetting();
-                    } else {
-                        checkRunTimePermission();
-                    }
-                } else {
-                    isTrackingMode = false;
-                    Log.i("subin",""+isTrackingMode);
-                }
-            }
 
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            //중심을 현재위치로 가져오는 trackingmode
+                            if (!checkLocationServicesStatus()) {
+                                showDialogForLocationServiceSetting();
+                            } else {
+                                checkRunTimePermission();
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        isTrackingMode = false;
+                    }
+                };
+                thread.start();
+            }
+        });
+
+        ImageButton btn_up=findViewById(R.id.btn_up);
+        ImageButton btn_down=findViewById(R.id.btn_down);
+        btn_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                MapPoint getMapCenterPoint()
+//                mapView.setMapCenterPoint();
+//                mapView.setMapCenterPointAndZoomLevel();
+            }
+        });
+        btn_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
         });
     }
 
@@ -161,24 +192,50 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
         MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-//        Log.i("subin", String.format("MapView onCurrentLocationUpdate (%f,%f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
+        Log.i("subin", String.format("MapView onCurrentLocationUpdate (%f,%f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
         MapPoint currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude);
         Log.i("subin",""+currentMapPoint);
         mapView.setMapCenterPoint(currentMapPoint, true);
         mCurrentLat = mapPointGeo.latitude;
         mCurrentLng = mapPointGeo.longitude;
+//        double x = mCurrentLat;
+//        double y = mCurrentLng;
+//        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(x, y);
         MapCircle circle1 = new MapCircle(
                 MapPoint.mapPointWithGeoCoord(mCurrentLat,mCurrentLng), // center
                 500, // radius
                 Color.argb(128, 255, 87, 87), // strokeColor
                 Color.argb(0, 0, 0, 0) // fillColor
         );
-//        circle1.setTag(1234);
         mapView.addCircle(circle1);
         if (!isTrackingMode) {
             mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
         }
+        JSONObject location=new JSONObject();
+        try {
+            location.put("lat",mCurrentLat);
+            location.put("lng",mCurrentLng);
+            location.put("radius",500);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayList<JSONObject> arrayList=new ArrayList<>();
+        arrayList.add(location);
+        Call<Integer> testlocation=RetrofitClient.getApiService().testlocation(arrayList);
+        testlocation.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                Integer test=response.body();
+                Log.i("subin",""+test);
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+                Log.i("subin",""+t.getMessage());
+            }
+        });
     }
 
     @Override

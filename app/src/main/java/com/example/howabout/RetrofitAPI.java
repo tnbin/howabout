@@ -5,6 +5,10 @@ import com.example.howabout.Vo.NickNameVo;
 import com.example.howabout.Vo.UserVo;
 import com.example.howabout.Vo.signInVo;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -22,5 +26,8 @@ public interface RetrofitAPI {
 
     @POST("/login/signIn")
     Call<signInVo>login(@Body UserVo userVo);
+
+    @POST("/course/location")
+    Call<Integer>testlocation(@Body ArrayList<JSONObject> arrayList);
 
 }
