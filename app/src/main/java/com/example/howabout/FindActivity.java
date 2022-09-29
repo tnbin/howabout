@@ -52,12 +52,10 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find);
-        SeekBar seekBar = findViewById(R.id.seekBar);
 
-        textView = findViewById(R.id.textView);
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
-        tv = findViewById(R.id.tv_location);
+
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         ImageButton btn_open = findViewById(R.id.btn_open);
@@ -77,23 +75,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-                textView.setText(String.format("선택 값은 %d 입니다.", seekBar.getProgress()));
-            }
-        });
         Button btn_homebar = findViewById(R.id.btn_homebar);
         btn_homebar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +157,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         }
     };
 
+//현재위치 업데이트
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
         MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
