@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,12 +22,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.howabout.Retrofit.RetrofitClient;
 
-import net.daum.android.map.MapViewTouchEventListener;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -41,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener {
+public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
 
     DrawerLayout drawerLayout;
     View drawerView;
@@ -55,6 +54,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     private boolean isTrackingMode = false;
     int radius = 300;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +120,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         mapView = findViewById(R.id.map_view);
         mapView.setCurrentLocationEventListener(this);
+        mapView.setMapViewEventListener(this);
+
 
         ImageButton mylocation = findViewById(R.id.mylocation);
         mylocation.setOnClickListener(new View.OnClickListener() {
@@ -171,20 +173,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
 
-
-        Button btn11 = findViewById(R.id.button11);
-        btn11.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MapPoint mp = mapView.getMapCenterPoint();
-                MapPoint.GeoCoordinate gc = mp.getMapPointGeoCoord();
-
-                double gCurrentLat = gc.latitude;
-                double gCurrentLog = gc.longitude;
-
-                Log.i("subin", "경도: " + gCurrentLat + "위도: " + gCurrentLog);
-            }
-        });
     }
 
 
@@ -209,6 +197,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         }
     };
+
 
     public void Marker(String MakerName, double startX, double startY) {
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
@@ -237,6 +226,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.BluePin);
         mapView.addPOIItem(marker);
     }
+
 
     //현재위치 업데이트
     @Override
@@ -368,5 +358,63 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    @Override
+    public void onMapViewInitialized(MapView mapView) {
+        MapPoint mp = mapView.getMapCenterPoint();
+        MapPoint.GeoCoordinate gc = mp.getMapPointGeoCoord();
+
+        double gCurrentLat = gc.latitude;
+        double gCurrentLog = gc.longitude;
+
+        Log.i("subin", "지도 시작 시 경도: " + gCurrentLat + "위도: " + gCurrentLog);
+    }
+
+    @Override
+    public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
+//        Log.i("subin","onMapViewCenterPointMoved");
+    }
+
+    @Override
+    public void onMapViewZoomLevelChanged(MapView mapView, int i) {
+//        Log.i("subin","onMapViewZoomLevelChanged");
+    }
+
+    @Override
+    public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+//        Log.i("subin","onMapViewSingleTapped");
+    }
+
+    @Override
+    public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+//        Log.i("subin","onMapViewDoubleTapped");
+    }
+
+    @Override
+    public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+//        Log.i("subin","onMapViewLongPressed");
+    }
+
+    @Override
+    public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
+//        Log.i("subin","onMapViewDragStarted");
+    }
+
+    @Override
+    public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
+//        Log.i("subin","onMapViewDragEnded");
+    }
+
+    @Override
+    public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+//        Log.i("subin","onMapViewMoveFinished");
+        MapPoint mp = mapView.getMapCenterPoint();
+        MapPoint.GeoCoordinate gc = mp.getMapPointGeoCoord();
+
+        double gCurrentLat = gc.latitude;
+        double gCurrentLog = gc.longitude;
+
+        Log.i("subin", "지도 드래그 끝날 시 경도: " + gCurrentLat + "위도: " + gCurrentLog);
     }
 }
