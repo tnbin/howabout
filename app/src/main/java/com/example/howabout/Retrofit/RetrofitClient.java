@@ -1,5 +1,6 @@
-package com.example.howabout;
+package com.example.howabout.Retrofit;
 
+import com.example.howabout.Retrofit.RetrofitAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

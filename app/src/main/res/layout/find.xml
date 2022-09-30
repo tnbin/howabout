@@ -71,6 +71,12 @@
                 android:thumbTint="#ff5757"
                 android:translationX="75dp" />
 
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
             <ImageButton
                 android:id="@+id/mylocation"
                 android:layout_width="45dp"

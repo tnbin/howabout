@@ -13,22 +13,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.daum.mf.map.api.MapCircle;
+import com.example.howabout.Retrofit.RetrofitClient;
+
+import net.daum.android.map.MapViewTouchEventListener;
+import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
@@ -44,10 +43,8 @@ import retrofit2.Response;
 
 public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener {
 
-    TextView textView;
     DrawerLayout drawerLayout;
     View drawerView;
-    TextView tv;
     double mCurrentLat;
     double mCurrentLng;
     private MapView mapView;
@@ -56,7 +53,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     private boolean isTrackingMode = false;
-    int radius=300;
+    int radius = 300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +118,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
 
-
         mapView = findViewById(R.id.map_view);
         mapView.setCurrentLocationEventListener(this);
 
@@ -170,11 +166,27 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                radius=seekBar.getProgress();
-                Toast.makeText(FindActivity.this,"반경: "+seekBar.getProgress()+"m",Toast.LENGTH_SHORT).show();
+                radius = seekBar.getProgress();
+                Toast.makeText(FindActivity.this, "반경: " + seekBar.getProgress() + "m 기준입니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        Button btn11 = findViewById(R.id.button11);
+        btn11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MapPoint mp = mapView.getMapCenterPoint();
+                MapPoint.GeoCoordinate gc = mp.getMapPointGeoCoord();
+
+                double gCurrentLat = gc.latitude;
+                double gCurrentLog = gc.longitude;
+
+                Log.i("subin", "경도: " + gCurrentLat + "위도: " + gCurrentLog);
             }
         });
     }
+
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
@@ -198,6 +210,34 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         }
     };
 
+    public void Marker(String MakerName, double startX, double startY) {
+        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
+        mapView.setMapCenterPoint(mapPoint, true);
+        //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName(MakerName); // 마커 클릭 시 컨테이너에 담길 내용
+        marker.setMapPoint(mapPoint);
+        // 기본으로 제공하는 BluePin 마커 모양.
+        marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
+        // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.BluePin);
+        mapView.addPOIItem(marker);
+    }
+
+    public void MapMarker(String MakerName, String detail, double startX, double startY) {
+        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
+        mapView.setMapCenterPoint(mapPoint, true);
+        //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName(MakerName + "(" + detail + ")"); // 마커 클릭 시 컨테이너에 담길 내용
+        marker.setMapPoint(mapPoint);
+        // 기본으로 제공하는 BluePin 마커 모양.
+        marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
+        // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.BluePin);
+        mapView.addPOIItem(marker);
+    }
+
     //현재위치 업데이트
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
@@ -210,17 +250,11 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mCurrentLat = mapPointGeo.latitude;
         mCurrentLng = mapPointGeo.longitude;
 
-        Log.i("subin","Current: "+radius);
+        Log.i("subin", "Current: " + radius);
         mapView.setCurrentLocationRadius(radius);
         mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
         mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
-//        MapCircle circle1 = new MapCircle(
-//                MapPoint.mapPointWithGeoCoord(mCurrentLat, mCurrentLng), // center
-//                500, // radius
-//                Color.argb(128, 255, 87, 87), // strokeColor
-//                Color.argb(0, 0, 0, 0) // fillColor
-//        );
-//        mapView.addCircle(circle1);
+
         if (!isTrackingMode) {
             mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
         }
@@ -229,24 +263,25 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             location.put("lat", mCurrentLat);
             location.put("lng", mCurrentLng);
             location.put("radius", radius);
-            Log.i("subin", "locationput: "+radius);
+            Log.i("subin", "locationput: " + radius);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         ArrayList<JSONObject> arrayList = new ArrayList<>();
         arrayList.add(location);
-        Call<Integer> testlocation = RetrofitClient.getApiService().testlocation(arrayList);
-        testlocation.enqueue(new Callback<Integer>() {
+        Call<Integer> restcource = RetrofitClient.getApiService().restcource(arrayList);
+        Log.i("subin", "" + arrayList);
+        restcource.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Integer test = response.body();
-                Log.i("subin", "" + test);
+                Log.i("subin", "연결성공 :" + test);
             }
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
 
-                Log.i("subin", "" + t.getMessage());
+                Log.i("subin", "연결실패: " + t.getMessage());
             }
         });
     }
