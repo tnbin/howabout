@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.howabout.Retrofit.RetrofitClient;
@@ -35,23 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText ed_lopw = findViewById(R.id.ed_lopw);
 
         preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-
-        TextView findid=findViewById(R.id.tv_findid);
-        TextView findpw=findViewById(R.id.tv_findpw);
-
-        findid.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return false;
-            }
-        });
-
-        findpw.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return false;
-            }
-        });
 
         Button btn_regist = findViewById(R.id.btn_registin);
         btn_regist.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 
     private void getPreferences() {
