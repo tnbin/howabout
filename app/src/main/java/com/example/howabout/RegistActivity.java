@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,6 +46,7 @@ public class RegistActivity extends AppCompatActivity {
     String inputName;
     String inputPw;
     String inputPwCk;
+    String inputbirth;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -263,30 +266,37 @@ public class RegistActivity extends AppCompatActivity {
                 }
             }
         });
-        birth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        birth.addTextChangedListener(new TextWatcher() {
+
             @Override
-            public void onFocusChange(View view, boolean b) {
-                final String Birth = birth.getText().toString();
-                if (b) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                } else {
-                    try {
-                        if (Birth.equals("")) {
-                            spinner.setText("생년월일을 입력해주세요");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String Birth = birth.getText().toString();
+                try {
+                    if (Birth.equals("")) {
+                        spinner.setText("생년월일을 입력해주세요");
+                    } else {
+                        if (1900 > Integer.parseInt(Birth) || 2023 < Integer.parseInt(Birth)) {
+                            spinner.setText("올바른 생년월일을 입력해주세요");
                         } else {
-                            if (1900 > Integer.parseInt(Birth) || 2023 < Integer.parseInt(Birth)) {
-                                spinner.setText("올바른 생년월일을 입력해주세요");
-                            } else {
-                                spinner.setText("");
-                                checkBirth = 1;
+                            spinner.setText("");
+                            checkBirth = 1;
 
-                                Log.i("subin", "b" + checkBirth);
-                            }
+                            Log.i("subin", "b" + checkBirth);
                         }
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
                     }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -319,7 +329,11 @@ public class RegistActivity extends AppCompatActivity {
                     click3 = 0;
                     warning_pw.setText("다시 비밀번호 입력해주세요");
                 }
-
+//
+//                if (!inputbirth.equals(BirthY)){
+//                    checkBirth=0;
+//                    spinner.setText("생년월일을 다시 입력해주세요");
+//                }
 
                 try {
                     if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {

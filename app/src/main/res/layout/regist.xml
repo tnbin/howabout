@@ -34,9 +34,10 @@
                 android:layout_gravity="center"
                 android:background="@drawable/edge_black"
                 android:hint="닉네임:"
-                android:maxLength="8"
                 android:inputType="text"
+                android:maxLength="8"
                 android:padding="10dp"
+                android:singleLine="true"
                 android:textSize="15dp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -76,6 +77,7 @@
                 android:hint="아이디:"
                 android:inputType="text"
                 android:padding="10dp"
+                android:singleLine="true"
                 android:textSize="15dp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -108,6 +110,7 @@
             android:hint="비밀번호:"
             android:inputType="textPassword"
             android:padding="10dp"
+            android:singleLine="true"
             android:textSize="15dp" />
 
         <TextView
@@ -129,6 +132,7 @@
             android:hint="비밀번호 확인:"
             android:inputType="textPassword"
             android:padding="10dp"
+            android:singleLine="true"
             android:textSize="15dp" />
 
         <TextView
@@ -136,15 +140,15 @@
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:textColor="#ff5757"
             android:layout_marginTop="10dp"
+            android:textColor="#ff5757"
             android:textSize="10dp" />
 
         <RadioGroup
+            android:id="@+id/radiogroup"
             android:layout_width="280dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:id="@+id/radiogroup"
             android:orientation="horizontal">
 
             <RadioButton
@@ -169,8 +173,8 @@
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:textColor="#ff5757"
             android:layout_marginBottom="10dp"
+            android:textColor="#ff5757"
             android:textSize="10dp" />
 
         <LinearLayout
@@ -188,6 +192,7 @@
                 android:hint=" 생년(4자)"
                 android:inputType="date"
                 android:paddingLeft="5dp"
+                android:singleLine="true"
                 android:textSize="15dp" />
 
             <Spinner
@@ -211,9 +216,9 @@
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:textColor="#ff5757"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:textColor="#ff5757"
             android:textSize="10dp" />
 
 
