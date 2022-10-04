@@ -1,4 +1,4 @@
-package com.example.howabout.Retrofit;
+package com.example.howabout.API;
 
 import com.example.howabout.Vo.IdVo;
 import com.example.howabout.Vo.NickNameVo;
@@ -29,5 +29,8 @@ public interface RetrofitAPI {
 
     @POST("/findCourse/location")
     Call<Integer>restcource(@Body ArrayList<JSONObject> arrayList);
+
+    @POST("/test/kakaka")
+    Call<ArrayList<String>>ababababa(@Body ArrayList<JSONObject> arrayList);
 
 }

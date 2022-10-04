@@ -24,7 +24,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.example.howabout.Retrofit.RetrofitClient;
+import com.example.howabout.API.RetrofitClient;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -32,6 +32,7 @@ import net.daum.mf.map.api.MapView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,9 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     private boolean isTrackingMode = false;
     int radius = 300;
+
+    ArrayList<Document>restaurantList=new ArrayList<>(); //음식점 FD6
+    ArrayList<Document> cafeList = new ArrayList<>(); //카페 CE7
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -151,6 +155,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         SeekBar seekBar = findViewById(R.id.seekbar);
         seekBar.setMax(1200);
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -172,9 +177,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 Toast.makeText(FindActivity.this, "반경: " + seekBar.getProgress() + "m 기준입니다.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
@@ -232,7 +235,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
         MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-        Log.i("subin", String.format("MapView onCurrentLocationUpdate (%f,%f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
+//        Log.i("subin", String.format("MapView onCurrentLocationUpdate (%f,%f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, v));
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
         MapPoint currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude);
         Log.i("subin", "" + currentMapPoint);
@@ -368,6 +371,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         double gCurrentLat = gc.latitude;
         double gCurrentLog = gc.longitude;
 
+
         Log.i("subin", "지도 시작 시 경도: " + gCurrentLat + "위도: " + gCurrentLog);
     }
 
@@ -414,7 +418,41 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         double gCurrentLat = gc.latitude;
         double gCurrentLog = gc.longitude;
+//        Marker("maker", gCurrentLat, gCurrentLog);
+        requestSearch(gCurrentLat,gCurrentLog,radius);
 
-        Log.i("subin", "지도 드래그 끝날 시 경도: " + gCurrentLat + "위도: " + gCurrentLog);
+        Log.i("subin", "지도 드래그 끝날 시 경도: " + gCurrentLat + "위도: " + gCurrentLog+"반경"+radius);
+    }
+    private void requestSearch(double x,double y,int radius){
+        restaurantList.clear();
+        cafeList.clear();
+
+        JSONObject kakaka = new JSONObject();
+        try {
+            kakaka.put("lat", x);
+            kakaka.put("lng", y);
+            kakaka.put("radius", radius);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayList<JSONObject> al = new ArrayList<>();
+        al.add(kakaka);
+        Log.i("subin",""+al);
+        Call<ArrayList<String>> ababababa = RetrofitClient.getApiService().ababababa(al);
+        ababababa.enqueue(new Callback<ArrayList<String>>() {
+            @Override
+            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
+
+                ArrayList<String> aa=response.body();
+                Log.i("subin","1. 연결 성공 : "+response.body());
+                Log.i("subin","1. : "+aa.get(0));
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
+                Log.i("subin","1. 연결 실패: "+t.getMessage());
+            }
+        });
     }
 }

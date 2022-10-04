@@ -1,6 +1,5 @@
-package com.example.howabout.Retrofit;
+package com.example.howabout.API;
 
-import com.example.howabout.Retrofit.RetrofitAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -9,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL="http://192.168.0.158:80";
+    private static final String BASE_URL="http://192.168.0.107:80";
 
     public static RetrofitAPI getApiService(){
         return getInstance().create(RetrofitAPI.class);
