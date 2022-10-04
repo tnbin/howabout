@@ -1,6 +1,6 @@
 package com.example.howabout.API;
 
-import android.app.appsearch.SearchResult;
+import com.example.howabout.Vo.SearchResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

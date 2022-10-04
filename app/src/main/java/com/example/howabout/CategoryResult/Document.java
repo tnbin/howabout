@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Document {
 
-    public Document(String placeName, String distance, String placeUrl, String categoryName, String addressName, String roadAddressName, String id, String phone, String categoryGroupCode, String categoryGroupName, String x, String y) {
+    public Document(String placeName, String distance, String placeUrl, String categoryName, String addressName, String roadAddressName, String id, String phone, String categoryGroupName, String x, String y) {
         this.placeName = placeName;
         this.distance = distance;
         this.placeUrl = placeUrl;
@@ -14,7 +14,6 @@ public class Document {
         this.roadAddressName = roadAddressName;
         this.id = id;
         this.phone = phone;
-        this.categoryGroupCode = categoryGroupCode;
         this.categoryGroupName = categoryGroupName;
         this.x = x;
         this.y = y;
@@ -44,9 +43,7 @@ public class Document {
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("category_group_code")
-    @Expose
-    private String categoryGroupCode;
+
     @SerializedName("category_group_name")
     @Expose
     private String categoryGroupName;
@@ -121,14 +118,6 @@ public class Document {
         this.phone = phone;
     }
 
-    public String getCategoryGroupCode() {
-        return categoryGroupCode;
-    }
-
-    public void setCategoryGroupCode(String categoryGroupCode) {
-        this.categoryGroupCode = categoryGroupCode;
-    }
-
     public String getCategoryGroupName() {
         return categoryGroupName;
     }
@@ -151,5 +140,22 @@ public class Document {
 
     public void setY(String y) {
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "placeName='" + placeName + '\'' +
+                ", distance='" + distance + '\'' +
+                ", placeUrl='" + placeUrl + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", addressName='" + addressName + '\'' +
+                ", roadAddressName='" + roadAddressName + '\'' +
+                ", id='" + id + '\'' +
+                ", phone='" + phone + '\'' +
+                ", categoryGroupName='" + categoryGroupName + '\'' +
+                ", x='" + x + '\'' +
+                ", y='" + y + '\'' +
+                '}';
     }
 }
