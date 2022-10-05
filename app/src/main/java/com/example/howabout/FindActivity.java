@@ -34,9 +34,9 @@ import android.widget.Toast;
 import com.example.howabout.API.KakaoAPIClient;
 import com.example.howabout.API.KakaoAPIService;
 import com.example.howabout.API.RetrofitClient;
-import com.example.howabout.CategoryResult.Document;
-import com.example.howabout.CategoryResult.MyAdatpter;
-import com.example.howabout.Vo.SearchResult;
+import com.example.howabout.category_search.CategoryResult;
+import com.example.howabout.category_search.MyAdatpter;
+import com.example.howabout.category_search.Document;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -46,6 +46,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.function.LongFunction;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,7 +60,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     double mCurrentLat;
     double mCurrentLng;
     private MapView mapView;
-    ListView lv_search;
+    RecyclerView rl_search;
     EditText ed_search;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -67,7 +68,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     private boolean isTrackingMode = false;
     int radius = 300;
-    MyAdatpter adapter;
+    MyAdatpter myAdatpter;
     ArrayList<Document> restaurantList = new ArrayList<>(); //음식점 FD6
     ArrayList<Document> cafeList = new ArrayList<>(); //카페 CE7
     ArrayList<Document> documentArrayList = new ArrayList<>();
@@ -83,9 +84,14 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        lv_search = findViewById(R.id.lv_search);
+        rl_search = findViewById(R.id.rl_search);
         ed_search = findViewById(R.id.ed_search);
 
+        myAdatpter = new MyAdatpter(documentArrayList, getApplicationContext(), ed_search, rl_search);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); //레이아웃매니저 생성
+        rl_search.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));//아래구분선
+        rl_search.setLayoutManager(layoutManager);
+        rl_search.setAdapter(myAdatpter);
 
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
@@ -197,25 +203,26 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         });
 
         ed_search.addTextChangedListener(new TextWatcher() {
-            String search = ed_search.getText().toString();
+
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                lv_search.setVisibility(View.VISIBLE);
+                rl_search.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                String search = ed_search.getText().toString();
                 if (charSequence.length() >= 1) {
                     documentArrayList.clear();
-                    adapter.clear();
-                    adapter.notifyDataSetChanged();
-                    lv_search.setVisibility(View.VISIBLE);
+                    myAdatpter.clear();
+                    myAdatpter.notifyDataSetChanged();
+                    rl_search.setVisibility(View.VISIBLE);
+                    Log.i("subin", search);
                     searchKeyword(search);
                 } else {
                     if (charSequence.length() <= 0) {
-                        lv_search.setVisibility(View.GONE);
+                        rl_search.setVisibility(View.GONE);
                     }
                 }
             }
@@ -435,7 +442,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     @Override
     public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
 //        Log.i("subin","onMapViewSingleTapped");
-        lv_search.setVisibility(View.GONE);
+        rl_search.setVisibility(View.GONE);
     }
 
     @Override
@@ -509,24 +516,28 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     private void searchKeyword(String keyword) {
         String API_KEY = "KakaoAK f33950708cffc6664e99ac21489fd117";
         KakaoAPIService kakaoAPIService = KakaoAPIClient.getApiService();
-        Call<SearchResult> search = kakaoAPIService.getSearchKeword(API_KEY, keyword);
-        search.enqueue(new Callback<SearchResult>() {
+        Call<CategoryResult> search = kakaoAPIService.getSearchKeword(API_KEY, keyword);
+        Log.i("subin", "키워드: " + search);
+        search.enqueue(new Callback<CategoryResult>() {
             @Override
-            public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
+            public void onResponse(Call<CategoryResult> call, Response<CategoryResult> response) {
 
+                Log.i("subin", "연결성공: " + response.body());
                 if (response.isSuccessful()) {
                     assert response.body() != null;
+
                     for (Document document : response.body().getDocuments()) {
-                        adapter.addItem(document);
+                        myAdatpter.addItem(document);
                     }
-                    adapter.notifyDataSetChanged();
+                    myAdatpter.notifyDataSetChanged();
                 }
 
             }
 
             @Override
-            public void onFailure(Call<SearchResult> call, Throwable t) {
+            public void onFailure(Call<CategoryResult> call, Throwable t) {
 
+                Log.i("subin", "l연결실패: " + t.getMessage());
             }
         });
     }

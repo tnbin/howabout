@@ -1,4 +1,4 @@
-package com.example.howabout.CategoryResult;
+package com.example.howabout.category_search;
 
 
 import android.content.Context;

@@ -1,23 +1,12 @@
-package com.example.howabout.CategoryResult;
+package com.example.howabout.category_search;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Document {
-
-    public Document(String placeName, String distance, String placeUrl, String categoryName, String addressName, String roadAddressName, String id, String phone, String categoryGroupName, String x, String y) {
-        this.placeName = placeName;
-        this.distance = distance;
-        this.placeUrl = placeUrl;
-        this.categoryName = categoryName;
-        this.addressName = addressName;
-        this.roadAddressName = roadAddressName;
-        this.id = id;
-        this.phone = phone;
-        this.categoryGroupName = categoryGroupName;
-        this.x = x;
-        this.y = y;
-    }
+public class Document implements Parcelable {
 
     @SerializedName("place_name")
     @Expose
@@ -43,7 +32,9 @@ public class Document {
     @SerializedName("phone")
     @Expose
     private String phone;
-
+    @SerializedName("category_group_code")
+    @Expose
+    private String categoryGroupCode;
     @SerializedName("category_group_name")
     @Expose
     private String categoryGroupName;
@@ -118,6 +109,14 @@ public class Document {
         this.phone = phone;
     }
 
+    public String getCategoryGroupCode() {
+        return categoryGroupCode;
+    }
+
+    public void setCategoryGroupCode(String categoryGroupCode) {
+        this.categoryGroupCode = categoryGroupCode;
+    }
+
     public String getCategoryGroupName() {
         return categoryGroupName;
     }
@@ -142,20 +141,55 @@ public class Document {
         this.y = y;
     }
 
+
     @Override
-    public String toString() {
-        return "Document{" +
-                "placeName='" + placeName + '\'' +
-                ", distance='" + distance + '\'' +
-                ", placeUrl='" + placeUrl + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", addressName='" + addressName + '\'' +
-                ", roadAddressName='" + roadAddressName + '\'' +
-                ", id='" + id + '\'' +
-                ", phone='" + phone + '\'' +
-                ", categoryGroupName='" + categoryGroupName + '\'' +
-                ", x='" + x + '\'' +
-                ", y='" + y + '\'' +
-                '}';
+    public int describeContents() {
+        return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.placeName);
+        dest.writeString(this.distance);
+        dest.writeString(this.placeUrl);
+        dest.writeString(this.categoryName);
+        dest.writeString(this.addressName);
+        dest.writeString(this.roadAddressName);
+        dest.writeString(this.id);
+        dest.writeString(this.phone);
+        dest.writeString(this.categoryGroupCode);
+        dest.writeString(this.categoryGroupName);
+        dest.writeString(this.x);
+        dest.writeString(this.y);
+    }
+
+    public Document() {
+    }
+
+    protected Document(Parcel in) {
+        this.placeName = in.readString();
+        this.distance = in.readString();
+        this.placeUrl = in.readString();
+        this.categoryName = in.readString();
+        this.addressName = in.readString();
+        this.roadAddressName = in.readString();
+        this.id = in.readString();
+        this.phone = in.readString();
+        this.categoryGroupCode = in.readString();
+        this.categoryGroupName = in.readString();
+        this.x = in.readString();
+        this.y = in.readString();
+    }
+
+    public static final Creator<Document> CREATOR = new Creator<Document>() {
+        @Override
+        public Document createFromParcel(Parcel source) {
+            return new Document(source);
+        }
+
+        @Override
+        public Document[] newArray(int size) {
+            return new Document[size];
+        }
+    };
 }
