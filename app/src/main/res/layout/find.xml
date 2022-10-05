@@ -33,8 +33,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="10dp"
-                android:hint="검색할 장소를 입력해주세요" />
+                android:layout_marginBottom="20dp"
+                android:hint="검색할 장소를 입력해주세요  "
+                android:textColorHighlight="#EC9393"
+                android:textCursorDrawable="@drawable/cursor"
+                android:textSelectHandle="@drawable/select_handler"
+                android:textSelectHandleLeft="@drawable/select_handler"
+                android:textSelectHandleRight="@drawable/select_handler" />
 
             <ImageButton
                 android:id="@+id/btn_search"
@@ -43,6 +48,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
                 android:backgroundTint="#FFF"
                 android:src="@drawable/ic_baseline_search_24" />
 
@@ -52,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <net.daum.mf.map.api.MapView
                 android:id="@+id/map_view"

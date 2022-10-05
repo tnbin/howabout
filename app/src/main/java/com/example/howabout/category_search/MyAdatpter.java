@@ -2,6 +2,7 @@ package com.example.howabout.category_search;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,16 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.LocationViewHold
             super(itemView);
             placeNameText = itemView.findViewById(R.id.ltem_location_tv_placename);
             addressText = itemView.findViewById(R.id.ltem_location_tv_address);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos=getAdapterPosition();
+                    if (pos!=RecyclerView.NO_POSITION){
+                        Log.i("subin","RecyclweView : "+pos);
+                    }
+                }
+            });
         }
     }
 }
