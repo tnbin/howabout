@@ -33,9 +33,12 @@ import android.widget.Toast;
 import com.example.howabout.API.KakaoAPIClient;
 import com.example.howabout.API.KakaoAPIService;
 import com.example.howabout.API.RetrofitClient;
+import com.example.howabout.category_search.BusProvider;
 import com.example.howabout.category_search.CategoryResult;
 import com.example.howabout.category_search.MyAdatpter;
 import com.example.howabout.category_search.Document;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -51,10 +54,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
+public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener,MapView.POIItemEventListener{
 
     DrawerLayout drawerLayout;
     View drawerView;
+    String SearchName;
     double mCurrentLat;
     double mCurrentLng;
     private MapView mapView;
@@ -70,6 +74,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     ArrayList<Document> restaurantList = new ArrayList<>(); //음식점 FD6
     ArrayList<Document> cafeList = new ArrayList<>(); //카페 CE7
     ArrayList<Document> documentArrayList = new ArrayList<>();
+    Bus bus = BusProvider.getInstance();
+    MapPOIItem searchMarker = new MapPOIItem();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -90,6 +96,14 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         rl_search.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));//아래구분선
         rl_search.setLayoutManager(layoutManager);
         rl_search.setAdapter(myAdatpter);
+
+        bus.register(this); //정류소 등록
+//        myAdatpter.setOnItemClickListener(new MyAdatpter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int pos) {
+//                Log.i("subin","클릭: "+pos);
+//            }
+//        });
 
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +161,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mapView = findViewById(R.id.map_view);
         mapView.setCurrentLocationEventListener(this);
         mapView.setMapViewEventListener(this);
-
+        mapView.setPOIItemEventListener(this);
 
         ImageButton mylocation = findViewById(R.id.mylocation);
         mylocation.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +232,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                     rl_search.setVisibility(View.VISIBLE);
                     Log.i("subin", search);
                     searchKeyword(search);
+
                 } else {
                     if (charSequence.length() <= 0) {
                         rl_search.setVisibility(View.GONE);
@@ -509,6 +524,25 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
     }
+    @Subscribe //검색예시 클릭시 이벤트 오토버스
+    public void search(Document document) {
+
+        //bus로 가지고 온 document
+        SearchName = document.getPlaceName();
+        mCurrentLng= Double.parseDouble(document.getX());
+        mCurrentLat = Double.parseDouble(document.getY());
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mCurrentLat, mCurrentLng), true);
+        mapView.removePOIItem(searchMarker);
+        searchMarker.setItemName(SearchName);
+//        searchMarker.setTag(10000);
+        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(mCurrentLat, mCurrentLng);
+        searchMarker.setMapPoint(mapPoint);
+        searchMarker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        searchMarker.setSelectedMarkerType(MapPOIItem.MarkerType.YellowPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+        //마커 드래그 가능하게 설정
+        searchMarker.setDraggable(true);
+        mapView.addPOIItem(searchMarker);
+    }
 
     //키워드 검색 함수
     private void searchKeyword(String keyword) {
@@ -539,5 +573,30 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 Log.i("subin", "l연결실패: " + t.getMessage());
             }
         });
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        bus.unregister(this); //이액티비티 떠나면 정류소 해제해줌
+    }
+
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
     }
 }

@@ -1,8 +1,8 @@
 package com.example.howabout.category_search;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,23 +16,12 @@ import com.example.howabout.R;
 
 import java.util.ArrayList;
 
-public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.LocationViewHolder> {
+public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.ViewHolder> {
     Context context;
     ArrayList<Document> items;
     EditText editText;
     RecyclerView recyclerView;
 
-    public MyAdatpter(ArrayList<Document> items, Context context, EditText editText, RecyclerView recyclerView) {
-        this.context = context;
-        this.items = items;
-        this.editText = editText;
-        this.recyclerView = recyclerView;
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
 
 
     public void addItem(Document item) {
@@ -54,16 +43,47 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.LocationViewHold
         return position;
     }
 
-    @NonNull
-    @Override
-    public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_location, viewGroup, false);
-        return new LocationViewHolder(view);
+
+    //    public interface OnItemClickListener{
+//        void onItemClick(View v,int pos);
+//    }
+//
+//    private OnItemClickListener Listener=null;
+//
+//    public void setOnItemClickListener(OnItemClickListener listener){
+//        this.Listener=listener;
+//    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView placeNameText;
+        TextView addressText;
+
+        public ViewHolder(@NonNull final View itemView) {
+            super(itemView);
+
+            placeNameText = itemView.findViewById(R.id.ltem_location_tv_placename);
+            addressText = itemView.findViewById(R.id.ltem_location_tv_address);
+        }
     }
 
+    public MyAdatpter(ArrayList<Document> items, Context context, EditText editText, RecyclerView recyclerView) {
+        this.context = context;
+        this.items = items;
+        this.editText = editText;
+        this.recyclerView = recyclerView;
+    }
+
+    @NonNull
     @Override
-    public void onBindViewHolder(@NonNull LocationViewHolder holder, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.item_location, viewGroup, false);
+        return new ViewHolder(view);
+    }
+
+    @SuppressLint("RecyclerView")
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder,int i) {
         final Document model = items.get(i);
         holder.placeNameText.setText(model.getPlaceName());
         holder.addressText.setText(model.getAddressName());
@@ -72,29 +92,15 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.LocationViewHold
             public void onClick(View view) {
                 editText.setText(model.getPlaceName());
                 recyclerView.setVisibility(View.GONE);
+
+                BusProvider.getInstance().post(model);
+
             }
         });
     }
 
-
-    public class LocationViewHolder extends RecyclerView.ViewHolder {
-        TextView placeNameText;
-        TextView addressText;
-
-        public LocationViewHolder(@NonNull final View itemView) {
-            super(itemView);
-            placeNameText = itemView.findViewById(R.id.ltem_location_tv_placename);
-            addressText = itemView.findViewById(R.id.ltem_location_tv_address);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos=getAdapterPosition();
-                    if (pos!=RecyclerView.NO_POSITION){
-                        Log.i("subin","RecyclweView : "+pos);
-                    }
-                }
-            });
-        }
+    @Override
+    public int getItemCount() {
+        return items.size();
     }
 }

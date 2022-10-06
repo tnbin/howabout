@@ -11,5 +11,6 @@ public interface KakaoAPIService {
     @GET("/v2/local/search/keyword.json") //keyword.json의 정보를 받아와요
     Call<CategoryResult> getSearchKeword(
             @Header("Authorization") String key,//카카오 api 인증키
-            @Query("query") String query); //검색을 원하는 질의어
+            @Query("query") String query //검색을 원하는 질의어
+    );
  }
