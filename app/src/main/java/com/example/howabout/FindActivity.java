@@ -54,7 +54,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener,MapView.POIItemEventListener{
+public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
 
     DrawerLayout drawerLayout;
     View drawerView;
@@ -91,6 +91,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         rl_search = findViewById(R.id.rl_search);
         ed_search = findViewById(R.id.ed_search);
 
+        String search = ed_search.getText().toString();
+
         myAdatpter = new MyAdatpter(documentArrayList, getApplicationContext(), ed_search, rl_search);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); //레이아웃매니저 생성
         rl_search.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));//아래구분선
@@ -98,12 +100,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         rl_search.setAdapter(myAdatpter);
 
         bus.register(this); //정류소 등록
-//        myAdatpter.setOnItemClickListener(new MyAdatpter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View v, int pos) {
-//                Log.i("subin","클릭: "+pos);
-//            }
-//        });
+
 
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
@@ -157,12 +154,13 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 startActivity(intentmc);
             }
         });
-
+        //mapview 사용
         mapView = findViewById(R.id.map_view);
         mapView.setCurrentLocationEventListener(this);
         mapView.setMapViewEventListener(this);
         mapView.setPOIItemEventListener(this);
 
+        //현재위치 받아오는 버튼
         ImageButton mylocation = findViewById(R.id.mylocation);
         mylocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,10 +186,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 thread.start();
             }
         });
-
+        //SeekBar
         SeekBar seekBar = findViewById(R.id.seekbar);
-        seekBar.setMax(1200);
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -215,8 +211,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         });
 
         ed_search.addTextChangedListener(new TextWatcher() {
-
-
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 rl_search.setVisibility(View.VISIBLE);
@@ -224,7 +218,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String search = ed_search.getText().toString();
+
                 if (charSequence.length() >= 1) {
                     documentArrayList.clear();
                     myAdatpter.clear();
@@ -245,6 +239,13 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
 
+        ImageButton btn_search = findViewById(R.id.btn_search);
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
@@ -268,20 +269,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         }
     };
-
-    public void Marker(String MakerName, double startX, double startY) {
-        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
-        mapView.setMapCenterPoint(mapPoint, true);
-        //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
-        MapPOIItem marker = new MapPOIItem();
-        marker.setItemName(MakerName); // 마커 클릭 시 컨테이너에 담길 내용
-        marker.setMapPoint(mapPoint);
-        // 기본으로 제공하는 BluePin 마커 모양.
-        marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
-        // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.BluePin);
-        mapView.addPOIItem(marker);
-    }
 
     public void MapMarker(String MakerName, String detail, double startX, double startY) {
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
@@ -480,64 +467,63 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
     @Override
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
-//        Log.i("subin","onMapViewMoveFinished");
         MapPoint mp = mapView.getMapCenterPoint();
         MapPoint.GeoCoordinate gc = mp.getMapPointGeoCoord();
 
         double gCurrentLat = gc.latitude;
         double gCurrentLog = gc.longitude;
-//        Marker("maker", gCurrentLat, gCurrentLog);
-        requestSearch(gCurrentLat, gCurrentLog, radius);
+//        requestSearch(gCurrentLat, gCurrentLog, radius);
 
         Log.i("subin", "지도 드래그 끝날 시 경도: " + gCurrentLat + "위도: " + gCurrentLog + "반경" + radius);
     }
 
-    private void requestSearch(double x, double y, int radius) {
-        restaurantList.clear();
-        cafeList.clear();
+//    private void requestSearch(double x, double y, int radius) {
+//        restaurantList.clear();
+//        cafeList.clear();
+//
+//        JSONObject kakaka = new JSONObject();
+//        try {
+//            kakaka.put("lat", x);
+//            kakaka.put("lng", y);
+//            kakaka.put("radius", radius);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        ArrayList<JSONObject> al = new ArrayList<>();
+//        al.add(kakaka);
+//        Log.i("subin", "" + al);
+//        Call<ArrayList<String>> ababababa = RetrofitClient.getApiService().ababababa(al);
+//        ababababa.enqueue(new Callback<ArrayList<String>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
+//
+//                ArrayList<String> aa = response.body();
+//                Log.i("subin", "1. 연결 성공 : " + response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
+//                Log.i("subin", "1. 연결 실패: " + t.getMessage());
+//            }
+//        });
+//    }
 
-        JSONObject kakaka = new JSONObject();
-        try {
-            kakaka.put("lat", x);
-            kakaka.put("lng", y);
-            kakaka.put("radius", radius);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        ArrayList<JSONObject> al = new ArrayList<>();
-        al.add(kakaka);
-        Log.i("subin", "" + al);
-        Call<ArrayList<String>> ababababa = RetrofitClient.getApiService().ababababa(al);
-        ababababa.enqueue(new Callback<ArrayList<String>>() {
-            @Override
-            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
-
-                ArrayList<String> aa = response.body();
-                Log.i("subin", "1. 연결 성공 : " + response.body());
-                Log.i("subin", "1. : " + aa.get(0));
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
-                Log.i("subin", "1. 연결 실패: " + t.getMessage());
-            }
-        });
-    }
     @Subscribe //검색예시 클릭시 이벤트 오토버스
     public void search(Document document) {
 
         //bus로 가지고 온 document
         SearchName = document.getPlaceName();
-        mCurrentLng= Double.parseDouble(document.getX());
+        mCurrentLng = Double.parseDouble(document.getX());
         mCurrentLat = Double.parseDouble(document.getY());
+        Toast.makeText(FindActivity.this, "장소이름: " + SearchName + "x: " + mCurrentLng + "y:" + mCurrentLat, Toast.LENGTH_SHORT).show();
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mCurrentLat, mCurrentLng), true);
         mapView.removePOIItem(searchMarker);
         searchMarker.setItemName(SearchName);
 //        searchMarker.setTag(10000);
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(mCurrentLat, mCurrentLng);
         searchMarker.setMapPoint(mapPoint);
-        searchMarker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        searchMarker.setMarkerType(MapPOIItem.MarkerType.RedPin); // 기본으로 제공하는 BluePin 마커 모양.
         searchMarker.setSelectedMarkerType(MapPOIItem.MarkerType.YellowPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
         //마커 드래그 가능하게 설정
         searchMarker.setDraggable(true);
@@ -560,9 +546,14 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
                     for (Document document : response.body().getDocuments()) {
                         myAdatpter.addItem(document);
+                        myAdatpter.setOnItemClickListener(new MyAdatpter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View v, int pos) {
+                                search(document);
+                            }
+                        });
                     }
                     myAdatpter.notifyDataSetChanged();
-
                 }
 
             }
@@ -574,6 +565,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
     }
+
     @Override
     public void finish() {
         super.finish();

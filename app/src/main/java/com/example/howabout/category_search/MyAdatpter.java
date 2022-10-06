@@ -44,15 +44,15 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.ViewHolder> {
     }
 
 
-    //    public interface OnItemClickListener{
-//        void onItemClick(View v,int pos);
-//    }
-//
-//    private OnItemClickListener Listener=null;
-//
-//    public void setOnItemClickListener(OnItemClickListener listener){
-//        this.Listener=listener;
-//    }
+        public interface OnItemClickListener{
+        void onItemClick(View v,int pos);
+    }
+
+    private OnItemClickListener Listener=null;
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.Listener=listener;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView placeNameText;
@@ -63,6 +63,18 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.ViewHolder> {
 
             placeNameText = itemView.findViewById(R.id.ltem_location_tv_placename);
             addressText = itemView.findViewById(R.id.ltem_location_tv_address);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos=getAdapterPosition();
+                    if (pos !=RecyclerView.NO_POSITION){
+                        if (Listener!=null){
+                            Listener.onItemClick(view,pos);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -92,7 +104,6 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.ViewHolder> {
             public void onClick(View view) {
                 editText.setText(model.getPlaceName());
                 recyclerView.setVisibility(View.GONE);
-
                 BusProvider.getInstance().post(model);
 
             }
