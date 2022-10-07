@@ -23,7 +23,6 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.ViewHolder> {
     RecyclerView recyclerView;
 
 
-
     public void addItem(Document item) {
         items.add(item);
     }
@@ -44,7 +43,7 @@ public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.ViewHolder> {
     }
 
 
-        public interface OnItemClickListener{
+    public interface OnItemClickListener{
         void onItemClick(View v,int pos);
     }
 

@@ -63,8 +63,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     double mCurrentLng;
     private MapView mapView;
     RecyclerView rl_search;
-    EditText ed_search;
 
+    String search;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
@@ -89,9 +89,9 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         rl_search = findViewById(R.id.rl_search);
-        ed_search = findViewById(R.id.ed_search);
+        EditText ed_search = findViewById(R.id.ed_search);
+        search=ed_search.getText().toString();
 
-        String search = ed_search.getText().toString();
 
         myAdatpter = new MyAdatpter(documentArrayList, getApplicationContext(), ed_search, rl_search);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); //레이아웃매니저 생성
@@ -210,7 +210,10 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
 
+
+
         ed_search.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 rl_search.setVisibility(View.VISIBLE);
@@ -219,6 +222,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                search=ed_search.getText().toString();
                 if (charSequence.length() >= 1) {
                     documentArrayList.clear();
                     myAdatpter.clear();

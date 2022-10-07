@@ -17,6 +17,7 @@ public class PopularActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
 
     View drawerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +47,16 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intenth=new Intent(PopularActivity.this,MainActivity.class);
+                Intent intenth = new Intent(PopularActivity.this, MainActivity.class);
                 startActivity(intenth);
             }
         });
-        Button btn_courcebar=findViewById(R.id.btn_courcebar);
+        Button btn_courcebar = findViewById(R.id.btn_courcebar);
         btn_courcebar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentc=new Intent(PopularActivity.this,FindActivity.class);
+                Intent intentc = new Intent(PopularActivity.this, FindActivity.class);
                 startActivity(intentc);
             }
         });
@@ -65,8 +66,6 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmp=new Intent(PopularActivity.this,MyPageActivity.class);
-                startActivity(intentmp);
             }
         });
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
@@ -74,7 +73,7 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmc=new Intent(PopularActivity.this,MyCourseActivity.class);
+                Intent intentmc = new Intent(PopularActivity.this, MyCourseActivity.class);
                 startActivity(intentmc);
             }
         });
@@ -101,4 +100,5 @@ public class PopularActivity extends AppCompatActivity {
 
         }
     };
+
 }
