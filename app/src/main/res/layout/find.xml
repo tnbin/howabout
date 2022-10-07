@@ -79,16 +79,43 @@
                 android:thumbTint="#ff5757"
                 android:translationX="75dp" />
 
-            <ImageButton
-                android:id="@+id/mylocation"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="160dp"
                 android:background="@drawable/edge_circle"
-                android:backgroundTint="#81F8F0F0"
-                android:src="@drawable/button_back" />
+                android:backgroundTint="#AEF8F0F0"
+                android:src="@drawable/ic_baseline_search_24"
+                android:visibility="invisible"
+                app:elevation="12dp"
+                app:pressedTranslationZ="12dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="90dp"
+                android:background="@drawable/edge_circle"
+                android:backgroundTint="#AEF8F0F0"
+                android:src="@drawable/button_back"
+                android:visibility="invisible"
+                app:elevation="6dp"
+                app:pressedTranslationZ="12dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#D8FF5757"
+                android:src="@drawable/ic_baseline_addw_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"

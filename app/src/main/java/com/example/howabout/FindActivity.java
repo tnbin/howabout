@@ -24,6 +24,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,6 +39,7 @@ import com.example.howabout.category_search.BusProvider;
 import com.example.howabout.category_search.CategoryResult;
 import com.example.howabout.category_search.MyAdatpter;
 import com.example.howabout.category_search.Document;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -54,7 +57,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
+public class FindActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener, View.OnClickListener {
 
     DrawerLayout drawerLayout;
     View drawerView;
@@ -63,6 +66,10 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     double mCurrentLng;
     private MapView mapView;
     RecyclerView rl_search;
+
+    private Animation fab_open, fab_close;
+    private Boolean isFabOpen = false;
+    private FloatingActionButton fab, fab1,fab2;
 
     String search;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -90,7 +97,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         rl_search = findViewById(R.id.rl_search);
         EditText ed_search = findViewById(R.id.ed_search);
-        search=ed_search.getText().toString();
+        search = ed_search.getText().toString();
 
 
         myAdatpter = new MyAdatpter(documentArrayList, getApplicationContext(), ed_search, rl_search);
@@ -101,6 +108,16 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         bus.register(this); //정류소 등록
 
+        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+
+        fab.setOnClickListener(this);
+        fab1.setOnClickListener(this);
+        fab2.setOnClickListener(this);
 
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
@@ -161,8 +178,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mapView.setPOIItemEventListener(this);
 
         //현재위치 받아오는 버튼
-        ImageButton mylocation = findViewById(R.id.mylocation);
-        mylocation.setOnClickListener(new View.OnClickListener() {
+        fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -211,7 +227,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         });
 
 
-
         ed_search.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -222,7 +237,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                search=ed_search.getText().toString();
+                search = ed_search.getText().toString();
                 if (charSequence.length() >= 1) {
                     documentArrayList.clear();
                     myAdatpter.clear();
@@ -250,6 +265,42 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.fab:
+                anim();
+                Toast.makeText(this, "Floating Action Button", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.fab1:
+                anim();
+                Toast.makeText(this, "Button1", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.fab2:
+                anim();
+                Toast.makeText(this, "Button2", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    public void anim() {
+
+        if (isFabOpen) {
+            fab1.startAnimation(fab_close);
+            fab2.startAnimation(fab_close);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isFabOpen = false;
+        } else {
+            fab1.startAnimation(fab_open);
+            fab2.startAnimation(fab_open);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isFabOpen = true;
+        }
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
@@ -301,10 +352,17 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mCurrentLat = mapPointGeo.latitude;
         mCurrentLng = mapPointGeo.longitude;
 
+        mapView.removePOIItem(searchMarker);
+        searchMarker.setMapPoint(currentMapPoint);
+        searchMarker.setMarkerType(MapPOIItem.MarkerType.RedPin); // 기본으로 제공하는 BluePin 마커 모양.
+        searchMarker.setSelectedMarkerType(MapPOIItem.MarkerType.YellowPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
         Log.i("subin", "Current: " + radius);
         mapView.setCurrentLocationRadius(radius);
         mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
         mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
+
+        mapView.addPOIItem(searchMarker);
 
         if (!isTrackingMode) {
             mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
@@ -523,8 +581,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         Toast.makeText(FindActivity.this, "장소이름: " + SearchName + "x: " + mCurrentLng + "y:" + mCurrentLat, Toast.LENGTH_SHORT).show();
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mCurrentLat, mCurrentLng), true);
         mapView.removePOIItem(searchMarker);
+        //maker 클릭시 장소 이름 나옴
         searchMarker.setItemName(SearchName);
-//        searchMarker.setTag(10000);
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(mCurrentLat, mCurrentLng);
         searchMarker.setMapPoint(mapPoint);
         searchMarker.setMarkerType(MapPOIItem.MarkerType.RedPin); // 기본으로 제공하는 BluePin 마커 모양.
@@ -588,6 +646,9 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+        double lat = mapPOIItem.getMapPoint().getMapPointGeoCoord().latitude;
+        double lng = mapPOIItem.getMapPoint().getMapPointGeoCoord().longitude;
+        Toast.makeText(this, "장소: " + mapPOIItem.getItemName(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -595,4 +656,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
 
     }
+
+
 }
