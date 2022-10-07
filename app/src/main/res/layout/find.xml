@@ -90,7 +90,6 @@
                 android:backgroundTint="#AEF8F0F0"
                 android:src="@drawable/ic_baseline_search_24"
                 android:visibility="invisible"
-                app:elevation="12dp"
                 app:pressedTranslationZ="12dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -104,7 +103,6 @@
                 android:backgroundTint="#AEF8F0F0"
                 android:src="@drawable/button_back"
                 android:visibility="invisible"
-                app:elevation="6dp"
                 app:pressedTranslationZ="12dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -117,18 +115,12 @@
                 android:backgroundTint="#D8FF5757"
                 android:src="@drawable/ic_baseline_addw_24" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:orientation="vertical">
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rl_search"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:background="#ffffff"
                     android:visibility="invisible" />
-            </LinearLayout>
 
 
         </FrameLayout>
