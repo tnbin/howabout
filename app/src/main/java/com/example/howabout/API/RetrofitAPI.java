@@ -5,7 +5,8 @@ import com.example.howabout.Vo.NickNameVo;
 import com.example.howabout.Vo.UserVo;
 import com.example.howabout.Vo.signInVo;
 
-import org.json.JSONObject;
+
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
@@ -22,15 +23,20 @@ public interface RetrofitAPI {
     Call<Integer> nickcheck(@Body NickNameVo nickNameVo);
 
     @POST("/login/signUp")
-    Call<Integer>all(@Body UserVo userVo);
+    Call<Integer> all(@Body UserVo userVo);
 
     @POST("/login/signIn")
-    Call<signInVo>login(@Body UserVo userVo);
+    Call<signInVo> login(@Body UserVo userVo);
 
     @POST("/findCourse/location")
-    Call<Integer>restcource(@Body ArrayList<JSONObject> arrayList);
+    Call<Integer> restcource(@Body ArrayList<JSONObject> arrayList);
 
-    @POST("/test/kakaka")
-    Call<ArrayList<String>>ababababa(@Body ArrayList<JSONObject> arrayList);
+    @POST("/myCourse/rest")
+    Call<ArrayList<JSONObject>> rest(@Body ArrayList<JSONObject> arrayList);
 
+    @POST("/myCourse/cafe")
+    Call<ArrayList<JSONObject>> cafe(@Body ArrayList<JSONObject> arrayList);
+
+    @POST("/myCourse/saveCourse")
+    Call<Integer> saveCourse(@Body ArrayList<JSONObject> arrayList);
 }
