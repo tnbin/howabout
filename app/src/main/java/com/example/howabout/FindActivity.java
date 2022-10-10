@@ -100,6 +100,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         setContentView(R.layout.find);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
         drawerView = findViewById(R.id.drawer);
 
         rl_search = findViewById(R.id.rl_search);
