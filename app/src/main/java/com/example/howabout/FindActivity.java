@@ -649,6 +649,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         @Override
                         public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
                             Log.i("subin","rest 연결성공"+response.body());
+
                         }
 
                         @Override
