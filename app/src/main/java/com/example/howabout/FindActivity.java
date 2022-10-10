@@ -91,8 +91,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     //마커
     MapPOIItem searchMarker = new MapPOIItem();
     //카페,음식점
-    ArrayList<Document> cafeList=new ArrayList<>();  //CE7 카페
-    ArrayList<Document> restaurantList=new ArrayList<>(); //FD6 음식점
+    ArrayList<JSONObject> cafeList=new ArrayList<JSONObject>();  //CE7 카페
+    ArrayList<JSONObject> restaurantList=new ArrayList<JSONObject>(); //FD6 음식점
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -634,34 +634,11 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 restaurantList.clear();
                 if (i == 0) {
                     //그 주변 음식점 가져오기
-                    JSONObject location=new JSONObject();
-                    try {
-                        location.put("lat",lat);
-                        location.put("lng",lng);
-                        location.put("radius",radius);
-                        ArrayList<JSONObject>arrayList=new ArrayList<>();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    ArrayList<JSONObject>arrayList=new ArrayList<>();
-                    arrayList.add(location);
-                    Call<ArrayList<JSONObject>>rest=RetrofitClient.getApiService().rest(arrayList);
-                    rest.enqueue(new Callback<ArrayList<JSONObject>>() {
-                        @Override
-                        public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
-                            Log.i("subin","rest 연결성공"+response.body());
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
-                            Log.i("subin","rest 연결실패 : "+t.getMessage());
-                        }
-                    });
-
+                    SearchRestaurant(lat,lng,radius);
                     Toast.makeText(getApplicationContext(), items[0] + "k", Toast.LENGTH_SHORT).show();
                 } else if (i == 1) {
                     //그 주변 카페 가져오기
+                    SearchCafe(lat,lng,radius);
                     Toast.makeText(getApplicationContext(), items[1], Toast.LENGTH_SHORT).show();
                 } else if (i == 2) {
                     //장소 정보 보여주기
@@ -684,5 +661,78 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mSearchLat = mapPointGeo.latitude;
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mSearchLat, mSearchLng), true);
         MapMarker(SearchName, mSearchLng, mSearchLat);
+    }
+//음식점 장소 가져오기
+    public void SearchRestaurant(double x,double y,int radius){
+        JSONObject location=new JSONObject();
+        try {
+            location.put("lat",x);
+            location.put("lng",y);
+            location.put("radius",radius);
+            ArrayList<JSONObject>arrayList=new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayList<JSONObject>arrayList=new ArrayList<>();
+        arrayList.add(location);
+        Call<ArrayList<JSONObject>>rest=RetrofitClient.getApiService().rest(arrayList);
+        rest.enqueue(new Callback<ArrayList<JSONObject>>() {
+            @Override
+            public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
+                Log.i("subin","rest 연결성공"+response.body());
+                if (response.isSuccessful()){
+                    assert response.body()!=null;
+                    restaurantList.addAll(response.body());
+
+                    mapView.setCurrentLocationRadius(radius);
+                    mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
+                    mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
+
+//                                MapMarker("음식점",2323,323);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
+                Log.i("subin","rest 연결실패 : "+t.getMessage());
+            }
+        });
+
+
+    }
+    //카페 장소 가져오기
+    public void SearchCafe(double x,double y,int radius){
+        JSONObject lc=new JSONObject();
+        try {
+            lc.put("lat",x);
+            lc.put("lng",y);
+            lc.put("radius",radius);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayList<JSONObject>arrayList=new ArrayList<>();
+        arrayList.add(lc);
+        Call<ArrayList<JSONObject>>cafe=RetrofitClient.getApiService().cafe(arrayList);
+        cafe.enqueue(new Callback<ArrayList<JSONObject>>() {
+            @Override
+            public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
+                Log.i("subin","rest 연결성공"+response.body());
+                if (response.isSuccessful()){
+                    assert response.body()!=null;
+                    restaurantList.addAll(response.body());
+
+                    mapView.setCurrentLocationRadius(radius);
+                    mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
+                    mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
+
+//                                MapMarker("카페",2323,323);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
+                Log.i("subin","rest 연결실패 : "+t.getMessage());
+            }
+        });
     }
 }
