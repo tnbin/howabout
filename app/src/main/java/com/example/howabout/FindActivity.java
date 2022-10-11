@@ -143,7 +143,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         drawerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-
                 return true;
             }
         });
@@ -201,6 +200,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         try {
                             Thread.sleep(1000);
                             //중심을 현재위치로 가져오는 trackingmode
+                            //현재위치 권한이 없을때
                             if (!checkLocationServicesStatus()) {
                                 showDialogForLocationServiceSetting();
                             } else {
@@ -226,7 +226,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                     seekBar.setProgress((progress / 300) * 300);
                 }
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -294,6 +293,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             case R.id.fab2:
                 anim();
                 Toast.makeText(this, "Button2", Toast.LENGTH_SHORT).show();
+                isFabOpen=true;
+                anim();
                 break;
         }
     }
@@ -453,6 +454,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
             // 3.  위치 값을 가져올 수 있음
+            //트래킹 모드 TrackingModeOnWithoutHeading
             mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
@@ -567,7 +569,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         Log.i("subin", "지도 드래그 끝날 시 경도: " + gCurrentLat + "위도: " + gCurrentLog + "반경" + radius);
     }
 
-
     @Subscribe //검색예시 클릭시 이벤트 오토버스
     public void search(Document document) {
         //bus로 가지고 온 document
@@ -614,7 +615,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                     myAdatpter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onFailure(Call<CategoryResult> call, Throwable t) {
 
@@ -731,15 +731,12 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 mapView.setCurrentLocationRadius(Integer.parseInt(radius));
                 mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
                 mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
-
             }
-
             @Override
             public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
                 Log.i("subin", "rest 연결실패 : " + t.getMessage());
             }
         });
-
     }
 
     //카페 장소 가져오기
@@ -788,9 +785,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 mapView.setCurrentLocationRadius(Integer.parseInt(radius));
                 mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
                 mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
-
             }
-
             @Override
             public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
                 Log.i("subin", "cafe 연결실패 : " + t.getMessage());
