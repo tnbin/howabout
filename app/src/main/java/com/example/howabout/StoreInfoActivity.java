@@ -10,15 +10,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
-import net.daum.mf.map.api.MapView;
 
 public class StoreInfoActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
-    View drawerView;
 
+    View drawerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +24,6 @@ public class StoreInfoActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
-
-        MapView mapView = new MapView(this);
-
-        LinearLayout mapViewContainer = findViewById(R.id.map_store);
-        mapViewContainer.addView(mapView);
-
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +65,6 @@ public class StoreInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmp=new Intent(StoreInfoActivity.this,MyPageActivity.class);
-                startActivity(intentmp);
             }
         });
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
@@ -86,7 +76,6 @@ public class StoreInfoActivity extends AppCompatActivity {
                 startActivity(intentmc);
             }
         });
-
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {

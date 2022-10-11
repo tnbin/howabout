@@ -102,7 +102,6 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
 
     <include layout="@layout/sidebar" />
