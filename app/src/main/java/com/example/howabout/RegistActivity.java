@@ -74,14 +74,14 @@ public class RegistActivity extends AppCompatActivity {
         Button btn_iddoubleck = findViewById(R.id.btn_iddoubleck);
         Button btn_regist = findViewById(R.id.btn_regist);
 
-        //gender=1 일 경우 남성,gender=2 일 경우 여성
+        //gender=1 일 경우 남성,gender=0 일 경우 여성
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.btn_man) {
                     gender = 1;
                 } else if (i == R.id.btn_woman) {
-                    gender = 2;
+                    gender = 0;
                 }
             }
         });

@@ -340,13 +340,11 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     public void MapMarker(String MakerName, double startX, double startY) {
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
         mapView.setMapCenterPoint(mapPoint, true);
-
         //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
         MapPOIItem marker = new MapPOIItem();
-        //전체 마커 삭제
-//        mapView.removeAllPOIItems();
         marker.setItemName(MakerName); // 마커 클릭 시 컨테이너에 담길 내용
         marker.setMapPoint(mapPoint);
+        marker.setTag(60);
         // 기본으로 제공하는 BluePin 마커 모양.
         marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
         // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
@@ -357,20 +355,24 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mapView.addPOIItem(marker);
     }
 
-    public void CustomMarker(Object markername, Object x, Object y) {
+    public void CustomMarker(String markername, double x, double y,int image) {
+        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(y, x);
+        mapView.setMapCenterPoint(mapPoint, true);
+        //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
         MapPOIItem marker = new MapPOIItem();
-        marker.setItemName(String.valueOf(markername));
-        //카카오맵은 참고로 new MapPoint()로  생성못함. 좌표기준이 여러개라 이렇게 메소드로 생성해야함
-        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.valueOf(y.toString()), Double.valueOf(x.toString()));
+        marker.setItemName(markername); // 마커 클릭 시 컨테이너에 담길 내용
         marker.setMapPoint(mapPoint);
-        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
-        marker.setCustomImageResourceId(R.drawable.ic_baseline_favorite_24); // 마커 이미지.
+        // 기본으로 제공하는 BluePin 마커 모양.
+        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+        // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+        marker.setCustomImageResourceId(image); // 마커 이미지.
         marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
         marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
         mapView.addPOIItem(marker);
+        //마커 드래그 가능하게 설정
+        marker.setDraggable(true);
+        mapView.addPOIItem(marker);
     }
-
-    ;
 
     //현재위치 업데이트
     @Override
@@ -568,7 +570,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
     @Subscribe //검색예시 클릭시 이벤트 오토버스
     public void search(Document document) {
-
         //bus로 가지고 온 document
         SearchName = document.getPlaceName();
         mCurrentLng = Double.parseDouble(document.getX());
@@ -637,7 +638,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
 
     }
-//말풍선 클릭시
+
+    //말풍선 클릭시
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
         String lat = String.valueOf(mapPOIItem.getMapPoint().getMapPointGeoCoord().latitude);
@@ -721,7 +723,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         Log.i("subin", "x " + i + " : " + jsonObject.get("x"));
                         Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
 
-                        MapMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()));
+                        CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()),R.drawable.rest);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -778,7 +780,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         Log.i("subin", "x " + i + " : " + jsonObject.get("x"));
                         Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
 
-                        MapMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()));
+                        CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()),R.drawable.cafe);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
