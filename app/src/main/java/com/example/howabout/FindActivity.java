@@ -356,7 +356,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         marker.setDraggable(true);
         mapView.addPOIItem(marker);
     }
-    public void CustomMarker(Object markername,Object x,Object y){
+
+    public void CustomMarker(Object markername, Object x, Object y) {
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName(String.valueOf(markername));
         //카카오맵은 참고로 new MapPoint()로  생성못함. 좌표기준이 여러개라 이렇게 메소드로 생성해야함
@@ -367,7 +368,9 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
         marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
         mapView.addPOIItem(marker);
-    };
+    }
+
+    ;
 
     //현재위치 업데이트
     @Override
@@ -634,7 +637,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
 
     }
-
+//말풍선 클릭시
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
         String lat = String.valueOf(mapPOIItem.getMapPoint().getMapPointGeoCoord().latitude);
@@ -648,18 +651,19 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             public void onClick(DialogInterface dialogInterface, int i) {
                 cafeList.clear();
                 restaurantList.clear();
+                //CharSequence[] items
                 if (i == 0) {
                     //그 주변 음식점 가져오기
+                    mapView.removeAllPOIItems();
                     SearchRestaurant(lng, lat, String.valueOf(radius));
-                    Toast.makeText(getApplicationContext(), items[0] + "k", Toast.LENGTH_SHORT).show();
                 } else if (i == 1) {
+                    mapView.removeAllPOIItems();
                     //그 주변 카페 가져오기
-                    SearchCafe(lat, lng, String.valueOf(radius));
-                    Toast.makeText(getApplicationContext(), items[1], Toast.LENGTH_SHORT).show();
+                    SearchCafe(lng, lat, String.valueOf(radius));
                 } else if (i == 2) {
                     //장소 정보 보여주기
                     Toast.makeText(getApplicationContext(), items[2], Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(FindActivity.this,MyPageActivity.class);
+                    Intent intent = new Intent(FindActivity.this, StoreInfoActivity.class);
                     startActivity(intent);
                 }
                 dialogInterface.dismiss();
@@ -708,17 +712,16 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                     JSONArray jsonArray = (JSONArray) jsonObj.get("documents");
                     JSONObject jsonObject;
 
-                    for(int i =0;  i< jsonArray.size();i++){
+                    for (int i = 0; i < jsonArray.size(); i++) {
                         jsonObject = (JSONObject) jsonArray.get(i);
-                        Log.i("subin", "address_name " +i+ " : "+jsonObject.get("address_name") );
-                        Log.i("subin", "place_name " +i+ " : "+jsonObject.get("place_name") );
-                        Log.i("subin", "place_url " +i+ " : "+jsonObject.get("place_url") );
-                        Log.i("subin", "address_name " +i+ " : "+jsonObject.get("address_name") );
-                        Log.i("subin", "x " +i+ " : "+jsonObject.get("x") );
-                        Log.i("subin", "y " +i+ " : "+jsonObject.get("y") );
+                        Log.i("subin", "address_name " + i + " : " + jsonObject.get("address_name"));
+                        Log.i("subin", "place_name " + i + " : " + jsonObject.get("place_name"));
+                        Log.i("subin", "place_url " + i + " : " + jsonObject.get("place_url"));
+                        Log.i("subin", "address_name " + i + " : " + jsonObject.get("address_name"));
+                        Log.i("subin", "x " + i + " : " + jsonObject.get("x"));
+                        Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
 
-//                        CustomMarker(jsonObject.get("place_name"),jsonObject.get("x"),jsonObject.get("y") );
-                        MapMarker(jsonObject.get("place_name").toString(),Double.parseDouble(jsonObject.get("x").toString()),Double.parseDouble(jsonObject.get("y").toString()));
+                        MapMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()));
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -727,7 +730,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
                 mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
 
-//                MapMarker("음식점",2323,323);
             }
 
             @Override
@@ -740,36 +742,56 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
     //카페 장소 가져오기
     public void SearchCafe(String x, String y, String radius) {
-        JSONObject lc = new JSONObject();
+        JSONObject location = new JSONObject();
         try {
-            lc.put("lat", x);
-            lc.put("lng", y);
-            lc.put("radius", radius);
+            location.put("x", x);
+            location.put("y", y);
+            location.put("radius", radius);
         } catch (Exception e) {
             e.printStackTrace();
         }
         ArrayList<JSONObject> arrayList = new ArrayList<>();
-        arrayList.add(lc);
+        arrayList.add(location);
         Call<ArrayList<JSONObject>> cafe = RetrofitClient.getApiService().cafe(arrayList);
         cafe.enqueue(new Callback<ArrayList<JSONObject>>() {
             @Override
             public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
-                Log.i("subin", "rest 연결성공" + response.body());
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    restaurantList.addAll(response.body());
 
-                    mapView.setCurrentLocationRadius(Integer.parseInt(radius));
-                    mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
-                    mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
+                cafeList = response.body();
 
-//                                MapMarker("카페",2323,323);
+                String cafe = cafeList.get(0).toJSONString();
+
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObj = null;
+
+                try {
+                    jsonObj = (JSONObject) parser.parse(cafe);
+                    JSONArray jsonArray = (JSONArray) jsonObj.get("documents");
+                    JSONObject jsonObject;
+
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        jsonObject = (JSONObject) jsonArray.get(i);
+                        Log.i("subin", "address_name " + i + " : " + jsonObject.get("address_name"));
+                        Log.i("subin", "place_name " + i + " : " + jsonObject.get("place_name"));
+                        Log.i("subin", "place_url " + i + " : " + jsonObject.get("place_url"));
+                        Log.i("subin", "address_name " + i + " : " + jsonObject.get("address_name"));
+                        Log.i("subin", "x " + i + " : " + jsonObject.get("x"));
+                        Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
+
+                        MapMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+                mapView.setCurrentLocationRadius(Integer.parseInt(radius));
+                mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
+                mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
+
             }
 
             @Override
             public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
-                Log.i("subin", "rest 연결실패 : " + t.getMessage());
+                Log.i("subin", "cafe 연결실패 : " + t.getMessage());
             }
         });
     }
