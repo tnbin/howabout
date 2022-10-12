@@ -59,7 +59,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <net.daum.mf.map.api.MapView
+            <RelativeLayout
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -115,14 +115,12 @@
                 android:backgroundTint="#D8FF5757"
                 android:src="@drawable/ic_baseline_addw_24" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rl_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:background="#ffffff"
-                    android:visibility="invisible" />
-
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rl_search"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="#ffffff"
+                android:visibility="invisible" />
         </FrameLayout>
 
     </LinearLayout>

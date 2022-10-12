@@ -1,102 +1,54 @@
 package com.example.howabout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;;
 
 
 public class StoreInfoActivity extends AppCompatActivity {
 
-    DrawerLayout drawerLayout;
 
-    View drawerView;
+    WebView webView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_info);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerView = findViewById(R.id.drawer);
-        ImageButton btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(drawerView);
-            }
-        });
-
-        drawerLayout.setDrawerListener(listener);
-        drawerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                return true;
-            }
-        });
-
-        Button btn_homebar = findViewById(R.id.btn_homebar);
-        btn_homebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intenth=new Intent(StoreInfoActivity.this,MainActivity.class);
-                startActivity(intenth);
-            }
-        });
-        Button btn_courcebar=findViewById(R.id.btn_courcebar);
-        btn_courcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentc=new Intent(StoreInfoActivity.this,FindActivity.class);
-                startActivity(intentc);
-            }
-        });
-
-        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-            }
-        });
-        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
-        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentmc=new Intent(StoreInfoActivity.this,MyCourseActivity.class);
-                startActivity(intentmc);
-            }
-        });
+        //xml 연결
+        webView = findViewById(R.id.web_store);
+        //자바스트립트 허용
+        webView.getSettings().setJavaScriptEnabled(true);
+        //웹뷰 실행 Url 적용
+        webView.loadUrl("https://place.map.kakao.com/10487761");
+        //크롬 실행 가능
+        webView.setWebChromeClient(new WebChromeClient());
+        //기존창에 실행
+        webView.setWebViewClient(new WebViewClient());
     }
 
-    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {//뒤로가기 버튼 이벤트
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {//웹뷰에서 뒤로가기 버튼을 누르면 뒤로가짐
+            webView.goBack();
+            return true;
         }
+        return super.onKeyDown(keyCode, event);
+    }
 
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-
-        }
+    private static class WebViewClientClass extends WebViewClient {//페이지 이동
 
         @Override
-        public void onDrawerStateChanged(int newState) {
-
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Log.d("subin", url);
+            view.loadUrl(url);
+            return true;
         }
-    };
+    }
+
 }

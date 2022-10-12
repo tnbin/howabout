@@ -12,6 +12,7 @@
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge.xml" value="0.157" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge_black.xml" value="0.1385" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge_circle.xml" value="0.145" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge_fullcircle.xml" value="0.1665" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge_howabout.xml" value="0.18" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/edge_howaboutfull.xml" value="0.18" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1495" />
@@ -45,10 +46,10 @@
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/nav_header_main.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/network_security_config.xml" value="0.11203703703703703" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/popular.xml" value="0.25364583333333335" />
-        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/regist.xml" value="0.264" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/regist.xml" value="0.4" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/sidebar.xml" value="0.264" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/splash.xml" value="0.2" />
-        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/store_info.xml" value="0.2" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/store_info.xml" value="0.264" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/test.xml" value="0.2390625" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/menu/activity_main_drawer.xml" value="0.4" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.145" />

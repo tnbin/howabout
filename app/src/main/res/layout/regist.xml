@@ -20,10 +20,17 @@
             android:scaleType="fitXY"
             android:src="@drawable/logo2" />
 
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="닉네임*"
+            android:textSize="10dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -56,11 +63,17 @@
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:textColor="#ff5757"
             android:textSize="10dp" />
 
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="아이디*"
+            android:textSize="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,9 +109,16 @@
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="비밀번호*"
             android:textSize="10dp" />
 
         <EditText
@@ -113,14 +133,22 @@
             android:singleLine="true"
             android:textSize="15dp" />
 
+
         <TextView
             android:id="@+id/warning_pw"
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="비밀번호 확인*"
             android:textSize="10dp" />
 
         <EditText
@@ -140,8 +168,16 @@
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="성별*"
             android:textSize="10dp" />
 
         <RadioGroup
@@ -169,12 +205,10 @@
         </RadioGroup>
 
         <TextView
-            android:id="@+id/radio"
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:textColor="#ff5757"
+            android:text="생년월일*"
             android:textSize="10dp" />
 
         <LinearLayout
@@ -216,7 +250,7 @@
             android:layout_width="280dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:textColor="#ff5757"
             android:textSize="10dp" />
