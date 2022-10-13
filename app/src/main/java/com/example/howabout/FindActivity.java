@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -47,6 +48,7 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -96,9 +98,12 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     //마커
     MapPOIItem searchMarker = new MapPOIItem();
     String saveurl;
+    SharedPreferences preferences;
     //카페,음식점
     ArrayList<JSONObject> cafeList = new ArrayList<JSONObject>();  //CE7 카페
     ArrayList<JSONObject> restaurantList = new ArrayList<JSONObject>(); //FD6 음식점
+    //앱 키
+    String API_KEY = "KakaoAK f33950708cffc6664e99ac21489fd117";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -187,13 +192,13 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         });
 
         //mapview 사용
-        mapView=new MapView(this);
-        map=findViewById(R.id.map_view);
+        mapView = new MapView(this);
+        map = findViewById(R.id.map_view);
         map.addView(mapView);
         mapView.setCurrentLocationEventListener(this);
         mapView.setMapViewEventListener(this);
         mapView.setPOIItemEventListener(this);
-
+        preferences = getSharedPreferences("URL", MODE_PRIVATE);
         //현재위치 받아오는 버튼
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,6 +236,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                     seekBar.setProgress((progress / 300) * 300);
                 }
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -282,6 +288,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
     }
+
     //버튼 클릭시 이벤트 처리
     @Override
     public void onClick(View view) {
@@ -298,11 +305,12 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             case R.id.fab2:
                 anim();
                 Toast.makeText(this, "Button2", Toast.LENGTH_SHORT).show();
-                isFabOpen=true;
+                isFabOpen = true;
                 anim();
                 break;
         }
     }
+
     //버튼 애니메이션
     public void anim() {
 
@@ -320,6 +328,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             isFabOpen = true;
         }
     }
+
     //drawerlayout
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
@@ -342,15 +351,17 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
 
         }
     };
-//일반 마커
+
+    //일반 마커
     public void MapMarker(String MakerName, double startX, double startY) {
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
+        int tag = 0;
         mapView.setMapCenterPoint(mapPoint, true);
         //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName(MakerName); // 마커 클릭 시 컨테이너에 담길 내용
         marker.setMapPoint(mapPoint);
-        marker.setTag(60);
+        marker.setTag(tag++);
         // 기본으로 제공하는 BluePin 마커 모양.
         marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
         // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
@@ -360,14 +371,13 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         marker.setDraggable(true);
         mapView.addPOIItem(marker);
     }
-//커스텀 마커
-    public void CustomMarker(String markername, double x, double y,int image,String url) {
-        saveurl=url;
+
+    //커스텀 마커
+    public void CustomMarker(String markername, double x, double y, int image) {
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(y, x);
         mapView.setMapCenterPoint(mapPoint, true);
         //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
         MapPOIItem marker = new MapPOIItem();
-        marker.setUserObject(url);
         marker.setItemName(markername); // 마커 클릭 시 컨테이너에 담길 내용
         marker.setMapPoint(mapPoint);
         // 기본으로 제공하는 BluePin 마커 모양.
@@ -622,6 +632,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                     myAdatpter.notifyDataSetChanged();
                 }
             }
+
             @Override
             public void onFailure(Call<CategoryResult> call, Throwable t) {
 
@@ -661,24 +672,40 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             public void onClick(DialogInterface dialogInterface, int i) {
                 cafeList.clear();
                 restaurantList.clear();
-                Log.i("subin","ㅋ: "+saveurl);
                 //CharSequence[] items
                 if (i == 0) {
                     //그 주변 음식점 가져오기
                     mapView.removeAllPOIItems();
+                    Log.i("subin", "이름:" + mapPOIItem.getItemName());
                     SearchRestaurant(lng, lat, String.valueOf(radius));
-                    Log.i("subin","ㅋㅋ: "+saveurl);
+                    Log.i("subin", "ㅋㅋ: " + saveurl);
                 } else if (i == 1) {
                     mapView.removeAllPOIItems();
                     //그 주변 카페 가져오기
+                    Log.i("subin", "이름:" + mapPOIItem.getItemName());
                     SearchCafe(lng, lat, String.valueOf(radius));
-                    Log.i("subin","ㅋㅋㅋ: "+saveurl);
+                    Log.i("subin", "ㅋㅋㅋ: " + saveurl);
                 } else if (i == 2) {
-                    //장소 정보 보여주기
-                    Log.i("subin","ㅋㅋㅋㅋ: "+saveurl);
-                    Toast.makeText(getApplicationContext(), items[2], Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(FindActivity.this, StoreInfoActivity.class);
-                    startActivity(intent);
+                    //장소 정보 보여주기 링크값 보내기
+                    KakaoAPIService kakaoAPIService = KakaoAPIClient.getApiService();
+                    Call<CategoryResult> call = kakaoAPIService.getSearchLocationDetail(API_KEY, mapPOIItem.getItemName(), lng, lat, 1);
+                    call.enqueue(new Callback<CategoryResult>() {
+                        @Override
+                        public void onResponse(@NotNull Call<CategoryResult> call, @NotNull Response<CategoryResult> response) {
+                            if (response.isSuccessful()) {
+                                Intent intent = new Intent(FindActivity.this, StoreInfoActivity.class);
+                                assert response.body() != null;
+                                intent.putExtra("10", response.body().getDocuments().get(0));
+                                startActivity(intent);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<CategoryResult> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "해당장소에 대한 상세정보는 없습니다.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(FindActivity.this, StoreInfoActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
                 dialogInterface.dismiss();
             }
@@ -735,16 +762,24 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         Log.i("subin", "x " + i + " : " + jsonObject.get("x"));
                         Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
 
-                        CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()),R.drawable.rest, String.valueOf(jsonObject.get("place_url")));
+                        CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()), R.drawable.rest);
+//                        Log.i("subin", "place_url " + i + " : " + jsonObject.get("place_url"));
+//                        SharedPreferences.Editor editor=preferences.edit();
+//                        editor.putString("resturl",jsonObject.get("place_url").toString());
+//                        editor.apply();
+//                        editor.commit();
+//                        Log.i("subin","resturl"+preferences.getString("resturl,","실패"));
 
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
                 mapView.setCurrentLocationRadius(Integer.parseInt(radius));
                 mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
                 mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
             }
+
             @Override
             public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
                 Log.i("subin", "rest 연결실패 : " + t.getMessage());
@@ -790,7 +825,8 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         Log.i("subin", "x " + i + " : " + jsonObject.get("x"));
                         Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
 
-                        CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()),R.drawable.cafe, String.valueOf(jsonObject.get("place_url")));
+                        CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()), R.drawable.cafe);
+
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -799,6 +835,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
                 mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
             }
+
             @Override
             public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
                 Log.i("subin", "cafe 연결실패 : " + t.getMessage());

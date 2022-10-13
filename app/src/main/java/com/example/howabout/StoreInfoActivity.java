@@ -2,12 +2,15 @@ package com.example.howabout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;;
+import android.webkit.WebViewClient;;import com.example.howabout.category_search.Document;
+
+import java.net.URL;
 
 
 public class StoreInfoActivity extends AppCompatActivity {
@@ -20,12 +23,15 @@ public class StoreInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_info);
 
+        Intent intent=getIntent();
+        Document document=intent.getParcelableExtra("10");
+        String url=document.getPlaceUrl();
         //xml 연결
         webView = findViewById(R.id.web_store);
         //자바스트립트 허용
         webView.getSettings().setJavaScriptEnabled(true);
         //웹뷰 실행 Url 적용
-        webView.loadUrl("https://place.map.kakao.com/10487761");
+        webView.loadUrl(url);
         //크롬 실행 가능
         webView.setWebChromeClient(new WebChromeClient());
         //기존창에 실행

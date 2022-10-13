@@ -13,4 +13,14 @@ public interface KakaoAPIService {
             @Header("Authorization") String key,//카카오 api 인증키
             @Query("query") String query //검색을 원하는 질의어
     );
- }
+    //장소이름으로 특정위치기준으로 검색
+    @GET("v2/local/search/keyword.json")
+    Call<CategoryResult> getSearchLocationDetail(
+            @Header("Authorization") String token,
+            @Query("query") String query,
+            @Query("x") String x,
+            @Query("y") String y,
+            @Query("size") int size
+    );
+
+}
