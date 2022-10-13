@@ -132,18 +132,13 @@ public class MyPageActivity extends AppCompatActivity implements Serializable {
                 }else if(user.getGender()==0){
                     myGender.setText("여자");
                 }
-
             }
             @Override
             public void onFailure(Call<UserVo> call, Throwable t) {
                 Log.e("leehj","post response 실패: "+t);
             }
         });
-
-
         //``````````````` 마이페이지 정보 가지고 오기 END ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 
         //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  회원 탈퇴 BUTTON ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         findViewById(R.id.withdrawal).setOnClickListener(new View.OnClickListener() {

@@ -8,6 +8,11 @@
     android:orientation="vertical"
     tools:context=".MyPageActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,8 +20,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:background="#ff5757"
+            >
 
             <ImageButton
                 android:id="@+id/btn_open"
@@ -25,62 +31,59 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#FFF"
-                android:src="@drawable/ic_baseline_dehaze_24" />
+                android:backgroundTint="#FF5757"
+                android:src="@drawable/ic_baseline_dehaze" />
 
-            <ImageView
-                android:layout_width="150dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/howabout_logo" />
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="회원정보수정"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="3"
-            android:background="@drawable/edge_black"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:background="#EEEEEE"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="2">
+                android:paddingTop="30dp"
+                android:background="#fff">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="정보 수정"
-                    android:textSize="30dp"
-                    android:gravity="center"
-                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:text="닉네임 "
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        />
+                        android:gravity="center_vertical"
+                        android:text="닉네임"
+                        android:textSize="15dp" />
+
                     <EditText
                         android:id="@+id/update_etNick"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
+                        android:background="@drawable/edge_gray"
                         android:gravity="center"
                         android:padding="10dp"
                         android:textSize="18dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -88,45 +91,47 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
+                        android:gravity="center_vertical"
                         android:text="아이디 "
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        />
+                        android:textSize="15dp" />
+
                     <EditText
                         android:id="@+id/update_etId"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
+                        android:background="@drawable/edge_gray"
+                        android:enabled="false"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:enabled="false"
                         android:textSize="18dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    >
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
+                        android:gravity="center_vertical"
                         android:text="비밀번호 "
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        />
+                        android:textSize="15dp" />
+
                     <EditText
                         android:id="@+id/update_etPW"
-                        android:inputType="textPassword"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
+                        android:background="@drawable/edge_gray"
                         android:gravity="center"
+                        android:inputType="textPassword"
                         android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
@@ -136,21 +141,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:text="재확인 비밀번호 "
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        />
+                        android:gravity="center_vertical"
+                        android:text="비밀번호 확인 "
+                        android:textSize="15dp" />
+
                     <EditText
                         android:id="@+id/update_etRePW"
-                        android:inputType="textPassword"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
+                        android:background="@drawable/edge_gray"
                         android:gravity="center"
+                        android:inputType="textPassword"
                         android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
@@ -160,29 +166,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
+                        android:gravity="center_vertical"
                         android:text="성별 "
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        />
+                        android:textSize="15dp" />
+
                     <RadioGroup
+                        android:id="@+id/radioGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:id="@+id/radioGender"
                         android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/radio_man"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:layout_marginEnd="80dp"
-
                             android:text="남자" />
 
                         <RadioButton
@@ -199,61 +203,63 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:text="생년월일  "
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        />
+                        android:gravity="center_vertical"
+                        android:text="생년월일"
+                        android:textSize="15dp" />
+
                     <EditText
                         android:id="@+id/update_etBirth"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
+                        android:background="@drawable/edge_gray"
+                        android:focusable="false"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:textSize="18dp"
-                        android:focusable="false"/>
-
-
+                        android:textSize="18dp" />
 
                 </LinearLayout>
 
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/update_btnCheck"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:backgroundTint="#ff5757"
-                    android:text="수정하기" />
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="50dp"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/update_btnBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:backgroundTint="#ff5757"
-                    android:text="돌아가기" />
-                />
+                    <Button
+                        android:id="@+id/update_btnCheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:backgroundTint="#ff5757"
+                        android:text="수정하기" />
 
+                    <Button
+                        android:id="@+id/update_btnBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:backgroundTint="#ff5757"
+                        android:text="돌아가기" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/howaboutlogo" />
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"/>
+
     </LinearLayout>
+    </ScrollView>
 
     <include layout="@layout/sidebar" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

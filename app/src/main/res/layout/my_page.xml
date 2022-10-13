@@ -15,8 +15,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:background="#ff5757">
 
             <ImageButton
                 android:id="@+id/btn_open"
@@ -25,92 +25,96 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#FFF"
-                android:src="@drawable/ic_baseline_dehaze_24" />
+                android:backgroundTint="#FF5757"
+                android:src="@drawable/ic_baseline_dehaze" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="마이페이지"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                android:textStyle="bold" />
 
             <!--            <ImageView-->
-            <!--                android:id="@+id/image"-->
-            <!--                android:layout_width="100dp"-->
-            <!--                android:layout_height="100dp"-->
-            <!--                android:layout_centerInParent="true"-->
-            <!--                android:src="@drawable/user" />-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:gravity="center"-->
+            <!--                android:src="" />-->
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/howabout_logo" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="3"
-            android:background="@drawable/edge_black"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:background="#EEEEEE"
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="내 정보"
-                    android:textSize="30dp"
-                    android:gravity="center"
-                    />
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_margin="12dp"-->
+                <!--                    android:text="마이페이지"-->
+                <!--                    android:textSize="16dp"-->
+                <!--                    android:textStyle="bold" />-->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:text="닉네임 "
-                        android:gravity="center"
-                        android:textSize="20dp"
-                        />
+                        android:gravity="center_vertical"
+                        android:text="닉네임"
+                        android:textSize="16dp" />
+
                     <EditText
-                        android:layout_width="200dp"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:padding="10dp"
                         android:id="@+id/Et_nick"
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
                         android:enabled="false"
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:text="아이디 "
-                        android:gravity="center"
-                        android:textSize="20dp"
-                        />
+                        android:gravity="center_vertical"
+                        android:text="아이디"
+                        android:textSize="16dp" />
+
                     <EditText
-                        android:layout_width="200dp"
-                        android:layout_height="45dp"
-                        android:gravity="center"
                         android:id="@+id/Et_id"
-                        android:padding="10dp"
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
                         android:enabled="false"
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -119,22 +123,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:text="성별 "
-                        android:gravity="center"
-                        android:textSize="20dp"
-                        />
+                        android:gravity="center_vertical"
+                        android:text="성별"
+                        android:textSize="16dp" />
+
                     <EditText
-                        android:layout_width="200dp"
-                        android:layout_height="45dp"
-                        android:gravity="center"
                         android:id="@+id/Et_gender"
-                        android:padding="10dp"
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
                         android:enabled="false"
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -143,57 +147,61 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="45dp"
-                        android:text="생년월일  "
-                        android:gravity="center"
-                        android:textSize="20dp"
-                        />
+                        android:gravity="center_vertical"
+                        android:text="생년월일"
+                        android:textSize="16dp" />
+
                     <EditText
+                        android:id="@+id/Et_birth"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
-                        android:gravity="center"
-                        android:id="@+id/Et_birth"
-                        android:padding="10dp"
                         android:enabled="false"
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
 
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:layout_weight="0.7"
-                android:orientation="horizontal">
-                <Button
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:backgroundTint="#ff5757"
-                    android:id="@+id/editInfo"
-                    android:text="정보수정" />
+                    android:layout_marginTop="80dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/withdrawal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:backgroundTint="#ff5757"
-                    android:text="회원탈퇴" />
-                />
+                    <Button
+                        android:id="@+id/editInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:backgroundTint="#ff5757"
+                        android:text="정보수정" />
 
+                    <Button
+                        android:id="@+id/withdrawal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="#ff5757"
+                        android:text="회원탈퇴" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="140dp"
+                    android:src="@drawable/howaboutlogo" />
             </LinearLayout>
+
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"/>
     </LinearLayout>
 
     <include layout="@layout/sidebar" />
