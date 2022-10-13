@@ -28,13 +28,6 @@
                 android:backgroundTint="#FFF"
                 android:src="@drawable/ic_baseline_dehaze_24" />
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/image"-->
-            <!--                android:layout_width="100dp"-->
-            <!--                android:layout_height="100dp"-->
-            <!--                android:layout_centerInParent="true"-->
-            <!--                android:src="@drawable/user" />-->
-
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -44,10 +37,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="3"
             android:background="@drawable/edge_black"
             android:orientation="vertical">
@@ -62,14 +56,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="내 정보"
+                    android:text="정보 수정"
                     android:textSize="30dp"
                     android:gravity="center"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     >
@@ -78,15 +72,14 @@
                         android:layout_height="45dp"
                         android:text="닉네임 "
                         android:gravity="center"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         />
                     <EditText
+                        android:id="@+id/update_etNick"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:id="@+id/Et_nick"
-                        android:enabled="false"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -102,15 +95,63 @@
                         android:layout_height="45dp"
                         android:text="아이디 "
                         android:gravity="center"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         />
                     <EditText
+                        android:id="@+id/update_etId"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
                         android:gravity="center"
-                        android:id="@+id/Et_id"
                         android:padding="10dp"
                         android:enabled="false"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:text="비밀번호 "
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        />
+                    <EditText
+                        android:id="@+id/update_etPW"
+                        android:inputType="textPassword"
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:text="재확인 비밀번호 "
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        />
+                    <EditText
+                        android:id="@+id/update_etRePW"
+                        android:inputType="textPassword"
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -126,16 +167,31 @@
                         android:layout_height="45dp"
                         android:text="성별 "
                         android:gravity="center"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         />
-                    <EditText
-                        android:layout_width="200dp"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:id="@+id/Et_gender"
-                        android:padding="10dp"
-                        android:enabled="false"
-                        android:textSize="18dp" />
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/radioGender"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radio_man"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginEnd="80dp"
+
+                            android:text="남자" />
+
+                        <RadioButton
+                            android:id="@+id/radio_woman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="여자" />
+
+                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
@@ -150,16 +206,19 @@
                         android:layout_height="45dp"
                         android:text="생년월일  "
                         android:gravity="center"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         />
                     <EditText
+                        android:id="@+id/update_etBirth"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
                         android:gravity="center"
-                        android:id="@+id/Et_birth"
                         android:padding="10dp"
-                        android:enabled="false"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:focusable="false"/>
+
+
+
                 </LinearLayout>
 
 
@@ -168,24 +227,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:gravity="center"
-                android:layout_weight="0.7"
+                android:layout_weight="0.5"
                 android:orientation="horizontal">
                 <Button
+                    android:id="@+id/update_btnCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="10dp"
                     android:backgroundTint="#ff5757"
-                    android:id="@+id/editInfo"
-                    android:text="정보수정" />
+                    android:text="수정하기" />
 
                 <Button
-                    android:id="@+id/withdrawal"
+                    android:id="@+id/update_btnBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:backgroundTint="#ff5757"
-                    android:text="회원탈퇴" />
+                    android:text="돌아가기" />
                 />
 
             </LinearLayout>

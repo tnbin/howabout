@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    >
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,8 +76,13 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="5dp"
                 android:scaleType="centerCrop"
+                android:id="@+id/img_main"
+                android:background="@drawable/edge_circlemain"
                 android:src="@drawable/ex1" />
 
         </LinearLayout>
@@ -86,6 +90,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_weight="2"
             android:orientation="vertical">
 
@@ -95,23 +101,26 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/img_main1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="5dp"
                     android:layout_marginBottom="6dp"
                     android:layout_weight="1"
-                    android:layout_marginTop="6dp"
+                    android:background="@drawable/edge_circlemain"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ex1" />
+                    android:src="@drawable/rabbit" />
 
                 <Button
                     android:id="@+id/btn_popular"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#fff"
+                    android:background="@drawable/edge_circlemain"
                     android:text="인기 코스"
                     android:textColor="#000"
                     android:textSize="20dp" />
@@ -128,23 +137,25 @@
                     android:id="@+id/btn_find"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#fff"
+                    android:background="@drawable/edge_circlemain"
                     android:text="코스 찾기"
-                    android:layout_marginBottom="4dp"
                     android:textColor="#000"
                     android:textSize="20dp" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/img_main2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
-                    android:layout_marginTop="6dp"
+                    android:background="@drawable/edge_circlemain"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ex2" />
+                    android:src="@drawable/rabbit" />
             </LinearLayout>
 
         </LinearLayout>

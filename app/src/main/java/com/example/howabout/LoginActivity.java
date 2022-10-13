@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText ed_loid = findViewById(R.id.ed_loid);
         EditText ed_lopw = findViewById(R.id.ed_lopw);
 
-        preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+
 
         Button btn_regist = findViewById(R.id.btn_registin);
         btn_regist.setOnClickListener(new View.OnClickListener() {
@@ -62,12 +62,13 @@ public class LoginActivity extends AppCompatActivity {
                         String msg = job.getMsg();
                         String nick = job.getUserVo().getU_nick();
 
+                        preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("userinfo", job.getUserVo().toString());
+                        editor.putString("u_id", job.getUserVo().getU_id());
+                        editor.putString("u_nick",job.getUserVo().getU_nick());
 
                         editor.commit();
 
-                        getPreferences();
                         try {
                             if (job.getSuccess() == 1) {
                                 Toast.makeText(LoginActivity.this, nick + "님 환영합니다", Toast.LENGTH_SHORT).show();
@@ -90,10 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    private void getPreferences() {
-        Log.i("subin", "USERINFO: " + preferences.getString("userinfo", ""));
     }
 
 }

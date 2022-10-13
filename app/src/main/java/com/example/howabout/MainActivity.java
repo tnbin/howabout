@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
     Button btn_login;
     ImageButton btn_mypage;
     ImageButton btn_mycource1;
-    final static int REQUEST_CODE_START_INPUT=1;
+    ImageView img_main;
+    ImageButton img_main1;
+    ImageButton img_main2;
+    final static int REQUEST_CODE_START_INPUT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,14 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
 
+        img_main = findViewById(R.id.img_main);
+        img_main.setClipToOutline(true);
 
+        img_main1 = findViewById(R.id.img_main1);
+        img_main1.setClipToOutline(true);
+
+        img_main2 = findViewById(R.id.img_main2);
+        img_main2.setClipToOutline(true);
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        Button btn_courcebar=findViewById(R.id.btn_courcebar);
+        Button btn_courcebar = findViewById(R.id.btn_courcebar);
         btn_courcebar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentc=new Intent(MainActivity.this,FindActivity.class);
+                Intent intentc = new Intent(MainActivity.this, FindActivity.class);
                 startActivity(intentc);
             }
         });
@@ -88,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmp=new Intent(MainActivity.this,MyPageActivity.class);
+                Intent intentmp = new Intent(MainActivity.this, MyPageActivity.class);
                 startActivity(intentmp);
             }
         });
@@ -97,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Intent intentmc=new Intent(MainActivity.this,MyCourseActivity.class);
+                Intent intentmc = new Intent(MainActivity.this, MyCourseActivity.class);
                 startActivity(intentmc);
             }
         });
@@ -107,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
-                startActivityForResult(intentl,REQUEST_CODE_START_INPUT);
+                startActivityForResult(intentl, REQUEST_CODE_START_INPUT);
             }
         });
 
@@ -119,40 +130,53 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentmp);
             }
         });
-        btn_mycource1=findViewById(R.id.btn_mycource1);
+        btn_mycource1 = findViewById(R.id.btn_mycource1);
         btn_mycource1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentmc=new Intent(MainActivity.this,MyCourseActivity.class);
+                Intent intentmc = new Intent(MainActivity.this, MyCourseActivity.class);
                 startActivity(intentmc);
             }
         });
-        Button btn_popular=findViewById(R.id.btn_popular);
+        Button btn_popular = findViewById(R.id.btn_popular);
+        btn_popular.setClipToOutline(true);
         btn_popular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentpo=new Intent(MainActivity.this,PopularActivity.class);
+                Intent intentpo = new Intent(MainActivity.this, PopularActivity.class);
                 startActivity(intentpo);
             }
         });
-        Button btn_find=findViewById(R.id.btn_find);
+        Button btn_find = findViewById(R.id.btn_find);
+        btn_find.setClipToOutline(true);
         btn_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentf=new Intent(MainActivity.this,FindActivity.class);
+                Intent intentf = new Intent(MainActivity.this, FindActivity.class);
                 startActivity(intentf);
             }
         });
-
+        img_main1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"안녕",Toast.LENGTH_SHORT).show();
+            }
+        });
+        img_main2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"하세요",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==REQUEST_CODE_START_INPUT){
-            if (resultCode==RESULT_OK){
-                Log.i("subin","///////////////////////정보전달");
+        if (requestCode == REQUEST_CODE_START_INPUT) {
+            if (resultCode == RESULT_OK) {
+                Log.i("subin", "///////////////////////정보전달");
                 btn_login.setVisibility(View.INVISIBLE);
                 btn_mycource1.setVisibility(View.VISIBLE);
                 btn_mypage.setVisibility(View.VISIBLE);

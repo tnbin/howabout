@@ -3,7 +3,9 @@ package com.example.howabout.Vo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserVo {
+import java.io.Serializable;
+
+public class UserVo implements Serializable {
 
     public UserVo(String u_nick, String u_id, String u_pw, String birth, Integer gender) {
         this.u_nick = u_nick;

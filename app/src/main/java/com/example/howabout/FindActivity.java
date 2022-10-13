@@ -14,7 +14,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -53,7 +52,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 
 import java.util.ArrayList;
 
@@ -97,8 +95,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     Bus bus = BusProvider.getInstance();
     //마커
     MapPOIItem searchMarker = new MapPOIItem();
-    String saveurl;
-    SharedPreferences preferences;
+//    SharedPreferences preferences;
     //카페,음식점
     ArrayList<JSONObject> cafeList = new ArrayList<JSONObject>();  //CE7 카페
     ArrayList<JSONObject> restaurantList = new ArrayList<JSONObject>(); //FD6 음식점
@@ -198,7 +195,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         mapView.setCurrentLocationEventListener(this);
         mapView.setMapViewEventListener(this);
         mapView.setPOIItemEventListener(this);
-        preferences = getSharedPreferences("URL", MODE_PRIVATE);
+//        preferences = getSharedPreferences("URL", MODE_PRIVATE);
         //현재위치 받아오는 버튼
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,7 +293,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         switch (id) {
             case R.id.fab:
                 anim();
-                Toast.makeText(this, "Floating Action Button", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "1.검색 버튼 2. 현재위치 버튼 ", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab1:
                 anim();
@@ -355,13 +352,11 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     //일반 마커
     public void MapMarker(String MakerName, double startX, double startY) {
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(startY, startX);
-        int tag = 0;
         mapView.setMapCenterPoint(mapPoint, true);
         //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName(MakerName); // 마커 클릭 시 컨테이너에 담길 내용
         marker.setMapPoint(mapPoint);
-        marker.setTag(tag++);
         // 기본으로 제공하는 BluePin 마커 모양.
         marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
         // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
@@ -678,15 +673,14 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                     mapView.removeAllPOIItems();
                     Log.i("subin", "이름:" + mapPOIItem.getItemName());
                     SearchRestaurant(lng, lat, String.valueOf(radius));
-                    Log.i("subin", "ㅋㅋ: " + saveurl);
                 } else if (i == 1) {
                     mapView.removeAllPOIItems();
                     //그 주변 카페 가져오기
                     Log.i("subin", "이름:" + mapPOIItem.getItemName());
                     SearchCafe(lng, lat, String.valueOf(radius));
-                    Log.i("subin", "ㅋㅋㅋ: " + saveurl);
                 } else if (i == 2) {
-                    //장소 정보 보여주기 링크값 보내기
+//                    장소 정보 보여주기 링크값 보내기
+                    String API_KEY = "KakaoAK f33950708cffc6664e99ac21489fd117";
                     KakaoAPIService kakaoAPIService = KakaoAPIClient.getApiService();
                     Call<CategoryResult> call = kakaoAPIService.getSearchLocationDetail(API_KEY, mapPOIItem.getItemName(), lng, lat, 1);
                     call.enqueue(new Callback<CategoryResult>() {
@@ -741,9 +735,11 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             @Override
             public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
 
+                Log.i("subin","연결성공?");
                 restaurantList = response.body();
 
                 String rest = restaurantList.get(0).toJSONString();
+                Log.e("leehj", "restaurantList toString result: "+rest);
 
                 JSONParser parser = new JSONParser();
                 JSONObject jsonObj = null;
@@ -763,21 +759,10 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
 
                         CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()), R.drawable.rest);
-//                        Log.i("subin", "place_url " + i + " : " + jsonObject.get("place_url"));
-//                        SharedPreferences.Editor editor=preferences.edit();
-//                        editor.putString("resturl",jsonObject.get("place_url").toString());
-//                        editor.apply();
-//                        editor.commit();
-//                        Log.i("subin","resturl"+preferences.getString("resturl,","실패"));
-
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                mapView.setCurrentLocationRadius(Integer.parseInt(radius));
-                mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
-                mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
             }
 
             @Override
@@ -826,14 +811,10 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                         Log.i("subin", "y " + i + " : " + jsonObject.get("y"));
 
                         CustomMarker(jsonObject.get("place_name").toString(), Double.parseDouble(jsonObject.get("x").toString()), Double.parseDouble(jsonObject.get("y").toString()), R.drawable.cafe);
-
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                mapView.setCurrentLocationRadius(Integer.parseInt(radius));
-                mapView.setCurrentLocationRadiusStrokeColor(Color.argb(128, 255, 87, 87));
-                mapView.setCurrentLocationRadiusFillColor(Color.argb(0, 0, 0, 0));
             }
 
             @Override

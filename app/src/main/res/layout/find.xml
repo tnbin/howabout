@@ -34,7 +34,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/edge_fullcircle"
                 android:hint="검색할 장소를 입력해주세요  "
+                android:padding="11dp"
+                android:textSize="17dp"
                 android:textColorHighlight="#EC9393"
                 android:textCursorDrawable="@drawable/cursor"
                 android:textSelectHandle="@drawable/select_handler"
@@ -57,13 +60,13 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <RelativeLayout
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
+                android:layout_height="match_parent"  />
 
             <SeekBar
                 android:id="@+id/seekbar"

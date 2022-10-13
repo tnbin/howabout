@@ -16,6 +16,9 @@
         android:theme="@style/Theme.HowAbout"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UpdateInfo"
+            android:exported="false" />
+        <activity
             android:name=".StoreInfoActivity"
             android:exported="false" />
         <activity
