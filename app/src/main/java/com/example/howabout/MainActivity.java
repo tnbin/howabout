@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -25,22 +28,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.howabout.Fragment.FragMyAdapter;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import me.relex.circleindicator.CircleIndicator3;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
+    //drawer
     DrawerLayout drawerLayout;
     View drawerView;
+    //Button
     Button btn_login;
     ImageButton btn_mypage;
     ImageButton btn_mycource1;
-    ImageView img_main;
     ImageButton img_main1;
     ImageButton img_main2;
+    //login
     final static int REQUEST_CODE_START_INPUT = 1;
+    //viewpager
+    private ViewPager2 mPager;
+    private FragmentStateAdapter pagerAdapter;
+    private int num_page = 4;
+    private CircleIndicator3 mIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
-
-        img_main = findViewById(R.id.img_main);
-        img_main.setClipToOutline(true);
 
         img_main1 = findViewById(R.id.img_main1);
         img_main1.setClipToOutline(true);
@@ -138,6 +148,38 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentmc);
             }
         });
+        //ViewPager2
+        mPager = findViewById(R.id.viewpager);
+        //Adapter
+        pagerAdapter = new FragMyAdapter(this, num_page);
+        mPager.setAdapter(pagerAdapter);
+        //Indicator
+        mIndicator = findViewById(R.id.indicator);
+        mIndicator.setViewPager(mPager);
+        mIndicator.createIndicators(num_page, 0);
+        //ViewPager Setting
+        mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        mPager.setCurrentItem(1000);
+        mPager.setOffscreenPageLimit(3);
+
+        mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                if (positionOffsetPixels == 0) {
+                    mPager.setCurrentItem(position);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                mIndicator.animatePageSelected(position % num_page);
+            }
+
+        });
+
+        //intent button
         Button btn_popular = findViewById(R.id.btn_popular);
         btn_popular.setClipToOutline(true);
         btn_popular.setOnClickListener(new View.OnClickListener() {
@@ -159,15 +201,16 @@ public class MainActivity extends AppCompatActivity {
         img_main1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"안녕",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "안녕", Toast.LENGTH_SHORT).show();
             }
         });
         img_main2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"하세요",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "하세요", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @Override

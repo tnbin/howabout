@@ -35,14 +35,20 @@
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/seekbar_seekbar1.xml" value="0.1" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable/select_handler.xml" value="0.1" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/activity_main2.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/course_info.xml" value="0.2" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/ex.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/find.xml" value="0.2" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/fragment_1.xml" value="0.2" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/fragment_2.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/fragment_3.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/fragment_4.xml" value="0.2" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/fragment_main.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/item_location.xml" value="0.4" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/login.xml" value="0.264" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/loginxml.xml" value="0.2390625" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/logon2.xml" value="0.2" />
-        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/main.xml" value="0.264" />
+        <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/main.xml" value="0.16" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/menu_bar.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/my_course.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/layout/my_page.xml" value="0.264" />

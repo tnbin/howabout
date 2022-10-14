@@ -172,14 +172,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <Button
                         android:id="@+id/editInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
                         android:backgroundTint="#ff5757"
                         android:text="정보수정" />
 
@@ -188,17 +187,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:backgroundTint="#ff5757"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="#D8D0D0"
                         android:text="회원탈퇴" />
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="140dp"
-                    android:src="@drawable/howaboutlogo" />
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="140dp"-->
+<!--                    android:src="@drawable/howaboutlogo" />-->
             </LinearLayout>
 
         </LinearLayout>

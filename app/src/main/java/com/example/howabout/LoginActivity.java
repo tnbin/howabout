@@ -62,16 +62,17 @@ public class LoginActivity extends AppCompatActivity {
                         String msg = job.getMsg();
                         String nick = job.getUserVo().getU_nick();
 
-                        preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("u_id", job.getUserVo().getU_id());
-                        editor.putString("u_nick",job.getUserVo().getU_nick());
-
-                        editor.commit();
-
                         try {
                             if (job.getSuccess() == 1) {
                                 Toast.makeText(LoginActivity.this, nick + "님 환영합니다", Toast.LENGTH_SHORT).show();
+
+                                preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("u_id", job.getUserVo().getU_id());
+                                editor.putString("u_nick",job.getUserVo().getU_nick());
+
+                                editor.commit();
+
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 setResult(RESULT_OK, intent);
                                 finish();

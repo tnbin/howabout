@@ -17,24 +17,31 @@ import retrofit2.http.POST;
 
 public interface RetrofitAPI {
 
+    //아이디 중복 여부
     @POST("/login/signUp/idCheck")
     Call<Integer> idcheck(@Body IdVo idcheck);
 
+    //닉네임 중복 여부
     @POST("/login/signUp/nickCheck")
     Call<Integer> nickcheck(@Body NickNameVo nickNameVo);
 
+    //회원가입 성공 여부
     @POST("/login/signUp")
     Call<Integer> all(@Body UserVo userVo);
 
+    //로그인 성공 여부
     @POST("/login/signIn")
     Call<signInVo> login(@Body UserVo userVo);
 
+    //안드로이드 위치 서버로 보내기
     @POST("/findCourse/location")
     Call<Integer> restcource(@Body ArrayList<JSONObject> arrayList);
 
+    //근처 음식점 정보 받아오기
     @POST("/findCourse/rest")
     Call<ArrayList<JSONObject>> rest(@Body ArrayList<JSONObject> arrayList);
 
+    //근처 카페 정보 받아오기
     @POST("/findCourse/cafe")
     Call<ArrayList<JSONObject>> cafe(@Body ArrayList<JSONObject> arrayList);
 
