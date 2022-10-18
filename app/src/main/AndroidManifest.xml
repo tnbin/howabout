@@ -28,7 +28,7 @@
             android:name=".MyPageActivity"
             android:exported="false" />
         <activity
-            android:name=".PopularActivity"
+            android:name=".popular.PopularActivity"
             android:exported="false" />
         <activity
             android:name=".FindActivity"

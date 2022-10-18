@@ -13,6 +13,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RetrofitAPI {
@@ -63,5 +64,8 @@ public interface RetrofitAPI {
     //비밀번호 확인
     @POST("/myPage/myInfo/CheckPW")
     Call<Integer> checkPW(@Body List jsonList);
+
+    @GET("/popularCourse/getDo")
+    Call<ArrayList<String>> getDo();
 
 }

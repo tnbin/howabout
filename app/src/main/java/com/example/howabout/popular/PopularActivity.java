@@ -1,4 +1,4 @@
-package com.example.howabout;
+package com.example.howabout.popular;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import com.example.howabout.FindActivity;
+import com.example.howabout.MainActivity;
+import com.example.howabout.MyCourseActivity;
+import com.example.howabout.R;
 
 public class PopularActivity extends AppCompatActivity {
 
@@ -75,6 +79,31 @@ public class PopularActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
                 Intent intentmc = new Intent(PopularActivity.this, MyCourseActivity.class);
                 startActivity(intentmc);
+            }
+        });
+        Button btn_gender = findViewById(R.id.btn_gender);
+        final BottomSheet_gender bottomSheet_gender = new BottomSheet_gender(getApplicationContext());
+
+        btn_gender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheet_gender.show(getSupportFragmentManager(), bottomSheet_gender.getTag());
+            }
+        });
+        Button btn_age=findViewById(R.id.btn_age);
+        final BottomSheet_age bottomSheet_age=new BottomSheet_age(getApplicationContext());
+        btn_age.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheet_age.show(getSupportFragmentManager(),bottomSheet_age.getTag());
+            }
+        });
+        Button btn_region=findViewById(R.id.btn_region);
+        final BottomSheet_region bottomSheet_region =new BottomSheet_region(getApplicationContext());
+        btn_region.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheet_region.show(getSupportFragmentManager(),bottomSheet_region.getTag());
             }
         });
     }
