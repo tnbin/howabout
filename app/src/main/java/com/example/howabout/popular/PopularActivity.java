@@ -100,25 +100,24 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bottomSheet_age.show(getSupportFragmentManager(),bottomSheet_age.getTag());
-                preferences = view.getContext().getSharedPreferences("age", MODE_PRIVATE);
-//                Log.i("subin",preferences.getString("p_age","x"));
-                btn_age.setText(preferences.getString("p_age","나이"));
             }
         });
-//        Log.i("subin","///////////////"+preferences.getString("p_age","x"));
-
-//        try {
-//            btn_age.setText(preferences.getString("p_age","나이"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         Button btn_region=findViewById(R.id.btn_region);
         final BottomSheet_region bottomSheet_region =new BottomSheet_region(getApplicationContext());
         btn_region.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bottomSheet_region.show(getSupportFragmentManager(),bottomSheet_region.getTag());
+            }
+        });
+        //검색
+        Button btn_casearch=findViewById(R.id.btn_casearch);
+        btn_casearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences =getSharedPreferences("age", MODE_PRIVATE);
+//                Log.i("subin",preferences.getString("p_age","x"));
+                btn_age.setText(preferences.getString("p_age","나이"));
             }
         });
     }

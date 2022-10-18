@@ -25,6 +25,7 @@ public class BottomSheet_age extends BottomSheetDialogFragment {
     Context context;
     String age=null;
     SharedPreferences preferences;
+
     public BottomSheet_age(Context context) {
         this.context = context;
     }
@@ -67,16 +68,27 @@ public class BottomSheet_age extends BottomSheetDialogFragment {
                         age="50대";
                         break;
                 }
+            }
+        });
+        Button select_age=view.findViewById(R.id.select_age);
+        Button btn_age=getActivity().findViewById(R.id.btn_age);
+
+        select_age.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Log.i("subin","age값 : "+age);
+                btn_age.setText(age);
                 preferences = context.getSharedPreferences("age", MODE_PRIVATE);
                 SharedPreferences.Editor edit = preferences.edit();
                 edit.putString("p_age",age);
                 edit.apply();
                 edit.commit();
                 Log.i("subin",preferences.getString("p_age","x"));
+                dismissAllowingStateLoss();
+
             }
         });
-
         return view;
     }
+
 }
