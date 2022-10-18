@@ -64,8 +64,11 @@ public interface RetrofitAPI {
     //비밀번호 확인
     @POST("/myPage/myInfo/CheckPW")
     Call<Integer> checkPW(@Body List jsonList);
-
+    //DB에서 ‘도’ 를 반환
     @GET("/popularCourse/getDo")
     Call<ArrayList<String>> getDo();
+    //DB에서 ‘도’ 기반 ‘시’ 를 반환
+    @POST("/popularCourse/getSi")
+    Call<ArrayList<String>>getSi(@Body String getsi);
 
 }

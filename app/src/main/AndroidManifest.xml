@@ -29,7 +29,7 @@
             android:exported="false" />
         <activity
             android:name=".popular.PopularActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".FindActivity"
             android:exported="false" />
