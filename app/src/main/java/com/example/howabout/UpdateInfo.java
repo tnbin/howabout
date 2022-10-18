@@ -91,8 +91,6 @@ public class UpdateInfo extends AppCompatActivity {
         //Radio클릭했을때 리스너
         R_gender.setOnCheckedChangeListener(check_gender);
 
-
-
         //생년월일 입력. birth EditText 클릭
         birth = (EditText) findViewById(R.id.update_etBirth);
         birth.setText(myInfo.getBirth());

@@ -1,11 +1,16 @@
 package com.example.howabout.popular;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -18,7 +23,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomSheet_age extends BottomSheetDialogFragment {
     Context context;
-
+    String age=null;
+    SharedPreferences preferences;
     public BottomSheet_age(Context context) {
         this.context = context;
     }
@@ -37,22 +43,37 @@ public class BottomSheet_age extends BottomSheetDialogFragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
+                    case  -1:
+                        Toast.makeText(context,"취소",Toast.LENGTH_SHORT).show();
+                        return;
                     case R.id.age_10:
                         Toast.makeText(context,"10대",Toast.LENGTH_SHORT).show();
+                        age="10대";
                         break;
                     case R.id.age_20:
                         Toast.makeText(context,"20대",Toast.LENGTH_SHORT).show();
+                        age="20대";
                         break;
                     case R.id.age_30:
                         Toast.makeText(context,"30대",Toast.LENGTH_SHORT).show();
+                        age="30대";
                         break;
                     case R.id.age_40:
                         Toast.makeText(context,"40대",Toast.LENGTH_SHORT).show();
+                        age="40대";
                         break;
                     case R.id.age_50:
                         Toast.makeText(context,"50대 이상",Toast.LENGTH_SHORT).show();
+                        age="50대";
                         break;
                 }
+                Log.i("subin","age값 : "+age);
+                preferences = context.getSharedPreferences("age", MODE_PRIVATE);
+                SharedPreferences.Editor edit = preferences.edit();
+                edit.putString("p_age",age);
+                edit.apply();
+                edit.commit();
+                Log.i("subin",preferences.getString("p_age","x"));
             }
         });
 

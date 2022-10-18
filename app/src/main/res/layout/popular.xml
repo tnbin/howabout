@@ -23,27 +23,10 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFF"
                 android:src="@drawable/ic_baseline_dehaze_24" />
-
-            <androidx.appcompat.widget.SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:closeIcon="@drawable/ic_baseline_clear_24"
-                app:iconifiedByDefault="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:queryHint="검색어를 입력하시오"
-                app:searchIcon="@drawable/ic_baseline_search_24" />
-
         </RelativeLayout>
 
         <LinearLayout

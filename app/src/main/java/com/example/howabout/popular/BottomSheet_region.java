@@ -85,7 +85,6 @@ public class BottomSheet_region extends BottomSheetDialogFragment {
                                     }
                                 });
                             }
-
                             @Override
                             public void onFailure(Call<ArrayList<String>> call, Throwable t) {
                                 Log.i("subin","si sever 연결 실패"+t.getMessage());
@@ -94,7 +93,6 @@ public class BottomSheet_region extends BottomSheetDialogFragment {
                     }
                 });
             }
-
             @Override
             public void onFailure(Call<ArrayList<String>> call, Throwable t) {
                 Log.i("subin","연결실패"+t.getMessage());

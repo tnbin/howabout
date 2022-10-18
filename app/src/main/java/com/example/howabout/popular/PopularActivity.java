@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +21,7 @@ import com.example.howabout.R;
 public class PopularActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
-
+    SharedPreferences preferences;
     View drawerView;
 
     @Override
@@ -88,16 +90,29 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bottomSheet_gender.show(getSupportFragmentManager(), bottomSheet_gender.getTag());
+
             }
         });
         Button btn_age=findViewById(R.id.btn_age);
+//        Log.i("subin","///////////////"+preferences.getString("p_age","x"));
         final BottomSheet_age bottomSheet_age=new BottomSheet_age(getApplicationContext());
         btn_age.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bottomSheet_age.show(getSupportFragmentManager(),bottomSheet_age.getTag());
+                preferences = view.getContext().getSharedPreferences("age", MODE_PRIVATE);
+//                Log.i("subin",preferences.getString("p_age","x"));
+                btn_age.setText(preferences.getString("p_age","나이"));
             }
         });
+//        Log.i("subin","///////////////"+preferences.getString("p_age","x"));
+
+//        try {
+//            btn_age.setText(preferences.getString("p_age","나이"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         Button btn_region=findViewById(R.id.btn_region);
         final BottomSheet_region bottomSheet_region =new BottomSheet_region(getApplicationContext());
         btn_region.setOnClickListener(new View.OnClickListener() {
