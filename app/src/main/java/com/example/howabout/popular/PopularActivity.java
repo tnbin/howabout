@@ -116,8 +116,9 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 preferences =getSharedPreferences("age", MODE_PRIVATE);
+                preferences =getSharedPreferences("gender", MODE_PRIVATE);
 //                Log.i("subin",preferences.getString("p_age","x"));
-                btn_age.setText(preferences.getString("p_age","나이"));
+
             }
         });
     }

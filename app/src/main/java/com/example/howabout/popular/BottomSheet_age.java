@@ -85,7 +85,6 @@ public class BottomSheet_age extends BottomSheetDialogFragment {
                 edit.commit();
                 Log.i("subin",preferences.getString("p_age","x"));
                 dismissAllowingStateLoss();
-
             }
         });
         return view;
