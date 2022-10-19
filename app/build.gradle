@@ -50,5 +50,9 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
     //bottonsheet
     implementation 'com.google.android.material:material:1.1.0'
+    //imagebutton
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+    //glid 이미지 불러오기
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 }

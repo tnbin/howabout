@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.example.howabout.API.RetrofitClient;
 import com.example.howabout.FindActivity;
@@ -23,6 +24,7 @@ import com.example.howabout.R;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +35,12 @@ public class PopularActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     SharedPreferences preferences;
     View drawerView;
+    ListView listView;
+    PopularAdapter popularAdapter;
+    ArrayList<Popular_item> popular_items;
+    List<String> chaeyeon=new ArrayList<>();
+    List<String> textlist=new ArrayList<>();
+    Popular_item popular_item;
     //인기코스 리스트
     ArrayList<JSONObject>popularlist=new ArrayList<JSONObject>();
     @Override
@@ -135,6 +143,19 @@ public class PopularActivity extends AppCompatActivity {
                 popularcourse(gen,age,region_do,region_si);
             }
         });
+        popularAdapter=new PopularAdapter();
+        listView=findViewById(R.id.chaeyeon);
+        popular_items=new ArrayList<Popular_item>();
+        chaeyeon.add("https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F5353%2F2022%2F10%2F19%2F850007.jpg&type=ofullfill264_180_gray&expire=2&refresh=true");
+        textlist.add("hahaaha");
+        popular_item=new Popular_item();
+        popular_item.setPlace(textlist.get(0));
+        popular_item.setImage(chaeyeon.get(0));
+
+        popularAdapter.addItem(popular_item);
+        popularAdapter.notifyDataSetChanged();
+        listView.setAdapter(popularAdapter);
+
     }
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override

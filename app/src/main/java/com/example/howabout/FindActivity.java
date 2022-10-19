@@ -95,7 +95,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
     Bus bus = BusProvider.getInstance();
     //마커
     MapPOIItem searchMarker = new MapPOIItem();
-//    SharedPreferences preferences;
+    //    SharedPreferences preferences;
     //카페,음식점
     ArrayList<JSONObject> cafeList = new ArrayList<JSONObject>();  //CE7 카페
     ArrayList<JSONObject> restaurantList = new ArrayList<JSONObject>(); //FD6 음식점
