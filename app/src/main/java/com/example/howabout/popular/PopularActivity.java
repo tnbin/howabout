@@ -12,18 +12,29 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.example.howabout.API.RetrofitClient;
 import com.example.howabout.FindActivity;
 import com.example.howabout.MainActivity;
 import com.example.howabout.MyCourseActivity;
 import com.example.howabout.R;
+
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PopularActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     SharedPreferences preferences;
     View drawerView;
-
+    //인기코스 리스트
+    ArrayList<JSONObject>popularlist=new ArrayList<JSONObject>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +105,6 @@ public class PopularActivity extends AppCompatActivity {
             }
         });
         Button btn_age=findViewById(R.id.btn_age);
-//        Log.i("subin","///////////////"+preferences.getString("p_age","x"));
         final BottomSheet_age bottomSheet_age=new BottomSheet_age(getApplicationContext());
         btn_age.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,14 +125,17 @@ public class PopularActivity extends AppCompatActivity {
         btn_casearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferences =getSharedPreferences("age", MODE_PRIVATE);
-                preferences =getSharedPreferences("gender", MODE_PRIVATE);
-//                Log.i("subin",preferences.getString("p_age","x"));
+                preferences =getSharedPreferences("popular", MODE_PRIVATE);
+                Log.i("subin", preferences.getString("p_age", "x"));
+                String gen=preferences.getString("p_gender","x");
+                String age=preferences.getString("p_age","x");
+                String region_do=preferences.getString("do","x");
+                String region_si=preferences.getString("si","x");
 
+                popularcourse(gen,age,region_do,region_si);
             }
         });
     }
-
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -144,5 +157,30 @@ public class PopularActivity extends AppCompatActivity {
 
         }
     };
+    public void popularcourse(String gender,String age,String location_do,String location_si){
+        JSONObject popular=new JSONObject();
+        try {
+            popular.put("gender",gender);
+            popular.put("age",age);
+            popular.put("location_do",location_do);
+            popular.put("location_si",location_si);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayList<JSONObject> jsonObjectArrayList=new ArrayList<>();
+        jsonObjectArrayList.add(popular);
+        Call<ArrayList<JSONObject>> polcourse= RetrofitClient.getApiService().popular(jsonObjectArrayList);
+        polcourse.enqueue(new Callback<ArrayList<JSONObject>>() {
+            @Override
+            public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
+                popularlist=response.body();
+                Log.i("subin","popular sever 연결 성공"+popularlist);
+            }
 
+            @Override
+            public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
+                Log.i("subin","popular sever 연결 실패"+t.getMessage());
+            }
+        });
+    }
 }

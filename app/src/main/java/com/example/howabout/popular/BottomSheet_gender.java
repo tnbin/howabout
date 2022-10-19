@@ -21,7 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomSheet_gender extends BottomSheetDialogFragment {
     Context context;
-    String gender = null;
+    String gender = "전체";
     SharedPreferences preferences;
 
     public BottomSheet_gender(Context context) {
@@ -36,7 +36,7 @@ public class BottomSheet_gender extends BottomSheetDialogFragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.bottonsheet_gender, container, false);
-        preferences = context.getSharedPreferences("gender", Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences("popular", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         RadioGroup radioGroup_gender = view.findViewById(R.id.radiogroup_gender);
         radioGroup_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

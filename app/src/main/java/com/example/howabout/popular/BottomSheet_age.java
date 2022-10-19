@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomSheet_age extends BottomSheetDialogFragment {
     Context context;
-    String age = null;
+    String age = "전체";
     SharedPreferences preferences;
 
     public BottomSheet_age(Context context) {
@@ -38,7 +38,7 @@ public class BottomSheet_age extends BottomSheetDialogFragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.bottonsheet_age, container, false);
-        preferences = context.getSharedPreferences("age", MODE_PRIVATE);
+        preferences = context.getSharedPreferences("popular", MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         RadioGroup radioGroup_age = view.findViewById(R.id.radiogroup_age);
         radioGroup_age.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -66,7 +66,7 @@ public class BottomSheet_age extends BottomSheetDialogFragment {
                         break;
                     case R.id.age_50:
                         Toast.makeText(context, "50대 이상", Toast.LENGTH_SHORT).show();
-                        age = "50대";
+                        age = "50대 이상";
                         break;
                 }
             }

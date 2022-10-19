@@ -31,8 +31,8 @@ import retrofit2.Response;
 public class BottomSheet_region extends BottomSheetDialogFragment {
     Context context;
     ListView lv_si;
-    String dos = null;
-    String si = null;
+    String dos = "전체";
+    String si = "전체";
     SharedPreferences preferences;
 
     public BottomSheet_region(Context context) {
@@ -47,7 +47,7 @@ public class BottomSheet_region extends BottomSheetDialogFragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.bottonsheet_region, container, false);
-        preferences = context.getSharedPreferences("region", MODE_PRIVATE);
+        preferences = context.getSharedPreferences("popular", MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
 
         Call<ArrayList<String>> getdo = RetrofitClient.getApiService().getDo();
