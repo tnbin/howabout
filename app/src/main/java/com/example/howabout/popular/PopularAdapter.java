@@ -14,7 +14,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.howabout.R;
-import com.example.howabout.category_search.MyAdatpter;
 
 import java.util.ArrayList;
 
@@ -45,10 +44,9 @@ public class PopularAdapter extends BaseAdapter {
             view= inflater.inflate(R.layout.popular_item,viewGroup,false);
         }
 
-
         ImageView imageView=view.findViewById(R.id.popular_img);
         Glide.with(context).load(list.get(i).getImage()).apply(new RequestOptions().transforms(new CenterCrop(),
-                new RoundedCorners(13))).into(imageView);
+                new RoundedCorners(30))).into(imageView);
         TextView textView=view.findViewById(R.id.popular_text);
         textView.setText(list.get(i).getPlace());
         return view;

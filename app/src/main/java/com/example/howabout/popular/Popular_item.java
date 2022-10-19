@@ -1,7 +1,5 @@
 package com.example.howabout.popular;
 
-import android.graphics.drawable.Drawable;
-
 public class Popular_item {
 
     private String image;

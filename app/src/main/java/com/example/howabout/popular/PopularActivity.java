@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.howabout.API.RetrofitClient;
@@ -143,18 +142,18 @@ public class PopularActivity extends AppCompatActivity {
                 popularcourse(gen,age,region_do,region_si);
             }
         });
-        popularAdapter=new PopularAdapter();
-        listView=findViewById(R.id.chaeyeon);
-        popular_items=new ArrayList<Popular_item>();
-        chaeyeon.add("https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F5353%2F2022%2F10%2F19%2F850007.jpg&type=ofullfill264_180_gray&expire=2&refresh=true");
-        textlist.add("hahaaha");
-        popular_item=new Popular_item();
-        popular_item.setPlace(textlist.get(0));
-        popular_item.setImage(chaeyeon.get(0));
-
-        popularAdapter.addItem(popular_item);
-        popularAdapter.notifyDataSetChanged();
-        listView.setAdapter(popularAdapter);
+//        popularAdapter=new PopularAdapter();
+//        listView=findViewById(R.id.chaeyeon);
+//        popular_items=new ArrayList<Popular_item>();
+//        chaeyeon.add("gg");
+//        textlist.add("hh");
+//        popular_item=new Popular_item();
+//        popular_item.setPlace(textlist.get(0));
+//        popular_item.setImage(chaeyeon.get(0));
+//
+//        popularAdapter.addItem(popular_item);
+//        popularAdapter.notifyDataSetChanged();
+//        listView.setAdapter(popularAdapter);
 
     }
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
@@ -195,7 +194,35 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
                 popularlist=response.body();
+                String popular=popularlist.get(0).toJSONString();
+                Log.i("subin","kkkk"+popular);
                 Log.i("subin","popular sever 연결 성공"+popularlist);
+                String pp=popularlist.get(0).get("r_lat").toString();
+                Log.i("subin","mmm"+pp);
+                Log.i("subin","hhh"+popularlist.size());
+                JSONObject eunjin;
+                try {
+                    for (int i=0;i<popularlist.size();i++){
+                        eunjin=popularlist.get(i);
+                        Log.i("subin",eunjin.get("c_do")+","+i);
+                        Log.i("subin",eunjin.get("c_si")+", "+i);
+                        Log.i("subin","이미지 url "+eunjin.get("r_image_url")+i);
+                        popularAdapter=new PopularAdapter();
+                        listView=findViewById(R.id.chaeyeon);
+                        popular_items=new ArrayList<Popular_item>();
+                        chaeyeon.add(eunjin.get("r_image_url").toString());
+                        textlist.add(eunjin.get("c_do").toString()+" "+eunjin.get("c_si")+" 코스");
+                        popular_item=new Popular_item();
+                        popular_item.setPlace(textlist.get(i));
+                        popular_item.setImage(chaeyeon.get(i));
+
+                        popularAdapter.addItem(popular_item);
+                        popularAdapter.notifyDataSetChanged();
+                        listView.setAdapter(popularAdapter);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
