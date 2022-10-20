@@ -12,6 +12,7 @@
             android:id="@+id/imgBanner1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffcccc" />
+            android:src="@drawable/mcl"
+            />
     </RelativeLayout>
 </LinearLayout>

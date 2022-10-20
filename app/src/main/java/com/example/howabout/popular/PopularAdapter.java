@@ -47,7 +47,7 @@ public class PopularAdapter extends BaseAdapter {
         }
 
         ImageView imageView = view.findViewById(R.id.popular_img);
-        Glide.with(context).load(list.get(i).getImage()).placeholder(R.drawable.error_img2).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
+        Glide.with(context).load(list.get(i).getImage()).placeholder(R.drawable.error_img1).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
                 new RoundedCorners(25))).into(imageView);
         TextView textView = view.findViewById(R.id.popular_text);
         textView.setText(list.get(i).getPlace());
