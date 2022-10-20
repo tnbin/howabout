@@ -35,13 +35,16 @@ public class PopularActivity extends AppCompatActivity {
     SharedPreferences preferences;
     View drawerView;
     ListView listView;
-    PopularAdapter popularAdapter;
-    ArrayList<Popular_item> popular_items;
-    List<String> chaeyeon=new ArrayList<>();
-    List<String> textlist=new ArrayList<>();
+    PopularAdapter popularAdapter = new PopularAdapter();
+    ;
+    ArrayList<Popular_item> popular_items = new ArrayList<Popular_item>();
+    ;
+    List<String> urllist = new ArrayList<>();
+    List<String> textlist = new ArrayList<>();
     Popular_item popular_item;
     //인기코스 리스트
-    ArrayList<JSONObject>popularlist=new ArrayList<JSONObject>();
+    ArrayList<JSONObject> popularlist = new ArrayList<JSONObject>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,51 +114,39 @@ public class PopularActivity extends AppCompatActivity {
 
             }
         });
-        Button btn_age=findViewById(R.id.btn_age);
-        final BottomSheet_age bottomSheet_age=new BottomSheet_age(getApplicationContext());
+        Button btn_age = findViewById(R.id.btn_age);
+        final BottomSheet_age bottomSheet_age = new BottomSheet_age(getApplicationContext());
         btn_age.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bottomSheet_age.show(getSupportFragmentManager(),bottomSheet_age.getTag());
+                bottomSheet_age.show(getSupportFragmentManager(), bottomSheet_age.getTag());
             }
         });
-        Button btn_region=findViewById(R.id.btn_region);
-        final BottomSheet_region bottomSheet_region =new BottomSheet_region(getApplicationContext());
+        Button btn_region = findViewById(R.id.btn_region);
+        final BottomSheet_region bottomSheet_region = new BottomSheet_region(getApplicationContext());
         btn_region.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bottomSheet_region.show(getSupportFragmentManager(),bottomSheet_region.getTag());
+                bottomSheet_region.show(getSupportFragmentManager(), bottomSheet_region.getTag());
             }
         });
         //검색
-        Button btn_casearch=findViewById(R.id.btn_casearch);
+        Button btn_casearch = findViewById(R.id.btn_casearch);
         btn_casearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferences =getSharedPreferences("popular", MODE_PRIVATE);
+                preferences = getSharedPreferences("popular", MODE_PRIVATE);
                 Log.i("subin", preferences.getString("p_age", "x"));
-                String gen=preferences.getString("p_gender","x");
-                String age=preferences.getString("p_age","x");
-                String region_do=preferences.getString("do","x");
-                String region_si=preferences.getString("si","x");
-
-                popularcourse(gen,age,region_do,region_si);
+                String gen = preferences.getString("p_gender", "x");
+                String age = preferences.getString("p_age", "x");
+                String region_do = preferences.getString("do", "x");
+                String region_si = preferences.getString("si", "x");
+                popularAdapter.clear();
+                popularcourse(gen, age, region_do, region_si);
             }
         });
-//        popularAdapter=new PopularAdapter();
-//        listView=findViewById(R.id.chaeyeon);
-//        popular_items=new ArrayList<Popular_item>();
-//        chaeyeon.add("gg");
-//        textlist.add("hh");
-//        popular_item=new Popular_item();
-//        popular_item.setPlace(textlist.get(0));
-//        popular_item.setImage(chaeyeon.get(0));
-//
-//        popularAdapter.addItem(popular_item);
-//        popularAdapter.notifyDataSetChanged();
-//        listView.setAdapter(popularAdapter);
-
     }
+
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -177,48 +168,39 @@ public class PopularActivity extends AppCompatActivity {
 
         }
     };
-    public void popularcourse(String gender,String age,String location_do,String location_si){
-        JSONObject popular=new JSONObject();
+
+    public void popularcourse(String gender, String age, String location_do, String location_si) {
+        JSONObject popular = new JSONObject();
         try {
-            popular.put("gender",gender);
-            popular.put("age",age);
-            popular.put("location_do",location_do);
-            popular.put("location_si",location_si);
+            popular.put("gender", gender);
+            popular.put("age", age);
+            popular.put("location_do", location_do);
+            popular.put("location_si", location_si);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ArrayList<JSONObject> jsonObjectArrayList=new ArrayList<>();
+        ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
         jsonObjectArrayList.add(popular);
-        Call<ArrayList<JSONObject>> polcourse= RetrofitClient.getApiService().popular(jsonObjectArrayList);
+        Call<ArrayList<JSONObject>> polcourse = RetrofitClient.getApiService().popular(jsonObjectArrayList);
         polcourse.enqueue(new Callback<ArrayList<JSONObject>>() {
             @Override
             public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
-                popularlist=response.body();
-                String popular=popularlist.get(0).toJSONString();
-                Log.i("subin","kkkk"+popular);
-                Log.i("subin","popular sever 연결 성공"+popularlist);
-                String pp=popularlist.get(0).get("r_lat").toString();
-                Log.i("subin","mmm"+pp);
-                Log.i("subin","hhh"+popularlist.size());
+                popularlist = response.body();
                 JSONObject eunjin;
                 try {
-                    for (int i=0;i<popularlist.size();i++){
-                        eunjin=popularlist.get(i);
-                        Log.i("subin",eunjin.get("c_do")+","+i);
-                        Log.i("subin",eunjin.get("c_si")+", "+i);
-                        Log.i("subin","이미지 url "+eunjin.get("r_image_url")+i);
-                        popularAdapter=new PopularAdapter();
-                        listView=findViewById(R.id.chaeyeon);
-                        popular_items=new ArrayList<Popular_item>();
-                        chaeyeon.add(eunjin.get("r_image_url").toString());
-                        textlist.add(eunjin.get("c_do").toString()+" "+eunjin.get("c_si")+" 코스");
-                        popular_item=new Popular_item();
-                        popular_item.setPlace(textlist.get(i));
-                        popular_item.setImage(chaeyeon.get(i));
 
+                    for (int i = 0; i < popularlist.size(); i++) {
+                        eunjin = popularlist.get(i);
+                        listView = findViewById(R.id.popular_list);
+                        urllist.add(eunjin.get("c_image_url").toString());
+                        textlist.add(eunjin.get("c_do").toString() + " " + eunjin.get("c_si") + " 코스");
+                        popular_item = new Popular_item();
+                        popular_item.setPlace(textlist.get(i));
+                        popular_item.setImage(urllist.get(i));
                         popularAdapter.addItem(popular_item);
-                        popularAdapter.notifyDataSetChanged();
+                        Log.i("subin", popular_item + "hhhhh" + i);
                         listView.setAdapter(popularAdapter);
+                        popularAdapter.notifyDataSetChanged();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -227,7 +209,7 @@ public class PopularActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
-                Log.i("subin","popular sever 연결 실패"+t.getMessage());
+                Log.i("subin", "popular sever 연결 실패" + t.getMessage());
             }
         });
     }

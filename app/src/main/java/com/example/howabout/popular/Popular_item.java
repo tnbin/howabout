@@ -29,6 +29,8 @@ public class Popular_item {
         this.place = place;
     }
 
+
+
     @Override
     public String toString() {
         return "Popular_item{" +

@@ -2,6 +2,7 @@ package com.example.howabout.popular;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.howabout.R;
 
 import java.util.ArrayList;
@@ -45,8 +47,8 @@ public class PopularAdapter extends BaseAdapter {
         }
 
         ImageView imageView=view.findViewById(R.id.popular_img);
-        Glide.with(context).load(list.get(i).getImage()).apply(new RequestOptions().transforms(new CenterCrop(),
-                new RoundedCorners(30))).into(imageView);
+        Glide.with(context).load(list.get(i).getImage()).placeholder(R.drawable.error_img2).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
+                new RoundedCorners(25))).into(imageView);
         TextView textView=view.findViewById(R.id.popular_text);
         textView.setText(list.get(i).getPlace());
         return view;
@@ -61,5 +63,8 @@ public class PopularAdapter extends BaseAdapter {
 //    }
     public void addItem(Popular_item popular_item){
         list.add(popular_item);
+    }
+    public  void clear(){
+        list.clear();
     }
 }
