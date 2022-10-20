@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class PopularAdapter extends BaseAdapter {
 
-    ArrayList<Popular_item> list=new ArrayList<Popular_item>();
+    ArrayList<Popular_item> list = new ArrayList<Popular_item>();
 
     @Override
     public int getCount() {
@@ -40,31 +40,26 @@ public class PopularAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        final Context context=viewGroup.getContext();
-        if (view==null){
-            LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view= inflater.inflate(R.layout.popular_item,viewGroup,false);
+        final Context context = viewGroup.getContext();
+        if (view == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.popular_item, viewGroup, false);
         }
 
-        ImageView imageView=view.findViewById(R.id.popular_img);
+        ImageView imageView = view.findViewById(R.id.popular_img);
         Glide.with(context).load(list.get(i).getImage()).placeholder(R.drawable.error_img2).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
                 new RoundedCorners(25))).into(imageView);
-        TextView textView=view.findViewById(R.id.popular_text);
+        TextView textView = view.findViewById(R.id.popular_text);
         textView.setText(list.get(i).getPlace());
         return view;
     }
-//매개변수 공부하기
-//    public void addItem(String ImageUrl,String text){
-//        Popular_item popular_item=new Popular_item();
-//        popular_item.setImage(ImageUrl);
-//        popular_item.setPlace(text);
-//
-//        list.add(popular_item);
-//    }
-    public void addItem(Popular_item popular_item){
+
+    //매개변수 공부하기
+    public void addItem(Popular_item popular_item) {
         list.add(popular_item);
     }
-    public  void clear(){
+
+    public void clear() {
         list.clear();
     }
 }

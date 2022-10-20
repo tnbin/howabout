@@ -5,10 +5,6 @@ public class Popular_item {
     private String image;
     private String place;
 
-    public Popular_item(String image, String place) {
-        this.image = image;
-        this.place = place;
-    }
     public Popular_item(){
 
     }
