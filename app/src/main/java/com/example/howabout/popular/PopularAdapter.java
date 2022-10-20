@@ -54,6 +54,7 @@ public class PopularAdapter extends BaseAdapter {
         return view;
     }
 
+
     //매개변수 공부하기
     public void addItem(Popular_item popular_item) {
         list.add(popular_item);

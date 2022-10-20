@@ -22,8 +22,8 @@
                 android:id="@+id/btn_open"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFF"
                 android:src="@drawable/ic_baseline_dehaze_24" />
@@ -72,8 +72,7 @@
                 android:background="@drawable/edge_circlemain2"
                 android:backgroundTint="@color/teal_200"
                 android:text="검색"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -85,7 +84,9 @@
             <ListView
                 android:id="@+id/popular_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:divider="#FFF"
+                android:dividerHeight="0px" />
         </LinearLayout>
     </LinearLayout>
 

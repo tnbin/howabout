@@ -143,6 +143,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/edge_circlemain"
+                    android:backgroundTint="@color/white"
                     android:text="코스 찾기"
                     android:textColor="#000"
                     android:textSize="20dp" />

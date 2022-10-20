@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -38,7 +39,7 @@ public class PopularActivity extends AppCompatActivity {
     View drawerView;
     ListView listView;
     PopularAdapter popularAdapter = new PopularAdapter();
-    ArrayList<Popular_item> popular_items = new ArrayList<Popular_item>();
+    ArrayList<Popular_item> popular_items;
     List<String> urllist;
     List<String> textlist;
     Popular_item popular_item;
@@ -51,9 +52,12 @@ public class PopularActivity extends AppCompatActivity {
         setContentView(R.layout.popular);
 
         //인기차트 들어갈때 oncreate시 전체 인기코스 불러오기
-//        popularAdapter.clear();
-//        //서버 연결
-//        popularcourse("전체", "전체", "전체", "전체");
+        //서버 연결
+        urllist = new ArrayList<>();
+        textlist = new ArrayList<>();
+        popularAdapter.clear();
+        popularAdapter.notifyDataSetChanged();
+        popularcourse("전체", "전체", "전체", "전체");
         /////////////////////drawerlayout start
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
@@ -147,28 +151,38 @@ public class PopularActivity extends AppCompatActivity {
                 String age = preferences.getString("p_age", "전체");
                 String region_do = preferences.getString("do", "전체");
                 String region_si = preferences.getString("si", "전체");
-                Log.i("subin",gen+","+age+","+region_do+","+region_si);
+                Log.i("subin", gen + "," + age + "," + region_do + "," + region_si);
                 //검색할때마다 값을 불러오지 않게 값 초기화
-                urllist= new ArrayList<>();
-                textlist= new ArrayList<>();
+                urllist = new ArrayList<>();
+                textlist = new ArrayList<>();
                 popularAdapter.clear();
                 popularAdapter.notifyDataSetChanged();
                 //서버 연결
                 popularcourse(gen, age, region_do, region_si);
             }
         });
+        listView=findViewById(R.id.popular_list);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Popular_item popular_item= (Popular_item) popularAdapter.getItem(i);
 
+                Toast.makeText(PopularActivity.this,""+popular_item.getPlace(),Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(PopularActivity.this,MyCourseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //앱의 activity을 벗어났을때 저장된 값을 삭제하기 어려워 preference에 저장시킴.
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
-        SharedPreferences preferences=getSharedPreferences("popular", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("popular", MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putString("do", "전체");
-        edit.putString("si","전체");
+        edit.putString("si", "전체");
         edit.putString("p_age", "전체");
         edit.putString("p_gender", "전체");
         edit.apply();
@@ -238,7 +252,7 @@ public class PopularActivity extends AppCompatActivity {
                             Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_si").toString() + ", " + i);
                             //arraylist text에 서버에서 받은 값 (카페 text) 저장
                             textlist.add(jsonObject.get("c_do").toString() + " " + jsonObject.get("c_si") + " 코스");
-                            Log.i("subin","textlist 값: "+textlist);
+                            Log.i("subin", "textlist 값: " + textlist);
                             //객체 불러오기 (list custom)
                             popular_item = new Popular_item();
                             //객체에 맞게 list에 저장된값 저장
