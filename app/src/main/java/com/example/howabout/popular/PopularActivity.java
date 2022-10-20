@@ -46,7 +46,7 @@ public class PopularActivity extends AppCompatActivity {
     ArrayList<JSONObject> popularlist = new ArrayList<JSONObject>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popular);
 
