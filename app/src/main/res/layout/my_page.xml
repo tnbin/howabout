@@ -22,6 +22,7 @@
                 android:id="@+id/btn_open"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -193,12 +194,12 @@
 
                 </LinearLayout>
 
-<!--                <ImageView-->
-<!--                    android:layout_width="60dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginTop="140dp"-->
-<!--                    android:src="@drawable/howaboutlogo" />-->
+                <!--                <ImageView-->
+                <!--                    android:layout_width="60dp"-->
+                <!--                    android:layout_height="20dp"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginTop="140dp"-->
+                <!--                    android:src="@drawable/howaboutlogo" />-->
             </LinearLayout>
 
         </LinearLayout>

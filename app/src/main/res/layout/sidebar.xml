@@ -11,61 +11,92 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="#ff5757"
         android:orientation="vertical">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="사용자 이름"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ha" />
+
+        <TextView
+            android:id="@+id/helloId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/edge_black"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:textSize="10dp"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="델리스파이스 님, 환영합니다"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/logout"-->
+        <!--            style="@style/Widget.AppCompat.Button.Borderless"-->
+        <!--            android:layout_width="70dp"-->
+        <!--            android:layout_height="32dp"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:text="로그아웃"-->
+        <!--            android:textSize="10dp" />-->
 
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/btn_homebar"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#ff5757"
-                android:text="홈" />
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_home_24"
+                android:gravity="center_vertical"
+                android:text="  홈"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/btn_courcebar"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#ff5757"
-                android:gravity="center"
-                android:text="코스 찾기" />
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
+                android:gravity="center_vertical"
+                android:text="  코스 찾기"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/btn_mypagebar"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#ff5757"
-                android:gravity="center"
-                android:text="마이페이지" />
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_account_howaboutcircle_24"
+                android:gravity="center_vertical"
+                android:text="  마이페이지"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/btn_mycourcebar"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#ff5757"
-                android:gravity="center"
-                android:text="내 코스" />
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_add_location_alt_24"
+                android:gravity="center_vertical"
+                android:text="  내 코스"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

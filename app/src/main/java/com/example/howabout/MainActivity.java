@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentStateAdapter pagerAdapter;
     private int num_page = 4;
     private CircleIndicator3 mIndicator;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         img_main2 = findViewById(R.id.img_main2);
         img_main2.setClipToOutline(true);
+
+        preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         Button btn_courcebar = findViewById(R.id.btn_courcebar);
         btn_courcebar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentmp);
             }
         });
+
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
         btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentmp);
             }
         });
+
         btn_mycource1 = findViewById(R.id.btn_mycource1);
         btn_mycource1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentmc);
             }
         });
+
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
@@ -175,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentpo);
             }
         });
+
         Button btn_find = findViewById(R.id.btn_find);
         btn_find.setClipToOutline(true);
         btn_find.setOnClickListener(new View.OnClickListener() {
@@ -184,12 +194,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentf);
             }
         });
+
         img_main1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "안녕", Toast.LENGTH_SHORT).show();
             }
         });
+
         img_main2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
