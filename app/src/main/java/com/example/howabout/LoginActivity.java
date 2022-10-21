@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
-
+    Boolean autologin_ck=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,13 @@ public class LoginActivity extends AppCompatActivity {
         auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Toast.makeText(LoginActivity.this,"check",Toast.LENGTH_SHORT).show();
+
+                if (b == true) {
+                    Toast.makeText(LoginActivity.this, "check", Toast.LENGTH_SHORT).show();
+                    autologin_ck=true;
+                } else {
+
+                }
             }
         });
 
@@ -75,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, nick + "님 환영합니다", Toast.LENGTH_SHORT).show();
                                 editor.putString("u_id", job.getUserVo().getU_id());
                                 editor.putString("u_nick", job.getUserVo().getU_nick());
-
+                                editor.putBoolean("auto_ck",autologin_ck);
                                 editor.commit();
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

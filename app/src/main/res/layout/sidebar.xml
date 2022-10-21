@@ -9,8 +9,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
         android:background="#ff5757"
         android:orientation="vertical">
 
@@ -31,27 +31,20 @@
             android:textColor="@color/white"
             android:textSize="14dp" />
 
-        <!--        <Button-->
-        <!--            android:id="@+id/logout"-->
-        <!--            style="@style/Widget.AppCompat.Button.Borderless"-->
-        <!--            android:layout_width="70dp"-->
-        <!--            android:layout_height="32dp"-->
-        <!--            android:layout_alignParentBottom="true"-->
-        <!--            android:text="로그아웃"-->
-        <!--            android:textSize="10dp" />-->
 
     </RelativeLayout>
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/white">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
@@ -97,10 +90,26 @@
                 android:gravity="center_vertical"
                 android:text="  내 코스"
                 android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/logout"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="로그아웃"
+                android:drawableLeft="@drawable/ic_baseline_logout_24"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
-
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>
