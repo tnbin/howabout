@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.howabout.Fragment.FragMyAdapter;
@@ -59,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         img_main2.setClipToOutline(true);
 
         preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+        String pp1 = preferences.getString("u_nick", null);
+        String pp2 = preferences.getString("u_id", null);
 
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
@@ -209,8 +213,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+        if (pp1 == null||pp2==null) {
+            Log.i("subin", "null 값이 오나요? ");
+        } else {
+            btn_login.setVisibility(View.INVISIBLE);
+            btn_mycource1.setVisibility(View.VISIBLE);
+            btn_mypage.setVisibility(View.VISIBLE);
+            Log.i("subin", "user 정보가 오나요?: " + pp1);
+        }
+    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        editor.putString("u_id", null);
+//        editor.putString("u_nick",null);
+//        editor.commit();
+//        editor.apply();
+//    }
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -221,6 +245,10 @@ public class MainActivity extends AppCompatActivity {
                 btn_login.setVisibility(View.INVISIBLE);
                 btn_mycource1.setVisibility(View.VISIBLE);
                 btn_mypage.setVisibility(View.VISIBLE);
+                TextView helloId = findViewById(R.id.helloId);
+
+                String user_nick = data.getStringExtra("usernick");
+                helloId.setText(user_nick + "님, 환영합니다");
             }
         }
     }

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +33,20 @@ public class LoginActivity extends AppCompatActivity {
         EditText ed_loid = findViewById(R.id.ed_loid);
         EditText ed_lopw = findViewById(R.id.ed_lopw);
 
-
-
         Button btn_regist = findViewById(R.id.btn_registin);
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegistActivity.class);
                 startActivity(intent);
+            }
+        });
+        //자동 로그인 설정
+        CheckBox auto_login = findViewById(R.id.autologin);
+        auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Toast.makeText(LoginActivity.this,"check",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -61,22 +68,23 @@ public class LoginActivity extends AppCompatActivity {
                         signInVo job = response.body();
                         String msg = job.getMsg();
                         String nick = job.getUserVo().getU_nick();
-
+                        preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
                         try {
                             if (job.getSuccess() == 1) {
                                 Toast.makeText(LoginActivity.this, nick + "님 환영합니다", Toast.LENGTH_SHORT).show();
-
-                                preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("u_id", job.getUserVo().getU_id());
-                                editor.putString("u_nick",job.getUserVo().getU_nick());
+                                editor.putString("u_nick", job.getUserVo().getU_nick());
 
                                 editor.commit();
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("usernick", nick);
                                 setResult(RESULT_OK, intent);
                                 finish();
                             } else {
+                                editor.putString("u_id", null);
+                                editor.putString("u_nick", null);
                                 Toast.makeText(LoginActivity.this, "" + msg, Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {

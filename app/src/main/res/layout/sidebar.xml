@@ -27,7 +27,7 @@
             android:layout_alignParentBottom="true"
             android:padding="10dp"
             android:singleLine="true"
-            android:text="델리스파이스 님, 환영합니다"
+            android:text="저기어때에 오신걸 환영합니다."
             android:textColor="@color/white"
             android:textSize="14dp" />
 
