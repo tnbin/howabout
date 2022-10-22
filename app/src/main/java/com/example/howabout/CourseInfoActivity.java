@@ -101,6 +101,8 @@ public class CourseInfoActivity extends AppCompatActivity {
 //        LocationMove(mapView, r_lat, r_lon);
         Log.i("subin", "음식점 위도: " + r_lat);
         Log.i("subin", "음식점 경도: " + r_lon);
+        Log.i("subin", "카페 위도: " + c_lat);
+        Log.i("subin", "카페 경도: " + c_lon);
 
     }
 
