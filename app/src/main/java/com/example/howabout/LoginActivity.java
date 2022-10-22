@@ -85,8 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.commit();
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.putExtra("usernick", nick);
-                                setResult(RESULT_OK, intent);
+                                startActivity(intent);
+//                                intent.putExtra("usernick", nick);
+//                                setResult(RESULT_OK, intent);
                                 finish();
                             } else {
                                 editor.putString("u_id", null);

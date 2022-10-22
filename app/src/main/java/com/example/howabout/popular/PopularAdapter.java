@@ -2,7 +2,6 @@ package com.example.howabout.popular;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,6 @@ public class PopularAdapter extends BaseAdapter {
         textView.setText(list.get(i).getPlace());
         return view;
     }
-
 
     //매개변수 공부하기
     public void addItem(Popular_item popular_item) {

@@ -5,6 +5,7 @@ public class Popular_item {
     private String image;
     private String place;
 
+
     public Popular_item(){
 
     }
@@ -24,7 +25,6 @@ public class Popular_item {
     public void setPlace(String place) {
         this.place = place;
     }
-
 
 
     @Override

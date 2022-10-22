@@ -39,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
     ImageButton img_main1;
     ImageButton img_main2;
     //login
-    final static int REQUEST_CODE_START_INPUT = 1;
+//    final static int REQUEST_CODE_START_INPUT = 1;
     //viewpager
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
     private int num_page = 4;
     private CircleIndicator3 mIndicator;
     SharedPreferences preferences;
+    TextView helloId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
         Button logout = findViewById(R.id.logout);
+        helloId = findViewById(R.id.helloId);
 
 
         preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
@@ -127,7 +129,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
-                startActivityForResult(intentl, REQUEST_CODE_START_INPUT);
+                startActivity(intentl);
+//                startActivityForResult(intentl, REQUEST_CODE_START_INPUT);
             }
         });
         btn_mypage = findViewById(R.id.btn_mypage);
@@ -168,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
                         btn_mycource1.setVisibility(View.INVISIBLE);
                         btn_mypage.setVisibility(View.INVISIBLE);
                         drawerLayout.closeDrawers();
+                        Log.i("subin", "user정보 : " + preferences.getAll());
+                        helloId = findViewById(R.id.helloId);
+                        helloId.setText("저기어때에 오신걸 환영합니다.");
+
                     }
                 });
                 builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -187,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
             btn_mycource1.setVisibility(View.VISIBLE);
             btn_mypage.setVisibility(View.VISIBLE);
             Log.i("subin", "user 정보가 오나요?: " + u_nick);
+            helloId.setText(u_nick + "님, 환영합니다");
         }
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
@@ -210,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                     mPager.setCurrentItem(position);
                 }
             }
+
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -250,7 +259,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "하세요", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override
@@ -271,27 +279,28 @@ public class MainActivity extends AppCompatActivity {
             btn_login.setVisibility(View.VISIBLE);
             btn_mycource1.setVisibility(View.INVISIBLE);
             btn_mypage.setVisibility(View.INVISIBLE);
+
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_START_INPUT) {
-            if (resultCode == RESULT_OK) {
-                Log.i("subin", "///////////////////////정보전달");
-                btn_login.setVisibility(View.INVISIBLE);
-                btn_mycource1.setVisibility(View.VISIBLE);
-                btn_mypage.setVisibility(View.VISIBLE);
-                TextView helloId = findViewById(R.id.helloId);
-
-                String user_nick = data.getStringExtra("usernick");
-                helloId.setText(user_nick + "님, 환영합니다");
-            }
-        }
-    }
+//    @SuppressLint("SetTextI18n")
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == REQUEST_CODE_START_INPUT) {
+//            if (resultCode == RESULT_OK) {
+//                Log.i("subin", "///////////////////////정보전달");
+//                btn_login.setVisibility(View.INVISIBLE);
+//                btn_mycource1.setVisibility(View.VISIBLE);
+//                btn_mypage.setVisibility(View.VISIBLE);
+//                TextView helloId = findViewById(R.id.helloId);
+//
+//                String user_nick = data.getStringExtra("usernick");
+//                helloId.setText(user_nick + "님, 환영합니다");
+//            }
+//        }
+//    }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override

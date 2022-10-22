@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
+import com.example.howabout.CourseInfoActivity;
 import com.example.howabout.FindActivity;
 import com.example.howabout.MainActivity;
 import com.example.howabout.MyCourseActivity;
@@ -39,12 +40,13 @@ public class PopularActivity extends AppCompatActivity {
     View drawerView;
     ListView listView;
     PopularAdapter popularAdapter = new PopularAdapter();
-    ArrayList<Popular_item> popular_items;
     List<String> urllist;
     List<String> textlist;
     Popular_item popular_item;
     //인기코스 리스트
     ArrayList<JSONObject> popularlist = new ArrayList<JSONObject>();
+    final static int REQUEST_CODE_START_INPUT = 1;
+    JSONObject jsonObject;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class PopularActivity extends AppCompatActivity {
         //서버 연결
         urllist = new ArrayList<>();
         textlist = new ArrayList<>();
+
         popularAdapter.clear();
         popularAdapter.notifyDataSetChanged();
         popularcourse("전체", "전체", "전체", "전체");
@@ -161,15 +164,25 @@ public class PopularActivity extends AppCompatActivity {
                 popularcourse(gen, age, region_do, region_si);
             }
         });
-        listView=findViewById(R.id.popular_list);
+        listView = findViewById(R.id.popular_list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Popular_item popular_item= (Popular_item) popularAdapter.getItem(i);
+                Popular_item popular_item = (Popular_item) popularAdapter.getItem(i);
+                Intent intent = new Intent(PopularActivity.this, CourseInfoActivity.class);
 
-                Toast.makeText(PopularActivity.this,""+popular_item.getPlace(),Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(PopularActivity.this,MyCourseActivity.class);
+                String c_lat=jsonObject.get("c_lat").toString();
+                String c_lon=jsonObject.get("c_lon").toString();
+                String r_lat=jsonObject.get("r_lat").toString();
+                String r_lon=jsonObject.get("r_lon").toString();
+                Log.i("subin","현정아 값이 들어왔어!: "+c_lat);
+                intent.putExtra("c_lat",c_lat);
+                intent.putExtra("c_lon",c_lon);
+                intent.putExtra("r_lat",r_lat);
+                intent.putExtra("r_lon",r_lon);
+
                 startActivity(intent);
+
             }
         });
     }
@@ -235,7 +248,7 @@ public class PopularActivity extends AppCompatActivity {
                 Log.i("subin", "서버에서 준 값" + str);
 
                 //서버에서 받은 값 키값으로 불러오기 위해서 jsonobject 생성
-                JSONObject jsonObject;
+//                JSONObject jsonObject;
                 try {
                     if (popularlist.size() == 0) {
                         Toast.makeText(PopularActivity.this, "인기 코스가 없습니다", Toast.LENGTH_SHORT).show();
@@ -248,11 +261,10 @@ public class PopularActivity extends AppCompatActivity {
                             listView = findViewById(R.id.popular_list);
                             //arraylist url에 서버에서 받은 값 (카페 url) 저장
                             urllist.add(jsonObject.get("c_image_url").toString());
-                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_do").toString() + ", " + i);
-                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_si").toString() + ", " + i);
+//                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_do").toString() + ", " + i);
+//                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_si").toString() + ", " + i);
                             //arraylist text에 서버에서 받은 값 (카페 text) 저장
                             textlist.add(jsonObject.get("c_do").toString() + " " + jsonObject.get("c_si") + " 코스");
-                            Log.i("subin", "textlist 값: " + textlist);
                             //객체 불러오기 (list custom)
                             popular_item = new Popular_item();
                             //객체에 맞게 list에 저장된값 저장
@@ -262,7 +274,6 @@ public class PopularActivity extends AppCompatActivity {
                             popularAdapter.addItem(popular_item);
 //                        Log.i("subin","imageurl: "+urllist);
 //                        Log.i("subin","imageurl: "+textlist);
-                            Log.i("subin", popular_item + "hhhhh" + i);
                             //listview와 adapter 연결
                             listView.setAdapter(popularAdapter);
                             //adapter 업데이트

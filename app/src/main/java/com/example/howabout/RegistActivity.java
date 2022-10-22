@@ -202,7 +202,6 @@ public class RegistActivity extends AppCompatActivity {
                                         warning_name.setText("이미 사용중이거나 탈퇴한 닉네임 입니다.");
                                     }
                                 }
-
                                 @Override
                                 public void onFailure(Call<Integer> call, Throwable t) {
                                     Log.i("subin", "NCK post 실패 : " + t.getMessage());
