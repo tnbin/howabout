@@ -168,18 +168,28 @@ public class PopularActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Popular_item popular_item = (Popular_item) popularAdapter.getItem(i);
                 Intent intent = new Intent(PopularActivity.this, CourseInfoActivity.class);
 
                 String c_lat=jsonObject.get("c_lat").toString();
                 String c_lon=jsonObject.get("c_lon").toString();
                 String r_lat=jsonObject.get("r_lat").toString();
                 String r_lon=jsonObject.get("r_lon").toString();
-                Log.i("subin","현정아 값이 들어왔어!: "+c_lat);
+                String c_name=jsonObject.get("c_name").toString();
+                String r_name=jsonObject.get("r_name").toString();
+                String c_url=jsonObject.get("c_url").toString();
+//                String r_url=jsonObject.get("r_url").toString();
+//                Log.i("subin","값이 들어왔어!: "+r_url);
                 intent.putExtra("c_lat",c_lat);
                 intent.putExtra("c_lon",c_lon);
-                intent.putExtra("r_lat",r_lat);
                 intent.putExtra("r_lon",r_lon);
+                intent.putExtra("r_lat",r_lat);
+                intent.putExtra("c_name",c_name);
+                intent.putExtra("r_name",r_name);
+                intent.putExtra("c_url",c_url);
+//                JSONObject js=jsonObject;
+//                Log.i("subin",js+"");
+//                intent.putExtra("storeInfo",js);
+//                intent.putExtra("r_url",r_url);
 
                 startActivity(intent);
 
