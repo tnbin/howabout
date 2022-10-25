@@ -45,6 +45,7 @@ public class PopularActivity extends AppCompatActivity {
     //인기코스 리스트
     ArrayList<JSONObject> popularlist = new ArrayList<JSONObject>();
     JSONObject jsonObject;
+    Intent intent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,58 +63,21 @@ public class PopularActivity extends AppCompatActivity {
         /////////////////////drawerlayout start
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
+
+        //DrawerLayout Menu
         ImageButton btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(drawerView);
-            }
-        });
+        btn_open.setOnClickListener(click_Drawer);
 
-        drawerLayout.setDrawerListener(listener);
-        drawerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                return true;
-            }
-        });
-
+        //drawer layout menu buttons
         Button btn_homebar = findViewById(R.id.btn_homebar);
-        btn_homebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intenth = new Intent(PopularActivity.this, MainActivity.class);
-                startActivity(intenth);
-            }
-        });
+        btn_homebar.setOnClickListener(click_DrawerMenu);
         Button btn_courcebar = findViewById(R.id.btn_courcebar);
-        btn_courcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentc = new Intent(PopularActivity.this, FindActivity.class);
-                startActivity(intentc);
-            }
-        });
-
+        btn_courcebar.setOnClickListener(click_DrawerMenu);
         Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-            }
-        });
+        btn_mypagebar.setOnClickListener(click_DrawerMenu);
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
-        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentmc = new Intent(PopularActivity.this, MyCourseActivity.class);
-                startActivity(intentmc);
-            }
-        });
+        btn_mycourcebar.setOnClickListener(click_DrawerMenu);
+
         Button btn_gender = findViewById(R.id.btn_gender);
         final BottomSheet_gender bottomSheet_gender = new BottomSheet_gender(getApplicationContext());
 
@@ -167,10 +131,10 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(PopularActivity.this, CourseInfoActivity.class);
-                JSONObject js=jsonObject;
-                Log.i("subin",js+"");
-                String string=js.toString();
-                intent.putExtra("storeInfo",string);
+                JSONObject js = jsonObject;
+                Log.i("subin", js + "");
+                String string = js.toString();
+                intent.putExtra("storeInfo", string);
 
                 startActivity(intent);
 
@@ -194,26 +158,46 @@ public class PopularActivity extends AppCompatActivity {
 
     }
 
-
-    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
+    //drawer Layout open button click event
+    View.OnClickListener click_Drawer = new View.OnClickListener() {
         @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
+        public void onClick(View view) {
+            drawerLayout = findViewById(R.id.drawer_layout);
+            drawerView = findViewById(R.id.drawer);
+            drawerLayout.openDrawer(drawerView);
         }
-
+    };
+    //drawer Layout menu click event
+    View.OnClickListener click_DrawerMenu = new View.OnClickListener() {
         @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerStateChanged(int newState) {
-
+        public void onClick(View view) {
+            int id = view.getId();
+            switch (id) {
+                case R.id.btn_homebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = new Intent(PopularActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_courcebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = new Intent(PopularActivity.this, FindActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_mypagebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = new Intent(PopularActivity.this, MyPageActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_mycourcebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = new Intent(PopularActivity.this, MyCourseActivity.class);
+                    startActivity(intent);
+                    break;
+            }
         }
     };
 
@@ -251,7 +235,7 @@ public class PopularActivity extends AppCompatActivity {
                             //보여줄 listview 불러오기
                             listView = findViewById(R.id.popular_list);
                             //arraylist url에 서버에서 받은 값 (카페 url) 저장
-                            urllist.add("http:"+jsonObject.get("c_image_url").toString());
+                            urllist.add("http:" + jsonObject.get("c_image_url").toString());
 //                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_do").toString() + ", " + i);
 //                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_si").toString() + ", " + i);
                             //arraylist text에 서버에서 받은 값 (카페 text) 저장

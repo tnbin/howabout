@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -55,10 +56,11 @@ public class CourseInfoActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     View drawerView;
+    Intent intent;
     TextView storeInfo_tv_time;
     CompoundButton compoundButton;
     ScaleAnimation scaleAnimation;
-
+    Map<String, String> savePopularCourse_data = new HashMap<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -69,18 +71,12 @@ public class CourseInfoActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
 
-        scaleAnimation=new ScaleAnimation(0.7f,1.0f,0.7f,1.0f, Animation.RELATIVE_TO_SELF,0.7f,Animation.RELATIVE_TO_SELF,0.7f);
-        BounceInterpolator bounceInterpolator=new BounceInterpolator();
+        scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
+        BounceInterpolator bounceInterpolator = new BounceInterpolator();
         scaleAnimation.setInterpolator(bounceInterpolator);
-
         scaleAnimation.setDuration(500);
-        compoundButton=findViewById(R.id.btn_favorite);
-        compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                compoundButton.startAnimation(scaleAnimation);
-            }
-        });
+        compoundButton = findViewById(R.id.btn_favorite);
+
         //Mapview 생성
         MapView mapView = new MapView(this);
         //mapview 가 들어갈 layout
@@ -88,60 +84,20 @@ public class CourseInfoActivity extends AppCompatActivity {
         //layout에 mapview 추가
         mapViewContainer.addView(mapView);
 /////////////////// drawerLayout
+        //DrawerLayout Menu
         ImageButton btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(drawerView);
-            }
-        });
+        btn_open.setOnClickListener(click_Drawer);
 
-        drawerLayout.setDrawerListener(listener);
-        drawerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                return true;
-            }
-        });
-
+        //drawer layout menu buttons
         Button btn_homebar = findViewById(R.id.btn_homebar);
-        btn_homebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intenth = new Intent(CourseInfoActivity.this, MainActivity.class);
-                startActivity(intenth);
-            }
-        });
+        btn_homebar.setOnClickListener(click_DrawerMenu);
         Button btn_courcebar = findViewById(R.id.btn_courcebar);
-        btn_courcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentc = new Intent(CourseInfoActivity.this, FindActivity.class);
-                startActivity(intentc);
-            }
-        });
-
+        btn_courcebar.setOnClickListener(click_DrawerMenu);
         Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentmp = new Intent(CourseInfoActivity.this, MyPageActivity.class);
-                startActivity(intentmp);
-            }
-        });
+        btn_mypagebar.setOnClickListener(click_DrawerMenu);
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
-        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentmc = new Intent(CourseInfoActivity.this, MyCourseActivity.class);
-                startActivity(intentmc);
-            }
-        });
+        btn_mycourcebar.setOnClickListener(click_DrawerMenu);
+
         ///////////////////drawlayout end
         //popular에서 보낸 intent 받기
         Intent couseintent = getIntent();
@@ -160,22 +116,23 @@ public class CourseInfoActivity extends AppCompatActivity {
         String c_lon = aa.get("c_lon").toString();
         String c_name = aa.get("c_name").toString();
         String r_name = aa.get("r_name").toString();
-        String c_image_url = "http:"+aa.get("c_image_url").toString();
-        String r_image_url = "http:"+aa.get("r_image_url").toString();
+        String c_image_url = "http:" + aa.get("c_image_url").toString();
+        String r_image_url = "http:" + aa.get("r_image_url").toString();
         String c_cat = aa.get("c_cat").toString();
         String r_cat = aa.get("r_cat").toString();
         String r_address = aa.get("r_do").toString() + " " + aa.get("r_si").toString() + " " + aa.get("r_gu").toString() + " " + aa.get("r_dong").toString();
         String c_address = aa.get("c_do").toString() + " " + aa.get("c_si").toString() + " " + aa.get("c_gu").toString() + " " + aa.get("c_dong").toString();
-        String c_phone=aa.get("c_phone").toString();
-        String r_phone=aa.get("r_phone").toString();
-        String r_url=aa.get("r_url").toString();
-        String c_url=aa.get("c_url").toString();
-
+        String c_phone = aa.get("c_phone").toString();
+        String r_phone = aa.get("r_phone").toString();
+        String r_url = aa.get("r_url").toString();
+        String c_url = aa.get("c_url").toString();
+        String r_id = aa.get("r_id").toString();
+        String c_id = aa.get("c_id").toString();
 
         //marker 찍기
         MapMarker(mapView, r_name, r_lat, r_lon);
         MapMarker(mapView, c_name, c_lat, c_lon);
-        //가게 끼리 선긋기
+//        //가게 끼리 선긋기
         Polyline(mapView, r_lat, r_lon, c_lat, c_lon);
         //restaurant
         TextView place1 = findViewById(R.id.place1);
@@ -186,7 +143,7 @@ public class CourseInfoActivity extends AppCompatActivity {
         place1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Information(r_name,r_cat,r_image_url,r_address,r_phone,r_url);
+                Information(r_name, r_cat, r_image_url, r_address, r_phone, r_url);
                 return false;
 
 
@@ -195,13 +152,49 @@ public class CourseInfoActivity extends AppCompatActivity {
         place2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Information(c_name,c_cat,c_image_url,c_address,c_phone,c_url);
+                Information(c_name, c_cat, c_image_url, c_address, c_phone, c_url);
                 return false;
             }
         });
+        compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                compoundButton.startAnimation(scaleAnimation);
+                if (b) {
+                    try {
+                        Log.i("subin", "click sucess!!");
+                        savePopularCourse_data.put("r_id", r_id);
+                        savePopularCourse_data.put("c_id", c_id);
+                        savePopularCourse_data.put("u_id", "tt11");
+
+                        Call<Integer> save_myCourse = RetrofitClient.getApiService().saveMyCourse(savePopularCourse_data);
+                        save_myCourse.enqueue(new Callback<Integer>() {
+                            @Override
+                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                Log.i("subin", "성공 시 return value는 1: " + response.body());
+                                Toast.makeText(CourseInfoActivity.this, "내 코스에 저장됐습니다.", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<Integer> call, Throwable t) {
+                                Log.i("subin", "server" + t.getMessage());
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    //내 코스 저장 취소하기
+                    Log.i("subin", "noclick sucess!!");
+                }
+            }
+        });
     }
-    public void Information(String name,String cat,String image_url,String address,String phone,String url){
-        Dialog storeInfo_dialog=new Dialog(CourseInfoActivity.this);
+
+    public void Information(String name, String cat, String image_url, String address, String phone, String url) {
+        Dialog storeInfo_dialog = new Dialog(CourseInfoActivity.this);
         storeInfo_dialog.setContentView(R.layout.store_info);
         //배경 투명
         storeInfo_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -209,17 +202,17 @@ public class CourseInfoActivity extends AppCompatActivity {
         TextView storeInfo_tv_placeName = storeInfo_dialog.findViewById(R.id.storeInfo_tv_placeName);
         TextView storeInfo_tv_cat = storeInfo_dialog.findViewById(R.id.storeInfo_tv_cat);
         TextView storeInfo_tv_address = storeInfo_dialog.findViewById(R.id.storeInfo_tv_address);
-        TextView storeInfo_tv_phone=storeInfo_dialog.findViewById(R.id.storeInfo_tv_phone);
-        TextView storeInfo_tv_url=storeInfo_dialog.findViewById(R.id.storeInfo_tv_url);
+        TextView storeInfo_tv_phone = storeInfo_dialog.findViewById(R.id.storeInfo_tv_phone);
+        TextView storeInfo_tv_url = storeInfo_dialog.findViewById(R.id.storeInfo_tv_url);
 
         Glide.with(CourseInfoActivity.this).load(image_url).placeholder(R.drawable.error_img1).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
                 new RoundedCorners(25))).into(storeInfo_img);
         storeInfo_tv_placeName.setText(name);
         storeInfo_tv_cat.setText(cat);
-        storeInfo_tv_address.setText("  "+address);
+        storeInfo_tv_address.setText("  " + address);
         storeInfo_tv_address.setSelected(true);
-        storeInfo_tv_phone.setText("  "+phone);
-        storeInfo_tv_url.setText("  "+url);
+        storeInfo_tv_phone.setText("  " + phone);
+        storeInfo_tv_url.setText("  " + url);
         storeInfo_tv_url.setSelected(true);
 
         //창닫기 버튼 클릭 이벤트
@@ -231,8 +224,8 @@ public class CourseInfoActivity extends AppCompatActivity {
             }
         });
         //리뷰 서버연결
-        Map getLocationInfo_data=new HashMap();
-        getLocationInfo_data.put("place_url",url);
+        Map getLocationInfo_data = new HashMap();
+        getLocationInfo_data.put("place_url", url);
 
         Call<Map<String, String>> getLocationInfo = RetrofitClient.getApiService().getLocationInfo(getLocationInfo_data);
         getLocationInfo.enqueue(new Callback<Map<String, String>>() {
@@ -240,28 +233,28 @@ public class CourseInfoActivity extends AppCompatActivity {
             public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
 
                 Map<String, String> result = response.body();
-                Log.i("subin","/////////////////"+result.get("storeTime"));
-                String storeTime=result.get("storeTime");
-                storeInfo_tv_time=storeInfo_dialog.findViewById(R.id.storeInfo_tv_time);
-                storeInfo_tv_time.setText("  "+storeTime);
-                Log.i("subin",storeTime);
+                Log.i("subin", "/////////////////" + result.get("storeTime"));
+                String storeTime = result.get("storeTime");
+                storeInfo_tv_time = storeInfo_dialog.findViewById(R.id.storeInfo_tv_time);
+                storeInfo_tv_time.setText("  " + storeTime);
+                Log.i("subin", storeTime);
                 storeInfo_tv_time.setSelected(true);
-                String review1=result.get("review_1");
-                Log.i("subin","review: "+review1);
-                TextView storeInfo_tv_reivew1=storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew1);
+                String review1 = result.get("review_1");
+                Log.i("subin", "review: " + review1);
+                TextView storeInfo_tv_reivew1 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew1);
                 storeInfo_tv_reivew1.setText(review1);
-                String review2=result.get("review_2");
-                TextView storeInfo_tv_reivew2=storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew2);
+                String review2 = result.get("review_2");
+                TextView storeInfo_tv_reivew2 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew2);
                 storeInfo_tv_reivew2.setText(review2);
-                String review3=result.get("review_3");
-                TextView storeInfo_tv_reivew3=storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew3);
+                String review3 = result.get("review_3");
+                TextView storeInfo_tv_reivew3 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew3);
                 storeInfo_tv_reivew3.setText(review3);
             }
 
             @Override
             public void onFailure(Call<Map<String, String>> call, Throwable t) {
 
-                Log.i("subin","서버 연결 실패 : "+t.getMessage());
+                Log.i("subin", "서버 연결 실패 : " + t.getMessage());
             }
         });
         storeInfo_dialog.show();
@@ -295,6 +288,50 @@ public class CourseInfoActivity extends AppCompatActivity {
         mapView.addPOIItem(marker);
         mapView.fitMapViewAreaToShowAllPOIItems();
     }
+
+    //drawer Layout open button click event
+    View.OnClickListener click_Drawer = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            drawerLayout = findViewById(R.id.drawer_layout);
+            drawerView = findViewById(R.id.drawer);
+            drawerLayout.openDrawer(drawerView);
+        }
+    };
+
+    //drawer Layout menu click event
+    View.OnClickListener click_DrawerMenu = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int id = view.getId();
+            switch (id) {
+                case R.id.btn_homebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = new Intent(CourseInfoActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_courcebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = getIntent();
+                    startActivity(intent);
+                    break;
+                case R.id.btn_mypagebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = new Intent(CourseInfoActivity.this, MyPageActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_mycourcebar:
+                    drawerLayout.closeDrawers();
+                    finish();
+                    intent = new Intent(CourseInfoActivity.this, MyCourseActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
