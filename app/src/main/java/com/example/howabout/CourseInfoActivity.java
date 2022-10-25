@@ -7,15 +7,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.example.howabout.API.RetrofitClient;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -25,6 +39,13 @@ import net.daum.mf.map.api.MapView;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CourseInfoActivity extends AppCompatActivity {
 
@@ -119,8 +140,18 @@ public class CourseInfoActivity extends AppCompatActivity {
         String c_lon = aa.get("c_lon").toString();
         String c_name = aa.get("c_name").toString();
         String r_name = aa.get("r_name").toString();
-        String c_url = aa.get("c_url").toString();
-        String r_url = aa.get("r_url").toString();
+        String c_image_url = aa.get("c_image_url").toString();
+        String r_image_url = aa.get("r_image_url").toString();
+        String c_cat = aa.get("c_cat").toString();
+        String r_cat = aa.get("r_cat").toString();
+        String r_address = aa.get("r_do").toString() + " " + aa.get("r_si").toString() + " " + aa.get("r_gu").toString() + " " + aa.get("r_dong").toString();
+        String c_address = aa.get("c_do").toString() + " " + aa.get("c_si").toString() + " " + aa.get("c_gu").toString() + " " + aa.get("c_dong").toString();
+        String c_phone=aa.get("c_phone").toString();
+        String r_phone=aa.get("r_phone").toString();
+        String r_url=aa.get("r_url").toString();
+        String c_url=aa.get("c_url").toString();
+
+
         //marker 찍기
         MapMarker(mapView, r_name, r_lat, r_lon);
         MapMarker(mapView, c_name, c_lat, c_lon);
@@ -135,25 +166,75 @@ public class CourseInfoActivity extends AppCompatActivity {
         place1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Intent intent=new Intent(CourseInfoActivity.this,StoreInfoActivity.class);
-                intent.putExtra("r_url",r_url);
-                intent.putExtra("r_name",r_name);
-                startActivity(intent);
+                Information(r_name,r_cat,r_image_url,r_address,r_phone,r_url);
                 return false;
+
 
             }
         });
         place2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Intent intent=new Intent(CourseInfoActivity.this,StoreInfoActivity.class);
-                intent.putExtra("c_url",c_url);
-                intent.putExtra("c_name",c_name);
-                startActivity(intent);
+                Information(c_name,c_cat,c_image_url,c_address,c_phone,c_url);
                 return false;
             }
         });
     }
+    public void Information(String name,String cat,String image_url,String address,String phone,String url){
+
+        Map getLocationInfo_data=new HashMap();
+        getLocationInfo_data.put("place_url",url);
+
+        Call<Map<String, String>> getLocationInfo = RetrofitClient.getApiService().getLocationInfo(getLocationInfo_data);
+        getLocationInfo.enqueue(new Callback<Map<String, String>>() {
+            @Override
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+
+                Log.i("subin",response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+
+                Log.i("subin","서버 연결 실패 : "+t.getMessage());
+            }
+        });
+        Dialog storeInfo_dialog=new Dialog(CourseInfoActivity.this);
+        storeInfo_dialog.setContentView(R.layout.store_info);
+        //배경 투명
+        storeInfo_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        ImageView storeInfo_img = storeInfo_dialog.findViewById(R.id.storeInfo_img);
+        TextView storeInfo_tv_placeName = storeInfo_dialog.findViewById(R.id.storeInfo_tv_placeName);
+        TextView storeInfo_tv_cat = storeInfo_dialog.findViewById(R.id.storeInfo_tv_cat);
+        TextView storeInfo_tv_address = storeInfo_dialog.findViewById(R.id.storeInfo_tv_address);
+        TextView storeInfo_tv_phone=storeInfo_dialog.findViewById(R.id.storeInfo_tv_phone);
+        TextView storeInfo_tv_url=storeInfo_dialog.findViewById(R.id.storeInfo_tv_url);
+
+        Glide.with(CourseInfoActivity.this).load(image_url).placeholder(R.drawable.error_img1).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
+                new RoundedCorners(25))).into(storeInfo_img);
+        storeInfo_tv_placeName.setText(name);
+        storeInfo_tv_cat.setText(cat);
+        storeInfo_tv_address.setText("  "+address);
+        storeInfo_tv_address.setSelected(true);
+        storeInfo_tv_phone.setText("  "+phone);
+        storeInfo_tv_url.setText("  "+url);
+        storeInfo_tv_url.setSelected(true);
+
+        //창닫기 버튼 클릭 이벤트
+        ImageButton cancel = (ImageButton) storeInfo_dialog.findViewById(R.id.storeInfo_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                storeInfo_dialog.dismiss();
+            }
+        });
+
+        storeInfo_dialog.show();
+
+        //리뷰 서버연결
+
+    }
+
 
     public void Polyline(MapView mapView, String r_lat, String r_lon, String c_lat, String c_lon) {
         MapPoint c_mapPoint = mapPointWithGeoCoord(Double.parseDouble(c_lat), Double.parseDouble(c_lon));

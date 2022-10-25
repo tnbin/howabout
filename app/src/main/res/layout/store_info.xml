@@ -2,18 +2,36 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="30dp"
+    app:cardCornerRadius="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/storeInfo_img"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:src="@drawable/rabbit" />
+            android:layout_height="230dp">
+
+            <ImageView
+                android:id="@+id/storeInfo_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/rabbit" />
+
+            <ImageButton
+                android:id="@+id/storeInfo_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:src="@drawable/ic_round_cancel_24" />
+        </FrameLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -23,60 +41,110 @@
             android:layout_marginBottom="-30dp"
             app:cardCornerRadius="40dp">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/storeInfo_tv_placeName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="가게명"
-                    android:textSize="30dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="60dp"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/storeInfo_tv_cat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="인도 음식점"
-                    android:textSize="13dp" />
+                    <TextView
+                        android:id="@+id/storeInfo_tv_placeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="가게명"
+                        android:textSize="25dp" />
 
-                <TextView
-                    android:id="@+id/storeInfo_tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:text="냠냠북도 냠냠시 냠냠구 냠냠동 111-1" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/storeInfo_tv_cat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="인도 음식점"
+                        android:textSize="13dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="40dp"
-                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/storeInfo_tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="  냠냠북도 냠냠시 냠냠구 냠냠동 111-1" />
 
-                <Button
-                    android:id="@+id/storeInfo_btn_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:text="전화걸기" />
+                    <TextView
+                        android:id="@+id/storeInfo_tv_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+                        android:text="  010-0000-1111" />
 
-                <Button
-                    android:id="@+id/storeInfo_btn_road"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:text="길찾기" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/storeInfo_tv_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/ic_baseline_home_24_black"
+                        android:ellipsize="marquee"
+                        android:gravity="start"
+                        android:singleLine="true"
+                        android:text="  http://place.map.kakao.com/1311dddddddddddddddddd0298" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="review"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/storeInfo_list_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="40dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/storeInfo_btn_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edge_circlemain2"
+                            android:backgroundTint="#EEE"
+                            android:text="전화걸기" />
+
+                        <Button
+                            android:id="@+id/storeInfo_btn_road"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edge_circlemain2"
+                            android:backgroundTint="#EEE"
+                            android:text="길찾기" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

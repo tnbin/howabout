@@ -120,7 +120,7 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
         //검색 어댑터
         myAdatpter = new MyAdatpter(documentArrayList, getApplicationContext(), ed_search, rl_search);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); //레이아웃매니저 생성
-        rl_search.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));//아래구분선
+        rl_search.addItemDecoration(new DividerItemDecoration(getApplicationContext(), 0));//아래구분선
         rl_search.setLayoutManager(layoutManager);
         rl_search.setAdapter(myAdatpter);
         //플로팅 버튼

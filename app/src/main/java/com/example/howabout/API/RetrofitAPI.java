@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -76,5 +77,9 @@ public interface RetrofitAPI {
     //인기코스 구하기
     @POST("/popularCourse/getCatCourse")
     Call<ArrayList<JSONObject>> popular(@Body ArrayList<JSONObject> po);
+
+    //가게 리뷰 가져오기
+    @POST("/findCourse/getLocationInfo") //가게 정보
+    Call<Map<String, String>> getLocationInfo(@Body Map place_info);
 
 }
