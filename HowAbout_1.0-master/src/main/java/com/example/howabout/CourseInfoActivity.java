@@ -70,20 +70,6 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
-
-        scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
-        BounceInterpolator bounceInterpolator = new BounceInterpolator();
-        scaleAnimation.setInterpolator(bounceInterpolator);
-        scaleAnimation.setDuration(500);
-        compoundButton = findViewById(R.id.btn_favorite);
-
-        //Mapview 생성
-        MapView mapView = new MapView(this);
-        //mapview 가 들어갈 layout
-        LinearLayout mapViewContainer = findViewById(R.id.map_mycourse);
-        //layout에 mapview 추가
-        mapViewContainer.addView(mapView);
-/////////////////// drawerLayout
         //DrawerLayout Menu
         ImageButton btn_open = findViewById(R.id.btn_open);
         btn_open.setOnClickListener(click_Drawer);
@@ -98,7 +84,20 @@ public class CourseInfoActivity extends AppCompatActivity {
         Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
         btn_mycourcebar.setOnClickListener(click_DrawerMenu);
 
-        ///////////////////drawlayout end
+        //heart animation
+        scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
+        BounceInterpolator bounceInterpolator = new BounceInterpolator();
+        scaleAnimation.setInterpolator(bounceInterpolator);
+        scaleAnimation.setDuration(500);
+        compoundButton = findViewById(R.id.btn_favorite);
+
+        //Mapview 생성
+        MapView mapView = new MapView(this);
+        //mapview 가 들어갈 layout
+        LinearLayout mapViewContainer = findViewById(R.id.map_mycourse);
+        //layout에 mapview 추가
+        mapViewContainer.addView(mapView);
+
         //popular에서 보낸 intent 받기
         Intent couseintent = getIntent();
         String jsonObject = couseintent.getStringExtra("storeInfo");
@@ -109,7 +108,7 @@ public class CourseInfoActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        //gg..
         String r_lat = aa.get("r_lat").toString();
         String r_lon = aa.get("r_lon").toString();
         String c_lat = aa.get("c_lat").toString();
@@ -128,11 +127,10 @@ public class CourseInfoActivity extends AppCompatActivity {
         String c_url = aa.get("c_url").toString();
         String r_id = aa.get("r_id").toString();
         String c_id = aa.get("c_id").toString();
-
         //marker 찍기
         MapMarker(mapView, r_name, r_lat, r_lon);
         MapMarker(mapView, c_name, c_lat, c_lon);
-//        //가게 끼리 선긋기
+        //가게 끼리 선긋기
         Polyline(mapView, r_lat, r_lon, c_lat, c_lon);
         //restaurant
         TextView place1 = findViewById(R.id.place1);
@@ -145,8 +143,6 @@ public class CourseInfoActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Information(r_name, r_cat, r_image_url, r_address, r_phone, r_url);
                 return false;
-
-
             }
         });
         place2.setOnTouchListener(new View.OnTouchListener() {
@@ -259,7 +255,6 @@ public class CourseInfoActivity extends AppCompatActivity {
         });
         storeInfo_dialog.show();
     }
-
 
     public void Polyline(MapView mapView, String r_lat, String r_lon, String c_lat, String c_lon) {
         MapPoint c_mapPoint = mapPointWithGeoCoord(Double.parseDouble(c_lat), Double.parseDouble(c_lon));
