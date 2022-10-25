@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Leehj/android/HowAbout/app/src/main/res/layout/menu_bar.xml" value="0.23489583333333333" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/drawable/button_favorite.xml" value="0.1" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.14" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/drawable/ic_baseline_home_24_black.xml" value="0.1615" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.1615" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1935" />

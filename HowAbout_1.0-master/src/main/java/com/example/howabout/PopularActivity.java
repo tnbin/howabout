@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,11 +17,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
-import com.example.howabout.CourseInfoActivity;
-import com.example.howabout.FindActivity;
-import com.example.howabout.MainActivity;
-import com.example.howabout.MyCourseActivity;
-import com.example.howabout.R;
 import com.example.howabout.popular.BottomSheet_age;
 import com.example.howabout.popular.BottomSheet_gender;
 import com.example.howabout.popular.BottomSheet_region;
@@ -30,7 +24,6 @@ import com.example.howabout.popular.PopularAdapter;
 import com.example.howabout.popular.Popular_item;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +141,7 @@ public class PopularActivity extends AppCompatActivity {
             }
         });
         /////////////////////drawerlayout finish
-        //검색 버튼 눌렀을 때
+        //검색 버튼 눌렀을 때 
         Button btn_casearch = findViewById(R.id.btn_casearch);
         btn_casearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,7 +251,7 @@ public class PopularActivity extends AppCompatActivity {
                             //보여줄 listview 불러오기
                             listView = findViewById(R.id.popular_list);
                             //arraylist url에 서버에서 받은 값 (카페 url) 저장
-                            urllist.add(jsonObject.get("c_image_url").toString());
+                            urllist.add("http:"+jsonObject.get("c_image_url").toString());
 //                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_do").toString() + ", " + i);
 //                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_si").toString() + ", " + i);
                             //arraylist text에 서버에서 받은 값 (카페 text) 저장

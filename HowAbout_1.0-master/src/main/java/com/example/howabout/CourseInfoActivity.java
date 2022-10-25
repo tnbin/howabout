@@ -18,7 +18,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,6 +55,10 @@ public class CourseInfoActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     View drawerView;
+    TextView storeInfo_tv_time;
+    CompoundButton compoundButton;
+    ScaleAnimation scaleAnimation;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -61,6 +69,18 @@ public class CourseInfoActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerView = findViewById(R.id.drawer);
 
+        scaleAnimation=new ScaleAnimation(0.7f,1.0f,0.7f,1.0f, Animation.RELATIVE_TO_SELF,0.7f,Animation.RELATIVE_TO_SELF,0.7f);
+        BounceInterpolator bounceInterpolator=new BounceInterpolator();
+        scaleAnimation.setInterpolator(bounceInterpolator);
+
+        scaleAnimation.setDuration(500);
+        compoundButton=findViewById(R.id.btn_favorite);
+        compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                compoundButton.startAnimation(scaleAnimation);
+            }
+        });
         //Mapview 생성
         MapView mapView = new MapView(this);
         //mapview 가 들어갈 layout
@@ -140,8 +160,8 @@ public class CourseInfoActivity extends AppCompatActivity {
         String c_lon = aa.get("c_lon").toString();
         String c_name = aa.get("c_name").toString();
         String r_name = aa.get("r_name").toString();
-        String c_image_url = aa.get("c_image_url").toString();
-        String r_image_url = aa.get("r_image_url").toString();
+        String c_image_url = "http:"+aa.get("c_image_url").toString();
+        String r_image_url = "http:"+aa.get("r_image_url").toString();
         String c_cat = aa.get("c_cat").toString();
         String r_cat = aa.get("r_cat").toString();
         String r_address = aa.get("r_do").toString() + " " + aa.get("r_si").toString() + " " + aa.get("r_gu").toString() + " " + aa.get("r_dong").toString();
@@ -181,24 +201,6 @@ public class CourseInfoActivity extends AppCompatActivity {
         });
     }
     public void Information(String name,String cat,String image_url,String address,String phone,String url){
-
-        Map getLocationInfo_data=new HashMap();
-        getLocationInfo_data.put("place_url",url);
-
-        Call<Map<String, String>> getLocationInfo = RetrofitClient.getApiService().getLocationInfo(getLocationInfo_data);
-        getLocationInfo.enqueue(new Callback<Map<String, String>>() {
-            @Override
-            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
-
-                Log.i("subin",response.body().toString());
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, String>> call, Throwable t) {
-
-                Log.i("subin","서버 연결 실패 : "+t.getMessage());
-            }
-        });
         Dialog storeInfo_dialog=new Dialog(CourseInfoActivity.this);
         storeInfo_dialog.setContentView(R.layout.store_info);
         //배경 투명
@@ -228,11 +230,41 @@ public class CourseInfoActivity extends AppCompatActivity {
                 storeInfo_dialog.dismiss();
             }
         });
-
-        storeInfo_dialog.show();
-
         //리뷰 서버연결
+        Map getLocationInfo_data=new HashMap();
+        getLocationInfo_data.put("place_url",url);
 
+        Call<Map<String, String>> getLocationInfo = RetrofitClient.getApiService().getLocationInfo(getLocationInfo_data);
+        getLocationInfo.enqueue(new Callback<Map<String, String>>() {
+            @Override
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+
+                Map<String, String> result = response.body();
+                Log.i("subin","/////////////////"+result.get("storeTime"));
+                String storeTime=result.get("storeTime");
+                storeInfo_tv_time=storeInfo_dialog.findViewById(R.id.storeInfo_tv_time);
+                storeInfo_tv_time.setText("  "+storeTime);
+                Log.i("subin",storeTime);
+                storeInfo_tv_time.setSelected(true);
+                String review1=result.get("review_1");
+                Log.i("subin","review: "+review1);
+                TextView storeInfo_tv_reivew1=storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew1);
+                storeInfo_tv_reivew1.setText(review1);
+                String review2=result.get("review_2");
+                TextView storeInfo_tv_reivew2=storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew2);
+                storeInfo_tv_reivew2.setText(review2);
+                String review3=result.get("review_3");
+                TextView storeInfo_tv_reivew3=storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew3);
+                storeInfo_tv_reivew3.setText(review3);
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+
+                Log.i("subin","서버 연결 실패 : "+t.getMessage());
+            }
+        });
+        storeInfo_dialog.show();
     }
 
 

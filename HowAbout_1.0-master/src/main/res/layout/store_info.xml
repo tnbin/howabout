@@ -105,6 +105,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:drawableLeft="@drawable/ic_baseline_access_time_24"
                         android:text="  월 화 휴무" />
 
@@ -142,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="40dp"
+                        android:layout_marginBottom="60dp"
                         android:orientation="horizontal">
 
                         <Button
