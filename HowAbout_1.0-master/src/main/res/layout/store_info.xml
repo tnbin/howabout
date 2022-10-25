@@ -99,12 +99,14 @@
                         android:singleLine="true"
                         android:text="  http://place.map.kakao.com/1311dddddddddddddddddd0298" />
 
+
                     <TextView
                         android:id="@+id/storeInfo_tv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="휴무일" />
+                        android:drawableLeft="@drawable/ic_baseline_access_time_24"
+                        android:text="  월 화 휴무" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -114,10 +116,26 @@
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
-                    <ListView
-                        android:id="@+id/storeInfo_list_review"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/storeInfo_tv_reivew1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text=" 맛있고 친절함. 혼자 갔는데도 큰 냄비에 내 주심" />
+
+                    <TextView
+                        android:id="@+id/storeInfo_tv_reivew2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="맛집입니다, 첨가봤는데 넘맛있게먹고 왔어요^^" />
+
+                    <TextView
+                        android:id="@+id/storeInfo_tv_reivew3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="맛집입니다, 첨가봤는데 넘맛있게먹고 왔어요^^" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

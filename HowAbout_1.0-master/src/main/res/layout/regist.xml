@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegistActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo2" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="닉네임*"
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ed_renickname"
+                android:layout_width="195dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/edge_black"
+                android:hint="닉네임:"
+                android:inputType="text"
+                android:maxLength="8"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="15dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_namedoubleck"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="#ff5757"
+                android:text="중복확인"
+                android:textColor="#fff"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/warning_name"
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="아이디*"
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ed_reid"
+                android:layout_width="195dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/edge_black"
+                android:hint="아이디:"
+                android:inputType="text"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="15dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_iddoubleck"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="#ff5757"
+                android:text="중복확인"
+                android:textColor="#fff"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/warning_id"
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="비밀번호*"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/ed_repw"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/edge_black"
+            android:hint="비밀번호:"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="15dp" />
+
+
+        <TextView
+            android:id="@+id/warning_pw"
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="비밀번호 확인*"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/ed_repwcheck"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/edge_black"
+            android:hint="비밀번호 확인:"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/warning_pwck"
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="성별*"
+            android:textSize="10dp" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/btn_man"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="80dp"
+                android:checked="true"
+                android:text="남자" />
+
+            <RadioButton
+                android:id="@+id/btn_woman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여자" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:text="생년월일*"
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/signBirth"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edge_black"
+                android:hint=" 생년(4자)"
+                android:inputType="date"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:textSize="15dp" />
+
+            <Spinner
+                android:id="@+id/spinner_m"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edge_black"
+                android:textSize="15dp" />
+
+            <Spinner
+                android:id="@+id/spinner_d"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:background="@drawable/edge_black"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/spinner"
+            android:layout_width="280dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#ff5757"
+            android:textSize="10dp" />
+
+
+        <Button
+            android:id="@+id/btn_regist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="#FF5757"
+            android:text="회원가입"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+
+</ScrollView>

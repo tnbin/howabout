@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FindActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#FFF"
+                android:src="@drawable/ic_baseline_dehaze_24" />
+
+            <EditText
+                android:id="@+id/ed_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_toRightOf="@+id/btn_open"
+                android:drawableStart="@drawable/ic_baseline_search_24"
+                android:hint=" 검색할 장소를 입력해주세요"
+                android:textColorHighlight="#EC9393"
+                android:textCursorDrawable="@drawable/cursor"
+                android:textSelectHandle="@drawable/select_handler"
+                android:textSelectHandleLeft="@drawable/select_handler"
+                android:textSelectHandleRight="@drawable/select_handler" />
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/btn_search"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_alignParentRight="true"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:backgroundTint="#FFF"-->
+            <!--                android:src="@drawable/ic_baseline_search_24" />-->
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <net.daum.mf.map.api.MapView
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/find_lcy_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/lcy_jelly_resize"
+                android:visibility="invisible" />
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="right|center"
+                android:max="1200"
+                android:min="0"
+                android:progress="300"
+                android:progressDrawable="@drawable/seekbar_seekbar1"
+                android:rotation="270"
+                android:splitTrack="false"
+                android:thumbTint="#ff5757"
+                android:translationX="75dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="160dp"
+                android:background="@drawable/edge_circle"
+                android:backgroundTint="#AEF8F0F0"
+                android:src="@drawable/ic_baseline_search_24"
+                android:visibility="invisible"
+                app:pressedTranslationZ="12dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="90dp"
+                android:background="@drawable/edge_circle"
+                android:backgroundTint="#AEF8F0F0"
+                android:src="@drawable/button_back"
+                android:visibility="invisible"
+                app:pressedTranslationZ="12dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#D8FF5757"
+                android:src="@drawable/ic_baseline_addw_24" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rl_search"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:background="@android:color/transparent"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <include layout="@layout/sidebar" />
+</androidx.drawerlayout.widget.DrawerLayout>
