@@ -1,14 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".StoreInfoActivity">
+    android:layout_height="match_parent">
 
-    <WebView
-        android:id="@+id/web_store"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/storeInfo_img"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/rabbit" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="-30dp"
+            android:layout_marginBottom="-30dp"
+            app:cardCornerRadius="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/storeInfo_tv_placeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="가게명"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/storeInfo_tv_cat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="인도 음식점"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/storeInfo_tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="냠냠북도 냠냠시 냠냠구 냠냠동 111-1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/storeInfo_btn_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="전화걸기" />
+
+                <Button
+                    android:id="@+id/storeInfo_btn_road"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="길찾기" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

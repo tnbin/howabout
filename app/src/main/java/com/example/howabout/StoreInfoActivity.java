@@ -5,63 +5,58 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;;import com.example.howabout.category_search.Document;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import java.net.URL;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.example.howabout.category_search.Document;
 
+import org.w3c.dom.Text;
 
 public class StoreInfoActivity extends AppCompatActivity {
 
-
-    WebView webView;
-
+    String url = null;
+    String name=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_info);
 
-        Intent intent=getIntent();
-        Document document=intent.getParcelableExtra("10");
-        String url=document.getPlaceUrl();
-        ////////////////
-        Intent r_intent=getIntent();
-        String r_url=r_intent.getStringExtra("r_url");
-        Intent c_intent=getIntent();
-        String c_url=c_intent.getStringExtra("c_url");
-        Log.i("subin","r_url 인기코스"+r_url);
-        Log.i("subin","c_url 인기코스"+c_url);
-        //xml 연결
-//        webView = findViewById(R.id.web_store);
-//        //자바스트립트 허용
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        //웹뷰 실행 Url 적용
-//        webView.loadUrl(url);
-//        //크롬 실행 가능
-//        webView.setWebChromeClient(new WebChromeClient());
-//        //기존창에 실행
-//        webView.setWebViewClient(new WebViewClient());
-    }
+//        Intent intent = getIntent();
+//        Document document = intent.getParcelableExtra("10");
+//        String popular_url = document.getPlaceUrl();
+//        url=popular_url;
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {//뒤로가기 버튼 이벤트
-//        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {//웹뷰에서 뒤로가기 버튼을 누르면 뒤로가짐
-//            webView.goBack();
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
-//
-//    private static class WebViewClientClass extends WebViewClient {//페이지 이동
-//
-//        @Override
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            Log.d("subin", url);
-//            view.loadUrl(url);
-//            return true;
-//        }
-//    }
+//        //////////////
+        Intent r_intent = getIntent();
+        String r_url = r_intent.getStringExtra("r_url");
+        String r_name = r_intent.getStringExtra("r_name");
+        url=r_url;
+        name=r_name;
+
+//        Intent c_intent = getIntent();
+//        String c_url = c_intent.getStringExtra("c_url");
+//        String c_name = r_intent.getStringExtra("c_name");
+//        Log.i("subin", "r_url 인기코스" + r_url);
+//        Log.i("subin", "c_url 인기코스" + c_url);
+//        url=c_url;
+//        name=c_name;
+
+        ImageView storeInfo_img = findViewById(R.id.storeInfo_img);
+        TextView storeInfo_tv_placeName = findViewById(R.id.storeInfo_tv_placeName);
+        if (url != null||name!=null) {
+            Log.i("subin","url: "+url);
+            Glide.with(StoreInfoActivity.this).load(url).placeholder(R.drawable.error_img1).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
+                    new RoundedCorners(25))).into(storeInfo_img);
+            storeInfo_tv_placeName.setText(name);
+        }
+
+
+
+    }
 
 }
