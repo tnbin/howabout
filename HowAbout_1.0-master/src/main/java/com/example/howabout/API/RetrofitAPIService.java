@@ -38,8 +38,6 @@ public interface RetrofitAPIService {
 
 
     //Find Course..............................................................
-    @POST("/findCourse/location")
-    Call<Integer> restcource(@Body ArrayList<JSONObject> arrayList);
 
     @POST("/findCourse/rest") //식당 리스트
     Call<ArrayList<CategoryResult>> rest(@Body ArrayList<JSONObject> arrayList);
@@ -87,7 +85,7 @@ public interface RetrofitAPIService {
     //인기코스 구하기
     @POST("/popularCourse/getCatCourse")
     Call<ArrayList<JSONObject>> popular(@Body ArrayList<JSONObject> po);
-
-
-
+    //mycourse
+    @POST("/myCourse/myCourse")
+    Call<ArrayList<JSONObject>>mycourse(@Body ArrayList<JSONObject> course);
 }

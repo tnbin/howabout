@@ -254,6 +254,7 @@ public class PopularActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(PopularActivity.this,"인기 코스가 없습니다",Toast.LENGTH_SHORT).show();
                 }
             }
 

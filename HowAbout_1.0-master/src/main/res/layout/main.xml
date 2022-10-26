@@ -64,28 +64,47 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFF"
-                android:src="@drawable/ic_baseline_add_location_alt_24"
+                android:src="@drawable/ic_baseline_location_on_24_red"
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
+        <ViewFlipper
+            android:id="@+id/viewFlipper"
+            android:layout_width="wrap_content"
             android:layout_height="200dp">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewpager"
+            <ImageView
+                android:id="@+id/imageView1"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:clipChildren="false"
-                android:clipToPadding="false" />
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/grape" />
 
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/indicator"
+            <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/my_weather" />
 
-        </FrameLayout>
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/mcl" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/closet" />
+        </ViewFlipper>
 
         <LinearLayout
             android:layout_width="match_parent"

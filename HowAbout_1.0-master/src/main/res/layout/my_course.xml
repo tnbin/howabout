@@ -24,8 +24,8 @@
                 android:id="@+id/btn_open"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFF"
@@ -47,23 +47,23 @@
             android:layout_weight="4"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/edge_howaboutfull"
-                android:gravity="center"
-                android:text="내가 찜한 코스 목록"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp" />
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="33dp"-->
+            <!--                android:layout_marginLeft="20dp"-->
+            <!--                android:layout_marginRight="20dp"-->
+            <!--                android:background="@drawable/edge_howaboutfull"-->
+            <!--                android:gravity="center"-->
+            <!--                android:text="내가 찜한 코스 목록"-->
+            <!--                android:textColor="#FFFFFF"-->
+            <!--                android:textSize="20dp" />-->
 
             <ListView
+                android:id="@+id/mycourse_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/edge_howabout" />
+                android:divider="#FFF"
+                android:dividerHeight="0px" />
         </LinearLayout>
 
     </LinearLayout>

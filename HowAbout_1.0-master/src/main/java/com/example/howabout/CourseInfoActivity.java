@@ -169,7 +169,7 @@ public class CourseInfoActivity extends AppCompatActivity {
                         Log.i("subin", "click sucess!!");
                         savePopularCourse_data.put("r_id", r_id);
                         savePopularCourse_data.put("c_id", c_id);
-                        savePopularCourse_data.put("u_id", "tt11");
+                        savePopularCourse_data.put("u_id", "testman");
 
                         Call<Integer> save_myCourse = RetrofitClient.getApiService().saveMyCourse(savePopularCourse_data);
                         save_myCourse.enqueue(new Callback<Integer>() {
@@ -238,7 +238,7 @@ public class CourseInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String road = "kakaomap://route?sp=" + first_lat + "," + first_lon + "&ep=" + second_lat + "," + second_lon + "&by=FOOT";
-                Log.i("subin", "길찾기 카카오 주소: " + road);
+//                Log.i("subin", "길찾기 카카오 주소: " + road);
                 Intent roadintent = new Intent(Intent.ACTION_VIEW);
                 roadintent.setData(Uri.parse(road));
                 roadintent.addCategory(Intent.CATEGORY_BROWSABLE);
