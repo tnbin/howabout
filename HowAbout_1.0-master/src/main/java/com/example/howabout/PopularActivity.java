@@ -223,7 +223,6 @@ public class PopularActivity extends AppCompatActivity {
                 Log.i("subin", "서버에서 준 값" + str);
 
                 //서버에서 받은 값 키값으로 불러오기 위해서 jsonobject 생성
-//                JSONObject jsonObject;
                 try {
                     if (popularlist.size() == 0) {
                         Toast.makeText(PopularActivity.this, "인기 코스가 없습니다", Toast.LENGTH_SHORT).show();
@@ -236,8 +235,6 @@ public class PopularActivity extends AppCompatActivity {
                             listView = findViewById(R.id.popular_list);
                             //arraylist url에 서버에서 받은 값 (카페 url) 저장
                             urllist.add("http:" + jsonObject.get("c_image_url").toString());
-//                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_do").toString() + ", " + i);
-//                            Log.i("subin", "서버에서 받은 rest text 값: " + jsonObject.get("c_si").toString() + ", " + i);
                             //arraylist text에 서버에서 받은 값 (카페 text) 저장
                             textlist.add(jsonObject.get("c_do").toString() + " " + jsonObject.get("c_si") + " 코스");
                             //객체 불러오기 (list custom)

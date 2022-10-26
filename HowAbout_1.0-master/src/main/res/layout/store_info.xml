@@ -60,6 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="가게명"
+                        android:textIsSelectable="true"
                         android:textSize="25dp" />
 
                     <TextView
@@ -67,7 +68,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
                         android:text="인도 음식점"
+                        android:textIsSelectable="true"
                         android:textSize="13dp" />
 
                     <TextView
@@ -78,6 +81,7 @@
                         android:drawableLeft="@drawable/ic_baseline_location_on_24"
                         android:ellipsize="marquee"
                         android:singleLine="true"
+                        android:textIsSelectable="true"
                         android:text="  냠냠북도 냠냠시 냠냠구 냠냠동 111-1" />
 
                     <TextView
@@ -85,6 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textIsSelectable="true"
                         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
                         android:text="  010-0000-1111" />
 
@@ -93,6 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textIsSelectable="true"
                         android:drawableLeft="@drawable/ic_baseline_home_24_black"
                         android:ellipsize="marquee"
                         android:gravity="start"
@@ -105,9 +111,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:singleLine="true"
-                        android:ellipsize="marquee"
                         android:drawableLeft="@drawable/ic_baseline_access_time_24"
+                        android:ellipsize="marquee"
+                        android:textIsSelectable="true"
+                        android:singleLine="true"
                         android:text="  월 화 휴무" />
 
                     <TextView

@@ -12,8 +12,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -46,6 +49,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -127,6 +131,8 @@ public class CourseInfoActivity extends AppCompatActivity {
         String c_url = aa.get("c_url").toString();
         String r_id = aa.get("r_id").toString();
         String c_id = aa.get("c_id").toString();
+        Log.i("subin", "음식점 경도 위도 정보 값:" + r_lon + "," + r_lat);
+        Log.i("subin", "카페 경도 위도 정보 값:" + c_lon + "," + c_lat);
         //marker 찍기
         MapMarker(mapView, r_name, r_lat, r_lon);
         MapMarker(mapView, c_name, c_lat, c_lon);
@@ -141,17 +147,18 @@ public class CourseInfoActivity extends AppCompatActivity {
         place1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Information(r_name, r_cat, r_image_url, r_address, r_phone, r_url);
+                Information(r_name, r_cat, r_image_url, r_address, r_phone, r_url, r_lat, r_lon, c_lat, c_lon);
                 return false;
             }
         });
         place2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Information(c_name, c_cat, c_image_url, c_address, c_phone, c_url);
+                Information(c_name, c_cat, c_image_url, c_address, c_phone, c_url, c_lat, c_lon, r_lat, r_lon);
                 return false;
             }
         });
+
         compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -189,7 +196,7 @@ public class CourseInfoActivity extends AppCompatActivity {
         });
     }
 
-    public void Information(String name, String cat, String image_url, String address, String phone, String url) {
+    public void Information(String name, String cat, String image_url, String address, String phone, String url, String first_lat, String first_lon, String second_lat, String second_lon) {
         Dialog storeInfo_dialog = new Dialog(CourseInfoActivity.this);
         storeInfo_dialog.setContentView(R.layout.store_info);
         //배경 투명
@@ -200,17 +207,50 @@ public class CourseInfoActivity extends AppCompatActivity {
         TextView storeInfo_tv_address = storeInfo_dialog.findViewById(R.id.storeInfo_tv_address);
         TextView storeInfo_tv_phone = storeInfo_dialog.findViewById(R.id.storeInfo_tv_phone);
         TextView storeInfo_tv_url = storeInfo_dialog.findViewById(R.id.storeInfo_tv_url);
+        Button storeInfo_btn_phone = storeInfo_dialog.findViewById(R.id.storeInfo_btn_phone);
+        Button storeInfo_btn_road = storeInfo_dialog.findViewById(R.id.storeInfo_btn_road);
 
         Glide.with(CourseInfoActivity.this).load(image_url).placeholder(R.drawable.error_img1).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
                 new RoundedCorners(25))).into(storeInfo_img);
         storeInfo_tv_placeName.setText(name);
+        storeInfo_tv_placeName.setTextIsSelectable(true);
         storeInfo_tv_cat.setText(cat);
+        storeInfo_tv_cat.setTextIsSelectable(true);
         storeInfo_tv_address.setText("  " + address);
         storeInfo_tv_address.setSelected(true);
+        storeInfo_tv_address.setTextIsSelectable(true);
         storeInfo_tv_phone.setText("  " + phone);
         storeInfo_tv_url.setText("  " + url);
+        storeInfo_tv_url.setTextIsSelectable(true);
         storeInfo_tv_url.setSelected(true);
 
+        //전화 다이얼
+        storeInfo_btn_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent telintent = new Intent(Intent.ACTION_DIAL);
+                telintent.setData(Uri.parse("tel:" + phone));
+                startActivity(telintent);
+            }
+        });
+        //길찾기 (카카오)
+        storeInfo_btn_road.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String road = "kakaomap://route?sp=" + first_lat + "," + first_lon + "&ep=" + second_lat + "," + second_lon + "&by=FOOT";
+                Log.i("subin", "길찾기 카카오 주소: " + road);
+                Intent roadintent = new Intent(Intent.ACTION_VIEW);
+                roadintent.setData(Uri.parse(road));
+                roadintent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                List<ResolveInfo> list = getPackageManager().queryIntentActivities(roadintent, PackageManager.MATCH_DEFAULT_ONLY);
+                if (list == null || list.isEmpty()) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=net.daum.android.map")));
+                } else {
+                    startActivity(roadintent);
+                }
+            }
+        });
         //창닫기 버튼 클릭 이벤트
         ImageButton cancel = (ImageButton) storeInfo_dialog.findViewById(R.id.storeInfo_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -229,14 +269,15 @@ public class CourseInfoActivity extends AppCompatActivity {
             public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
 
                 Map<String, String> result = response.body();
-                Log.i("subin", "/////////////////" + result.get("storeTime"));
+//                Log.i("subin", "/////////////////" + result.get("storeTime"));
                 String storeTime = result.get("storeTime");
                 storeInfo_tv_time = storeInfo_dialog.findViewById(R.id.storeInfo_tv_time);
                 storeInfo_tv_time.setText("  " + storeTime);
-                Log.i("subin", storeTime);
+                storeInfo_tv_time.setTextIsSelectable(true);
+//                Log.i("subin", storeTime);
                 storeInfo_tv_time.setSelected(true);
                 String review1 = result.get("review_1");
-                Log.i("subin", "review: " + review1);
+//                Log.i("subin", "review: " + review1);
                 TextView storeInfo_tv_reivew1 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew1);
                 storeInfo_tv_reivew1.setText(review1);
                 String review2 = result.get("review_2");
