@@ -36,22 +36,31 @@ public interface RetrofitAPIService {
     @POST("/login/signIn")
     Call<signInVo> login(@Body UserVo userVo);
 
+    //아이디 찾기
+    @POST("/login/findMyId")
+    Call<Map<String, String>>search_id(@Body Map email);
 
     //Find Course..............................................................
 
-    @POST("/findCourse/rest") //식당 리스트
+    @POST("/findCourse/rest")
+        //식당 리스트
     Call<ArrayList<CategoryResult>> rest(@Body ArrayList<JSONObject> arrayList);
-    @POST("/findCourse/cafe") //카페 리스트
+
+    @POST("/findCourse/cafe")
+        //카페 리스트
     Call<ArrayList<CategoryResult>> cafe(@Body ArrayList<JSONObject> arrayList);
 
-    @POST("/findCourse/saveCourse") //코스 저장
+    @POST("/findCourse/saveCourse")
+        //코스 저장
     Call<Map> saveCourse(@Body ArrayList<Object> arrayList);
 
-    @POST("/findCourse/courseDibs")//내 코스 저장
+    @POST("/findCourse/courseDibs")
+    //내 코스 저장
     Call<Integer> saveMyCourse(@Body Map saveMyCourse_data);
 
     //가게 리뷰 가져오기
-    @POST("/findCourse/getLocationInfo") //가게 정보
+    @POST("/findCourse/getLocationInfo")
+    //가게 정보
     Call<Map<String, String>> getLocationInfo(@Body Map place_info);
 
 
@@ -85,7 +94,8 @@ public interface RetrofitAPIService {
     //인기코스 구하기
     @POST("/popularCourse/getCatCourse")
     Call<ArrayList<JSONObject>> popular(@Body ArrayList<JSONObject> po);
+
     //mycourse
     @POST("/myCourse/myCourse")
-    Call<ArrayList<JSONObject>>mycourse(@Body ArrayList<JSONObject> course);
+    Call<ArrayList<JSONObject>> mycourse(@Body ArrayList<JSONObject> course);
 }

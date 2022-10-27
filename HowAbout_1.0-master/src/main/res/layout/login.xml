@@ -141,7 +141,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="아이디 / 비밀번호 찾기"
+            android:text="아이디  /"
+            android:textColor="@color/teal_200"
+            android:textSize="12dp"
+            android:id="@+id/search_id"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 찾기"
+            android:id="@+id/search_pw"
+            android:layout_marginStart="5dp"
             android:textColor="@color/teal_200"
             android:textSize="12dp"
             android:textStyle="bold" />
