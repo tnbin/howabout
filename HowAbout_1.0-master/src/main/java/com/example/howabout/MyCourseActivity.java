@@ -1,15 +1,13 @@
 package com.example.howabout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,6 +28,7 @@ import retrofit2.Response;
 
 public class MyCourseActivity extends AppCompatActivity {
 
+    SharedPreferences preferences;
     DrawerLayout drawerLayout;
     Intent intent;
     View drawerView;
@@ -63,20 +62,9 @@ public class MyCourseActivity extends AppCompatActivity {
         //내 코스 서버연결
         urllist = new ArrayList<>();
         textlist = new ArrayList<>();
+        popularAdapter.clear();
+        popularAdapter.notifyDataSetChanged();
         mycourse("맹구");
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(MyCourseActivity.this, CourseInfoActivity.class);
-//                JSONObject js = jsonObject;
-//                Log.i("subin", js + "");
-//                String string = js.toString();
-//                intent.putExtra("storeInfo", string);
-//
-//                startActivity(intent);
-//
-//            }
-//        });
 
     }
     public void mycourse(String u_id){
@@ -98,6 +86,7 @@ public class MyCourseActivity extends AppCompatActivity {
 //                Log.i("subin","내 코스 서버 연결 성공: "+str);
 //                Log.i("subin","내코스 개수: "+mycourselist.size());
                 //서버에서 받은 값 키값으로 불러오기 위해서 jsonobject 생성
+                try {
                     if (mycourselist.isEmpty()) {
                         Toast.makeText(MyCourseActivity.this, "내 코스가 없습니다", Toast.LENGTH_SHORT).show();
                     } else {
@@ -130,7 +119,9 @@ public class MyCourseActivity extends AppCompatActivity {
                             popularAdapter.notifyDataSetChanged();
                         }
                     }
-
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
