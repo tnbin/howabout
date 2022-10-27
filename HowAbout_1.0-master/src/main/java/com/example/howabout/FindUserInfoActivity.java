@@ -3,13 +3,14 @@ package com.example.howabout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.howabout.FindUserInfo.BlankFragment01;
-import com.example.howabout.FindUserInfo.BlankFragment02;
+import com.example.howabout.FindUserInfo.FindId;
+import com.example.howabout.FindUserInfo.FindPwCheck;
 import com.example.howabout.FindUserInfo.ContentsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -29,8 +30,8 @@ public class FindUserInfoActivity extends AppCompatActivity {
 
         List<Map<String, Object>> mapList = new ArrayList<>();
 
-        Map<String, Object> stringObjectMap = setTabTitleAndFragment("아이디 찾기", new BlankFragment01());
-        Map<String, Object> settingMap = setTabTitleAndFragment("비밀번호 재설정", new BlankFragment02());
+        Map<String, Object> stringObjectMap = setTabTitleAndFragment("아이디 찾기", new FindId());
+        Map<String, Object> settingMap = setTabTitleAndFragment("비밀번호 재설정", new FindPwCheck());
 
         mapList.add(stringObjectMap);
         mapList.add(settingMap);

@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.howabout.API.RetrofitClient;
-import com.example.howabout.FindUserInfoActivity;
 import com.example.howabout.R;
 
 import java.util.HashMap;
@@ -25,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BlankFragment01 extends Fragment {
+public class FindId extends Fragment {
 
     EditText ed_search_id_email;
     Button btn_search_id;
@@ -38,13 +37,13 @@ public class BlankFragment01 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public BlankFragment01() {
+    public FindId() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment01 newInstance(String param1, String param2) {
-        BlankFragment01 fragment = new BlankFragment01();
+    public static FindId newInstance(String param1, String param2) {
+        FindId fragment = new FindId();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +66,7 @@ public class BlankFragment01 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_blank01, container, false);
+        View view = inflater.inflate(R.layout.findid, container, false);
         ed_search_id_email = view.findViewById(R.id.ed_search_id_email);
 
         btn_search_id = view.findViewById(R.id.btn_search_id);

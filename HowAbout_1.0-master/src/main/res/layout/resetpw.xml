@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_reset_pw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FindUserInfo.FindPwCheckActivity">
+    tools:context=".FindUserInfo.ResetPw">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +38,7 @@
             android:background="@drawable/edge_black"
             android:hint="  비밀번호"
             android:padding="12dp"
+            android:singleLine="true"
             android:textColorHighlight="#EC9393"
             android:textCursorDrawable="@drawable/cursor"
             android:textSelectHandle="@drawable/select_handler"
@@ -53,6 +55,7 @@
             android:background="@drawable/edge_black"
             android:hint="  비밀번호 확인"
             android:padding="12dp"
+            android:singleLine="true"
             android:textColorHighlight="#EC9393"
             android:textCursorDrawable="@drawable/cursor"
             android:textSelectHandle="@drawable/select_handler"

@@ -40,6 +40,13 @@ public interface RetrofitAPIService {
     @POST("/login/findMyId")
     Call<Map<String, String>>search_id(@Body Map email);
 
+    //비밀번호 재설정 회원확인
+    @POST("/login/checkMyInfo")
+    Call<Integer>usercheck(@Body Map repwcheck);
+
+    //비밀번호 재설정
+    @POST("/login/setNewPw")
+    Call<Integer>repw(@Body Map postrepw);
     //Find Course..............................................................
 
     @POST("/findCourse/rest")
