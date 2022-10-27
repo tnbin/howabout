@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -65,6 +66,19 @@ public class MyCourseActivity extends AppCompatActivity {
         popularAdapter.clear();
         popularAdapter.notifyDataSetChanged();
         mycourse("맹구");
+
+        listView=findViewById(R.id.mycourse_list);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                intent=new Intent(MyCourseActivity.this,CourseInfoActivity.class);
+                JSONObject json=jsonObject;
+                String string=json.toString();
+                Log.i("subin","listview click: "+string);
+                intent.putExtra("storeInfo",string);
+                startActivity(intent);
+            }
+        });
 
     }
     public void mycourse(String u_id){
