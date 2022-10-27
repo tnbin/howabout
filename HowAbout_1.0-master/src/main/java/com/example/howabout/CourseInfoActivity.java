@@ -104,6 +104,11 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         //popular에서 보낸 intent 받기
         Intent couseintent = getIntent();
+        String heart=couseintent.getStringExtra("heart");
+        if (heart.equals("mycourse")){
+            compoundButton.setVisibility(View.GONE);
+
+        }
         String jsonObject = couseintent.getStringExtra("storeInfo");
         JSONParser parser = new JSONParser();
         JSONObject aa = null;

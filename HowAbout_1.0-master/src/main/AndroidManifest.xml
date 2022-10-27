@@ -19,33 +19,44 @@
         android:usesCleartextTraffic="true" >
         <activity
             android:name=".UpdateInfo"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".StoreInfoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".CourseInfoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MyPageActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PopularActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".FindActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MyCourseActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".RegistActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:noHistory="true"
             android:exported="true" />
         <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,6 +66,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <meta-data

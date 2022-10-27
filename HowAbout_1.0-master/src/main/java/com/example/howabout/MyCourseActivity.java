@@ -72,9 +72,10 @@ public class MyCourseActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 intent=new Intent(MyCourseActivity.this,CourseInfoActivity.class);
-                JSONObject json=jsonObject;
+                JSONObject json= mycourselist.get(i);
                 String string=json.toString();
-                Log.i("subin","listview click: "+string);
+                Log.i("subin",i+": listview click: "+string);
+                intent.putExtra("heart","mycourse");
                 intent.putExtra("storeInfo",string);
                 startActivity(intent);
             }
