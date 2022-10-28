@@ -22,11 +22,15 @@ public interface RetrofitAPIService {
 
     //아이디 중복 여부
     @POST("/login/signUp/idCheck")
-    Call<Integer> idcheck(@Body IdVo idcheck);
+    Call<Integer> idcheck(@Body Map idck);
 
     //닉네임 중복 여부
     @POST("/login/signUp/nickCheck")
-    Call<Integer> nickcheck(@Body NickNameVo nickNameVo);
+    Call<Integer> nickcheck(@Body Map nicknameck);
+
+    //이메일 중복 여부
+    @POST("/login/signUp/emailCheck")
+    Call<Integer> checkemail(@Body Map emailck);
 
     //회원가입 성공 여부
     @POST("/login/signUp")
@@ -38,15 +42,15 @@ public interface RetrofitAPIService {
 
     //아이디 찾기
     @POST("/login/findMyId")
-    Call<Map<String, String>>search_id(@Body Map email);
+    Call<Map<String, String>> search_id(@Body Map email);
 
     //비밀번호 재설정 회원확인
     @POST("/login/checkMyInfo")
-    Call<Integer>usercheck(@Body Map repwcheck);
+    Call<Integer> usercheck(@Body Map repwcheck);
 
     //비밀번호 재설정
     @POST("/login/setNewPw")
-    Call<Integer>repw(@Body Map postrepw);
+    Call<Integer> repw(@Body Map postrepw);
     //Find Course..............................................................
 
     @POST("/findCourse/rest")
@@ -62,7 +66,7 @@ public interface RetrofitAPIService {
     Call<Map> saveCourse(@Body ArrayList<Object> arrayList);
 
     @POST("/findCourse/courseDibs")
-    //내 코스 저장
+        //내 코스 저장
     Call<Integer> saveMyCourse(@Body Map saveMyCourse_data);
 
     //가게 리뷰 가져오기
@@ -105,4 +109,6 @@ public interface RetrofitAPIService {
     //mycourse
     @POST("/myCourse/myCourse")
     Call<ArrayList<JSONObject>> mycourse(@Body ArrayList<JSONObject> course);
+
+
 }

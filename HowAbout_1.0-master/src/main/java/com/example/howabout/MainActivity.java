@@ -1,16 +1,13 @@
 package com.example.howabout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,9 +20,6 @@ import android.widget.ViewFlipper;
 
 public class MainActivity extends AppCompatActivity {
 
-    //drawer
-    DrawerLayout drawerLayout;
-    View drawerView;
     //Button
     Button btn_login;
     ImageButton btn_mypage;
@@ -42,25 +36,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerView = findViewById(R.id.drawer);
-
         img_main1 = findViewById(R.id.img_main1);
         img_main1.setClipToOutline(true);
 
         img_main2 = findViewById(R.id.img_main2);
         img_main2.setClipToOutline(true);
-        //drawerlayout button
-        ImageButton btn_open = findViewById(R.id.btn_open);
-        Button btn_homebar = findViewById(R.id.btn_homebar);
-        Button btn_courcebar = findViewById(R.id.btn_courcebar);
-        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
+
         Button logout = findViewById(R.id.logout);
         helloId = findViewById(R.id.helloId);
 
-        viewFlipper=findViewById(R.id.viewFlipper);
-        Animation showIn= AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left);
+        viewFlipper = findViewById(R.id.viewFlipper);
+        Animation showIn = AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left);
         viewFlipper.setInAnimation(showIn);
         viewFlipper.setOutAnimation(getBaseContext(), android.R.anim.slide_out_right);
         viewFlipper.setFlipInterval(2000);
@@ -72,78 +58,6 @@ public class MainActivity extends AppCompatActivity {
         String u_id = preferences.getString("u_id", null);
         Boolean autock = preferences.getBoolean("auto_ck", false);
 
-
-        btn_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(drawerView);
-            }
-        });
-
-        drawerLayout.setDrawerListener(listener);
-        drawerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                return true;
-            }
-        });
-        btn_homebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-
-            }
-        });
-        btn_courcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentc = new Intent(MainActivity.this, FindActivity.class);
-                startActivity(intentc);
-            }
-        });
-        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentmp = new Intent(MainActivity.this, MyPageActivity.class);
-                startActivity(intentmp);
-            }
-        });
-        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentmc = new Intent(MainActivity.this, MyCourseActivity.class);
-                startActivity(intentmc);
-            }
-        });
-        btn_login = findViewById(R.id.btn_login);
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intentl);
-//                startActivityForResult(intentl, REQUEST_CODE_START_INPUT);
-            }
-        });
-        btn_mypage = findViewById(R.id.btn_mypage);
-        btn_mypage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentmp = new Intent(MainActivity.this, MyPageActivity.class);
-                startActivity(intentmp);
-            }
-        });
-        btn_mycource1 = findViewById(R.id.btn_mycource1);
-        btn_mycource1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentmc = new Intent(MainActivity.this, MyCourseActivity.class);
-                startActivity(intentmc);
-            }
-        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                         btn_login.setVisibility(View.VISIBLE);
                         btn_mycource1.setVisibility(View.INVISIBLE);
                         btn_mypage.setVisibility(View.INVISIBLE);
-                        drawerLayout.closeDrawers();
                         Log.i("subin", "user정보 : " + preferences.getAll());
                         helloId = findViewById(R.id.helloId);
                         helloId.setText("저기어때에 오신걸 환영합니다.");
@@ -250,26 +163,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-        }
-
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerStateChanged(int newState) {
-
-        }
-    };
 
 }

@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,8 @@ import com.example.howabout.Vo.NickNameVo;
 import com.example.howabout.Vo.UserVo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,16 +40,23 @@ public class RegistActivity extends AppCompatActivity {
     //중복여부
     private Spinner spinner_m;
     private Spinner spinner_d;
+    //닉네임
     static int click1 = 0;
-    static int click2 = 0;
-    static int click3 = 0;
-    static int gender = 1;
-    static int checkBirth = 0;
-    String inputID;
     String inputName;
+    //아이디
+    static int click2 = 0;
+    String inputID;
+    //비밀번호
+    static int click3 = 0;
     String inputPw;
     String inputPwCk;
-    String inputbirth;
+    //성별
+    static int gender = 1;
+    //생년월일
+    static int checkBirth = 0;
+    //이메일
+    static int click4=0;
+    String inputemail;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -61,6 +71,7 @@ public class RegistActivity extends AppCompatActivity {
         RadioGroup radiogroup = findViewById(R.id.radiogroup);
         EditText birth = findViewById(R.id.signBirth);
         EditText ed_repwcheck = findViewById(R.id.ed_repwcheck);
+        EditText ed_reemail = findViewById(R.id.ed_reemail);
 
         //경고창 textview
         TextView warning_name = findViewById(R.id.warning_name);
@@ -68,11 +79,13 @@ public class RegistActivity extends AppCompatActivity {
         TextView warning_pw = findViewById(R.id.warning_pw);
         TextView warning_pwck = findViewById(R.id.warning_pwck);
         TextView spinner = findViewById(R.id.spinner);
+        TextView warning_email = findViewById(R.id.warning_email);
 
         //버튼
         Button btn_namedoubleck = findViewById(R.id.btn_namedoubleck);
         Button btn_iddoubleck = findViewById(R.id.btn_iddoubleck);
         Button btn_regist = findViewById(R.id.btn_regist);
+        Button btn_emaildoubleck = findViewById(R.id.btn_emaildoubleck);
 
         //gender=1 일 경우 남성,gender=0 일 경우 여성
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -180,11 +193,11 @@ public class RegistActivity extends AppCompatActivity {
                             checkName = 1;
                         }
                         if (checkName == 1) {
-                            NickNameVo input = new NickNameVo(UserNick);
-                            Log.i("subin", "NameCk: " + input);
+                            Map nickname=new HashMap();
+                            nickname.put("u_nick",UserNick);
 
-                            Call<Integer> test1 = RetrofitClient.getApiService().nickcheck(input);
-                            test1.enqueue(new Callback<Integer>() {
+                            Call<Integer> setnink = RetrofitClient.getApiService().nickcheck(nickname);
+                            setnink.enqueue(new Callback<Integer>() {
                                 @Override
                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
                                     int res = response.body();
@@ -202,6 +215,7 @@ public class RegistActivity extends AppCompatActivity {
                                         warning_name.setText("이미 사용중이거나 탈퇴한 닉네임 입니다.");
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<Integer> call, Throwable t) {
                                     Log.i("subin", "NCK post 실패 : " + t.getMessage());
@@ -213,7 +227,56 @@ public class RegistActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        });
+        //이메일 형식
+        ed_reemail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!Patterns.EMAIL_ADDRESS.matcher(editable.toString()).matches()) {
+                    warning_email.setText("이메일 형식으로 입력해주세요.");//경고
+                } else {
+                    warning_email.setText("");
+                }
+            }
+        });
+        //이메일 중복확인
+        btn_emaildoubleck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = ed_reemail.getText().toString();
+                Map setemail = new HashMap();
+                setemail.put("u_email", email);
+                Call<Integer> CKemail = RetrofitClient.getApiService().checkemail(setemail);
+                CKemail.enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        int ckemail = response.body();
+                        if (ckemail == 1) {
+                            warning_id.setText("");
+                            click4 = 1;
+                            Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
+                            return;//검증완료
+                        } else if (ckemail == 0) {
+                            warning_id.setText("이미 사용중이거나 탈퇴한 이메일 입니다.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+                        Log.i("subin", "연결실패" + t.getMessage());
+                    }
+                });
+            }
         });
         //아이디 중복체크
         btn_iddoubleck.setOnClickListener(new View.OnClickListener() {
@@ -235,8 +298,10 @@ public class RegistActivity extends AppCompatActivity {
                     Log.i("subin", "" + checkId);
                     if (checkId == 1) {
                         Log.i("subin", "" + checkId);
-                        IdVo inputId = new IdVo(UserId);
-                        Call<Integer> test2 = RetrofitClient.getApiService().idcheck(inputId);
+                        Map id=new HashMap();
+                        id.put("u_id",UserId);
+
+                        Call<Integer> test2 = RetrofitClient.getApiService().idcheck(id);
                         test2.enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -310,7 +375,7 @@ public class RegistActivity extends AppCompatActivity {
                 final String BirthY = birth.getText().toString();
                 final String spinnerjm = spinner_m.getSelectedItem().toString();
                 final String spinnerjd = spinner_d.getSelectedItem().toString();
-
+                final String email = ed_reemail.getText().toString();
                 final String Birth = BirthY + "-" + spinnerjm + "-" + spinnerjd;
 
                 Log.i("subin", "001");
@@ -328,17 +393,12 @@ public class RegistActivity extends AppCompatActivity {
                     click3 = 0;
                     warning_pw.setText("다시 비밀번호 입력해주세요");
                 }
-//
-//                if (!inputbirth.equals(BirthY)){
-//                    checkBirth=0;
-//                    spinner.setText("생년월일을 다시 입력해주세요");
-//                }
+
 
                 try {
-                    if (click1 == click2 && click2 == click3 && click3 == checkBirth && click1 == 1) {
+                    if (click1 == click2 && click2 == click3 && click3 == checkBirth&&checkBirth==click4 && click1 ==1) {
                         Log.i("subin", "로그인성공");
-
-                        UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender);
+                        UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender,email);
                         Call<Integer> all = RetrofitClient.getApiService().all(inputuser);
                         all.enqueue(new Callback<Integer>() {
                             @Override

@@ -7,12 +7,13 @@ import java.io.Serializable;
 
 public class UserVo implements Serializable {
 
-    public UserVo(String u_nick, String u_id, String u_pw, String birth, Integer gender) {
+    public UserVo(String u_nick, String u_id, String u_pw, String birth, Integer gender,String email) {
         this.u_nick = u_nick;
         this.u_id = u_id;
         this.u_pw = u_pw;
         this.birth = birth;
         this.gender = gender;
+        this.email=email;
     }
     public UserVo(){
     }
@@ -32,6 +33,9 @@ public class UserVo implements Serializable {
     @SerializedName("gender")
     @Expose
     private Integer gender;
+    @SerializedName("u_email")
+    @Expose
+    private String email;
 
     public String getU_nick() {
         return u_nick;
@@ -73,6 +77,14 @@ public class UserVo implements Serializable {
         this.gender = gender;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "UserVo{" +
@@ -81,6 +93,7 @@ public class UserVo implements Serializable {
                 ", u_pw='" + u_pw + '\'' +
                 ", birth='" + birth + '\'' +
                 ", gender=" + gender +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

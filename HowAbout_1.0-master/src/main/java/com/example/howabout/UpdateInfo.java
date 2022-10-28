@@ -174,7 +174,7 @@ public class UpdateInfo extends AppCompatActivity {
             String birth_str = birth.getText().toString();
 
             if(CODE_check_pw == 1){ //재확인 비밀번호 일치
-                UserVo update_user = new UserVo(nick_str, id_str, pw_str, birth_str, gender);
+                UserVo update_user = new UserVo(nick_str, id_str, pw_str, birth_str, gender,"email");
                 Log.i("leehj", update_user.toString());
 
                 //비밀번호 입력창
