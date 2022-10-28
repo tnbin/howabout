@@ -1,62 +1,67 @@
 package com.example.howabout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.howabout.FindUserInfo.FindId;
 import com.example.howabout.FindUserInfo.FindPwCheck;
-import com.example.howabout.FindUserInfo.ContentsPagerAdapter;
+import com.example.howabout.FindUserInfo.ResetPw;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class FindUserInfoActivity extends AppCompatActivity {
 
+    FindPwCheck findPwCheck;
+    FindId findId;
+    ResetPw resetPw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_user_info);
-        final ViewPager2 viewPager = findViewById(R.id.viewPager);
 
-        List<Map<String, Object>> mapList = new ArrayList<>();
+        findPwCheck=new FindPwCheck();
+        findId=new FindId();
+        resetPw=new ResetPw();
 
-        Map<String, Object> stringObjectMap = setTabTitleAndFragment("아이디 찾기", new FindId());
-        Map<String, Object> settingMap = setTabTitleAndFragment("비밀번호 재설정", new FindPwCheck());
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,findId).commit();
+        TabLayout tabLayout=findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("아이디 찾기"));
+        tabLayout.addTab(tabLayout.newTab().setText("비밀번호 재설정"));
 
-        mapList.add(stringObjectMap);
-        mapList.add(settingMap);
-
-        final ContentsPagerAdapter contentsPagerAdapter = new ContentsPagerAdapter(this, mapList);
-        viewPager.setAdapter(contentsPagerAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-
-        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(contentsPagerAdapter.getTitle(position));
-                Log.i("subin","click: "+tab.getText());
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position=tab.getPosition();
+
+                Fragment selected=null;
+                if (position==0){
+                    selected=findId;
+                }else if (position==1){
+                    selected=findPwCheck;
+                }else if (position==2){
+                    selected=resetPw;
+                }
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,selected).commit();
+
             }
-        }).attach();
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
 
     }
+    public void onFragmentChange(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,resetPw).commit();
 
-    Map<String, Object> setTabTitleAndFragment(String title, Fragment fragment){
-
-        Map<String, Object> fragmentWithTitleMap = new HashMap<>();
-
-        fragmentWithTitleMap.put("fragmentTitle", title);
-        fragmentWithTitleMap.put("fragment", fragment);
-
-        return fragmentWithTitleMap;
     }
 }

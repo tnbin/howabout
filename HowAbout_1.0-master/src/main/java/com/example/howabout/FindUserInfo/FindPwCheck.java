@@ -1,5 +1,6 @@
 package com.example.howabout.FindUserInfo;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.howabout.API.RetrofitClient;
+import com.example.howabout.FindUserInfoActivity;
 import com.example.howabout.R;
 
 import java.util.HashMap;
@@ -25,6 +27,7 @@ import retrofit2.Response;
 
 public class FindPwCheck extends Fragment {
 
+    FindUserInfoActivity activity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,6 +43,18 @@ public class FindPwCheck extends Fragment {
 
     public FindPwCheck() {
         // Required empty public constructor
+    }
+    @Override
+    public void onAttach(Context context) {
+
+        super.onAttach(context);
+        activity=(FindUserInfoActivity) getActivity();
+    }
+    @Override
+    public void onDetach() {
+
+        super.onDetach();
+        activity=null;
     }
 
     // TODO: Rename and change types and number of parameters
@@ -92,10 +107,7 @@ public class FindPwCheck extends Fragment {
                 if (posiblereset.equals(0)){
                     //실패
                 }else{
-//                    FragmentTransaction transaction=getActivity().getSupportFragmentManager().beginTransaction();
-//                    Fragment fragment=new Fragment();
-//                    transaction.replace(R.id.fragment_reset_pw,fragment);
-//                    transaction.commit();
+                    activity.onFragmentChange();
                 }
             }
 
