@@ -58,6 +58,7 @@
             android:background="@drawable/edge_black"
             android:drawableStart="@drawable/ic_baseline_email_24"
             android:hint="  이메일 주소"
+            android:inputType="textEmailAddress"
             android:padding="12dp"
             android:singleLine="true"
             android:textColorHighlight="#EC9393"

@@ -131,7 +131,7 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(PopularActivity.this, CourseInfoActivity.class);
-                JSONObject js = jsonObject;
+                JSONObject js = popularlist.get(i);
                 Log.i("subin", js + "");
                 String string = js.toString();
                 intent.putExtra("storeInfo", string);

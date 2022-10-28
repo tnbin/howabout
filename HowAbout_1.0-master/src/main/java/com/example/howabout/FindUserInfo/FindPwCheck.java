@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
 import com.example.howabout.FindUserInfoActivity;
@@ -103,11 +104,19 @@ public class FindPwCheck extends Fragment {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Log.i("subin", "연결 성공" + response.body());
-                String posiblereset=response.body().toString();
-                if (posiblereset.equals(0)){
+                Integer posiblereset=response.body();
+                if (posiblereset==0){
                     //실패
+                    Toast.makeText(getActivity(),"회원정보가 없습니다 다시 입력해주세요",Toast.LENGTH_SHORT).show();
                 }else{
-                    activity.onFragmentChange();
+
+                    Bundle bundle=new Bundle();
+                    bundle.putString("u_id",id);
+                    FragmentTransaction transaction=getActivity().getSupportFragmentManager().beginTransaction();
+                    ResetPw resetPw=new ResetPw();
+                    resetPw.setArguments(bundle);
+                    transaction.replace(R.id.container,resetPw);
+                    transaction.commit();
                 }
             }
 

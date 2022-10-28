@@ -104,11 +104,10 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         //popular에서 보낸 intent 받기
         Intent couseintent = getIntent();
-        String heart=couseintent.getStringExtra("heart");
-        if (heart.equals("mycourse")){
-            compoundButton.setVisibility(View.GONE);
-
-        }
+//        String heart=couseintent.getStringExtra("heart");
+//        if (heart.equals("mycourse")){
+//            compoundButton.setVisibility(View.INVISIBLE);
+//        }
         String jsonObject = couseintent.getStringExtra("storeInfo");
         JSONParser parser = new JSONParser();
         JSONObject aa = null;
@@ -174,15 +173,19 @@ public class CourseInfoActivity extends AppCompatActivity {
                         Log.i("subin", "click sucess!!");
                         savePopularCourse_data.put("r_id", r_id);
                         savePopularCourse_data.put("c_id", c_id);
-                        savePopularCourse_data.put("u_id", "testman");
+                        savePopularCourse_data.put("u_id", "맹구");
 
                         Call<Integer> save_myCourse = RetrofitClient.getApiService().saveMyCourse(savePopularCourse_data);
                         save_myCourse.enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
                                 Log.i("subin", "성공 시 return value는 1: " + response.body());
-                                Toast.makeText(CourseInfoActivity.this, "내 코스에 저장됐습니다.", Toast.LENGTH_SHORT).show();
-
+                                Integer savemycourse = response.body();
+                                if (savemycourse == 1) {
+                                    Toast.makeText(CourseInfoActivity.this, "내 코스에 저장됐습니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(CourseInfoActivity.this, "저장이 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
@@ -371,28 +374,6 @@ public class CourseInfoActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
             }
-        }
-    };
-
-    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-        }
-
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerStateChanged(int newState) {
-
         }
     };
 }
