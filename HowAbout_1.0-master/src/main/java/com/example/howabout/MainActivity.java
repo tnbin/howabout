@@ -58,6 +58,32 @@ public class MainActivity extends AppCompatActivity {
         String u_id = preferences.getString("u_id", null);
         Boolean autock = preferences.getBoolean("auto_ck", false);
 
+        btn_login = findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intentl);
+//                startActivityForResult(intentl, REQUEST_CODE_START_INPUT);
+            }
+        });
+        btn_mypage = findViewById(R.id.btn_mypage);
+        btn_mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentmp = new Intent(MainActivity.this, MyPageActivity.class);
+                startActivity(intentmp);
+            }
+        });
+        btn_mycource1 = findViewById(R.id.btn_mycource1);
+        btn_mycource1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentmc = new Intent(MainActivity.this, MyCourseActivity.class);
+                startActivity(intentmc);
+            }
+        });
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -254,28 +254,45 @@ public class RegistActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email = ed_reemail.getText().toString();
-                Map setemail = new HashMap();
-                setemail.put("u_email", email);
-                Call<Integer> CKemail = RetrofitClient.getApiService().checkemail(setemail);
-                CKemail.enqueue(new Callback<Integer>() {
-                    @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
-                        int ckemail = response.body();
-                        if (ckemail == 1) {
-                            warning_id.setText("");
-                            click4 = 1;
-                            Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
-                            return;//검증완료
-                        } else if (ckemail == 0) {
-                            warning_id.setText("이미 사용중이거나 탈퇴한 이메일 입니다.");
-                        }
+                int checkEmail = 0;
+                try {
+                    if (email.equals("")){
+                        warning_email.setText("이메일을 입력해주세요");
+                    }else{
+                        warning_email.setText("");
+                        checkEmail=1;
                     }
+                    if (checkEmail==1){
+                        Map setemail = new HashMap();
+                        setemail.put("u_email", email);
+                        Call<Integer> CKemail = RetrofitClient.getApiService().checkemail(setemail);
+                        CKemail.enqueue(new Callback<Integer>() {
+                            @Override
+                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+//                        int ckemail = response.body();
+                                Log.i("subin","//////////////email"+response.body());
+//                        if (ckemail == 1) {
+//                            warning_id.setText("");
+//                            click4 = 1;
+//                            Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
+//                            return;//검증완료
+//                        } else if (ckemail == 0) {
+//                            warning_id.setText("이미 사용중이거나 탈퇴한 이메일 입니다.");
+//                        }
+                            }
 
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-                        Log.i("subin", "연결실패" + t.getMessage());
+                            @Override
+                            public void onFailure(Call<Integer> call, Throwable t) {
+                                Log.i("subin", "연결실패" + t.getMessage());
+                            }
+                        });
+                    }else{
+
                     }
-                });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         //아이디 중복체크
