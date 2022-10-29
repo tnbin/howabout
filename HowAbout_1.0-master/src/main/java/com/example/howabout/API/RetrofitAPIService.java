@@ -4,6 +4,7 @@ import com.example.howabout.Search.CategoryResult;
 import com.example.howabout.Vo.LoginDTO;
 import com.example.howabout.Vo.UserVo;
 import com.example.howabout.Vo.UserDTO;
+import com.example.howabout.function.User;
 
 
 import org.json.simple.JSONObject;
@@ -33,7 +34,7 @@ public interface RetrofitAPIService {
 
     //회원가입 성공 여부
     @POST("/login/signUp")
-    Call<Integer> all(@Body UserVo userVo);
+    Call<Integer> all(@Body UserDTO userDTO);
 
     //로그인 성공 여부 ***
     @POST("/login/signIn")
@@ -85,7 +86,7 @@ public interface RetrofitAPIService {
 
     //회원정보 수정
     @POST("/myPage/myInfo/updateInfo")
-    Call<UserVo> updateUser(@Body UserVo user);
+    Call<UserDTO> updateUser(@Body UserDTO user);
 
     //비밀번호 확인
     @POST("/myPage/myInfo/CheckPW")

@@ -26,10 +26,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StoreInfoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".CourseInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

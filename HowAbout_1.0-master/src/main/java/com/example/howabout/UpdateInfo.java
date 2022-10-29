@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
 
+import com.example.howabout.Vo.UserDTO;
 import com.example.howabout.Vo.UserVo;
 import com.example.howabout.function.User;
 
@@ -169,7 +170,7 @@ public class UpdateInfo extends AppCompatActivity {
             String birth_str = birth.getText().toString();
 
             if(CODE_check_pw == 1){ //재확인 비밀번호 일치
-                UserVo update_user = new UserVo(nick_str, id_str, pw_str, birth_str, gender,"email");
+                UserDTO update_user = new UserDTO(nick_str, id_str, pw_str, birth_str, gender,"email");
                 Log.i("leehj", update_user.toString());
 
                 //비밀번호 입력창
@@ -207,11 +208,11 @@ public class UpdateInfo extends AppCompatActivity {
                                 Log.e("leehj", "응답값: "+result);
                                 if(result == 1){
                                     Log.i("leehj", "user: "+update_user.toString());
-                                    Call<UserVo> func = RetrofitClient.getApiService().updateUser(update_user);
-                                    func.enqueue(new Callback<UserVo>() {
+                                    Call<UserDTO> func = RetrofitClient.getApiService().updateUser(update_user);
+                                    func.enqueue(new Callback<UserDTO>() {
                                         @Override
-                                        public void onResponse(Call<UserVo> call, Response<UserVo> response) {
-                                            UserVo user = response.body();
+                                        public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                                            UserDTO user = response.body();
                                             Log.e("leehj", "update response(바뀐 비밀번호): "+user.getU_pw());
                                             finish();
                                             intent = new Intent(UpdateInfo.this, MyPageActivity.class);
@@ -222,7 +223,7 @@ public class UpdateInfo extends AppCompatActivity {
                                         }
 
                                         @Override
-                                        public void onFailure(Call<UserVo> call, Throwable t) {
+                                        public void onFailure(Call<UserDTO> call, Throwable t) {
                                             Log.e("leehj","post response 실패: "+t);
                                         }
                                     });

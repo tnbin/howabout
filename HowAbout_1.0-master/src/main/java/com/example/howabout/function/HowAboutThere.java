@@ -24,7 +24,7 @@ public class HowAboutThere {
 
     //intent 함수, startActivity
     public void activity_intent(Activity firstActivity, Class secondActivity) {
-        Intent intent = new Intent(firstActivity, secondActivity);
+        intent = new Intent(firstActivity, secondActivity);
         firstActivity.startActivity(intent);
     }
 

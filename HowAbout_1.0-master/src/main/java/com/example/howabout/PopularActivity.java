@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
+import com.example.howabout.function.HowAboutThere;
 import com.example.howabout.popular.BottomSheet_age;
 import com.example.howabout.popular.BottomSheet_gender;
 import com.example.howabout.popular.BottomSheet_region;
@@ -34,9 +35,7 @@ import retrofit2.Response;
 
 public class PopularActivity extends AppCompatActivity {
 
-    DrawerLayout drawerLayout;
     SharedPreferences preferences;
-    View drawerView;
     ListView listView;
     PopularAdapter popularAdapter = new PopularAdapter();
     List<String> urllist;
@@ -45,13 +44,14 @@ public class PopularActivity extends AppCompatActivity {
     //인기코스 리스트
     ArrayList<JSONObject> popularlist = new ArrayList<JSONObject>();
     JSONObject jsonObject;
-    Intent intent;
+    HowAboutThere FUNC=new HowAboutThere();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popular);
 
+        FUNC.sideBar(PopularActivity.this);
         //인기차트 들어갈때 oncreate시 전체 인기코스 불러오기
         //서버 연결
         urllist = new ArrayList<>();
@@ -61,22 +61,7 @@ public class PopularActivity extends AppCompatActivity {
         popularAdapter.notifyDataSetChanged();
         popularcourse("전체", "전체", "전체", "전체");
         /////////////////////drawerlayout start
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerView = findViewById(R.id.drawer);
 
-        //DrawerLayout Menu
-        ImageButton btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(click_Drawer);
-
-        //drawer layout menu buttons
-        Button btn_homebar = findViewById(R.id.btn_homebar);
-        btn_homebar.setOnClickListener(click_DrawerMenu);
-        Button btn_courcebar = findViewById(R.id.btn_courcebar);
-        btn_courcebar.setOnClickListener(click_DrawerMenu);
-        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        btn_mypagebar.setOnClickListener(click_DrawerMenu);
-        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
-        btn_mycourcebar.setOnClickListener(click_DrawerMenu);
 
         Button btn_gender = findViewById(R.id.btn_gender);
         final BottomSheet_gender bottomSheet_gender = new BottomSheet_gender(getApplicationContext());
@@ -157,49 +142,6 @@ public class PopularActivity extends AppCompatActivity {
         edit.commit();
 
     }
-
-    //drawer Layout open button click event
-    View.OnClickListener click_Drawer = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            drawerLayout = findViewById(R.id.drawer_layout);
-            drawerView = findViewById(R.id.drawer);
-            drawerLayout.openDrawer(drawerView);
-        }
-    };
-    //drawer Layout menu click event
-    View.OnClickListener click_DrawerMenu = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int id = view.getId();
-            switch (id) {
-                case R.id.btn_homebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(PopularActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_courcebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(PopularActivity.this, FindActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_mypagebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(PopularActivity.this, MyPageActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_mycourcebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(PopularActivity.this, MyCourseActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-        }
-    };
 
     public void popularcourse(String gender, String age, String location_do, String location_si) {
         JSONObject popular = new JSONObject();

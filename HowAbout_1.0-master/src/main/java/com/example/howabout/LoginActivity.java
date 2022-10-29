@@ -89,8 +89,8 @@ public class LoginActivity extends AppCompatActivity {
             sharedPreferences = getSharedPreferences("USER", Activity.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             make_requestData(); //서버 요청 데이터
-            Log.e("leehj", "LOGIN MAP DATA u_id : " + login_data.get("u_id")); //@@
-            Log.e("leehj", "LOGIN MAP DATA u_pw : " + login_data.get("u_pw")); //@@
+            Log.e("subin", "LOGIN MAP DATA u_id : " + login_data.get("u_id")); //@@
+            Log.e("subin", "LOGIN MAP DATA u_pw : " + login_data.get("u_pw")); //@@
 
             Call<LoginDTO> login = RetrofitClient.getApiService().login(login_data);
             login.enqueue(new Callback<LoginDTO>() {
@@ -101,9 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                         assert loginDTO != null;
                         if (loginDTO.getSuccess() == 1) { //로그인이 성공한 경우
                             //공유 프레퍼런스에 정보 저장
-                            Log.e("leehj", "RESPONSE LOGIN DTO : " + loginDTO.toString()); //@@
+                            Log.e("subin", "RESPONSE LOGIN DTO : " + loginDTO.toString()); //@@
                             SAVEDATA.save_login_Data(editor, loginDTO, CODE_check_autoLogin); //데이터 공유 프리퍼런스에 저장
-                            Log.e("leehj", "공유 프레퍼런스 저장 성공: " + sharedPreferences.getString("token", null)); //@@
+                            Log.e("subin", "공유 프레퍼런스 저장 성공: " + sharedPreferences.getString("token", null)); //@@
 
                             Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
 
@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<LoginDTO> call, Throwable t) {
-                    Log.e("leehj", "LOGIN ERROR : " + t);
+                    Log.e("subin", "LOGIN ERROR : " + t);
                 }
             });
         }

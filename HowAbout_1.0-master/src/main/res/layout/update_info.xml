@@ -223,7 +223,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical"
+                        android:text="이메일"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/update_etEmail"
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/edge_gray"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
