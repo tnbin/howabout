@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
 import com.example.howabout.Vo.UserVo;
+import com.example.howabout.function.HowAboutThere;
 
 
 import org.json.simple.JSONObject;
@@ -35,8 +36,7 @@ import retrofit2.Response;
 
 public class MyPageActivity extends AppCompatActivity implements Serializable {
 
-    DrawerLayout drawerLayout;
-    View drawerView;
+    HowAboutThere FUNC = new HowAboutThere();
     EditText myNick;
     EditText myId;
     EditText myBirth;
@@ -48,70 +48,15 @@ public class MyPageActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_page);
 
+        FUNC.sideBar(MyPageActivity.this);
+
         SharedPreferences appData = getSharedPreferences("UserInfo", Activity.MODE_PRIVATE);
         Log.i("leehj", "appdata: "+appData.getString("u_id", null));
-
 
         myNick = findViewById(R.id.Et_nick);
         myId = findViewById(R.id.Et_id);
         myBirth = findViewById(R.id.Et_birth);
         myGender = findViewById(R.id.Et_gender);
-
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerView = findViewById(R.id.drawer);
-        ImageButton btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(drawerView);
-            }
-        });
-
-        drawerLayout.setDrawerListener(listener);
-        drawerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                return true;
-            }
-        });
-
-        Button btn_homebar = findViewById(R.id.btn_homebar);
-        btn_homebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intenth=new Intent(MyPageActivity.this,MainActivity.class);
-                startActivity(intenth);
-            }
-        });
-        Button btn_courcebar=findViewById(R.id.btn_courcebar);
-        btn_courcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentc=new Intent(MyPageActivity.this,FindActivity.class);
-                startActivity(intentc);
-            }
-        });
-
-        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        btn_mypagebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-            }
-        });
-        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
-        btn_mycourcebar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-                Intent intentmc=new Intent(MyPageActivity.this,MyCourseActivity.class);
-                startActivity(intentmc);
-            }
-        });
         //~~~~~~~~~~ 마이페이지 정보 가지고 오기 START ~~~~~~~~~~~~~~~~~~~~~~
         JSONObject row = new JSONObject();
         row.put("u_id", appData.getString("u_id", "unknown"));
@@ -247,28 +192,6 @@ public class MyPageActivity extends AppCompatActivity implements Serializable {
         });
         //~~~~~~~~~~~~~~~~~~~~~ 정보수정 page 누를시 Activity 이동  END ~~~~~~~~~~~~~~~~~~~~~~~~/
     }
-
-    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-        }
-
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-
-        }
-
-        @Override
-        public void onDrawerStateChanged(int newState) {
-
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

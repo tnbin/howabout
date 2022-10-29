@@ -166,6 +166,29 @@
                         android:padding="10dp"
                         android:textSize="18dp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical"
+                        android:text="이메일"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/Et_email"
+                        android:layout_width="200dp"
+                        android:layout_height="45dp"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="18dp" />
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -194,14 +217,7 @@
 
                 </LinearLayout>
 
-                <!--                <ImageView-->
-                <!--                    android:layout_width="60dp"-->
-                <!--                    android:layout_height="20dp"-->
-                <!--                    android:layout_gravity="center"-->
-                <!--                    android:layout_marginTop="140dp"-->
-                <!--                    android:src="@drawable/howaboutlogo" />-->
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 

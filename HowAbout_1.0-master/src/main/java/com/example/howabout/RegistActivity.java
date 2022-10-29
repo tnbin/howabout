@@ -55,8 +55,8 @@ public class RegistActivity extends AppCompatActivity {
     //생년월일
     static int checkBirth = 0;
     //이메일
-    static int click4=0;
-    String inputemail;
+    static int click4 = 0;
+    String inputEmail;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -98,7 +98,7 @@ public class RegistActivity extends AppCompatActivity {
                 }
             }
         });
-        //입력창 조건 부여
+        //입력창 조건 부여 최대 입력글자 수
         InputFilter[] filters1 = new InputFilter[]{
                 new InputFilter.LengthFilter(20),
         };
@@ -114,62 +114,84 @@ public class RegistActivity extends AppCompatActivity {
         birth.setFilters(filters3);
 
         //비밀번호
-        ed_pw.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @SuppressLint("SetTextI18n")
+        ed_pw.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 final String UserPw = ed_pw.getText().toString();
-                if (b) {
+                final String pwcheck = ed_repwcheck.getText().toString();
+                try {
+                    if (UserPw.equals(pwcheck)) {
+                        warning_pwck.setText("");
+                        inputPwCk = pwcheck;
+                        click3 = 1;
+                    } else {
+                        warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                        click3 = 0;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                final String UserPw = ed_pw.getText().toString();
+                try {
                     if (UserPw.equals("")) {
                         warning_pw.setText("8자 이상 30자 이하로 비밀번호를 입력해주세요");
                     } else {
-                        warning_pw.setText("");
-                    }
-                } else {
-                    try {
-                        if (UserPw.equals("")) {
-                            warning_pw.setText("비밀번호를 입력해주세요");
-                        } else {
-                            warning_pw.setText("");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        //비밀번호 확인
-        ed_repwcheck.setFilters(filters2);
-        ed_repwcheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                final String UserPw = ed_pw.getText().toString();
-                final String pwcheck = ed_repwcheck.getText().toString();
-                //b가 editText 포커스 됐을때
-                if (b) {
-                    if (UserPw.equals("")) {
-                        warning_pw.setText("비밀번호를 입력해주세요");
-                    } else {
-                        warning_pw.setText("");
                         if (UserPw.length() < 8) {
                             warning_pw.setText("비밀번호는 8자 이상 입력해야 합니다");
                         } else {
-                            inputPw = UserPw;
+                            warning_pw.setText("");
                         }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //비밀번호 확인
+        ed_repwcheck.setFilters(filters2);
+        ed_repwcheck.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                final String UserPw = ed_pw.getText().toString();
+                if (UserPw.equals("")) {
+                    warning_pw.setText("비밀번호를 입력해주세요");
                 } else {
-                    try {
-                        if (UserPw.equals(pwcheck)) {
-                            warning_pwck.setText("");
-                            inputPwCk = pwcheck;
-                            click3 = 1;
-                        } else {
-                            warning_pwck.setText("비밀번호가 일치하지 않습니다");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    warning_pw.setText("");
+                    if (UserPw.length() < 8) {
+                        warning_pw.setText("비밀번호는 8자 이상 입력해야 합니다");
+                    } else {
+                        inputPw = UserPw;
                     }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                final String UserPw = ed_pw.getText().toString();
+                final String pwcheck = ed_repwcheck.getText().toString();
+                try {
+                    if (UserPw.equals(pwcheck)) {
+                        warning_pwck.setText("");
+                        inputPwCk = pwcheck;
+                        click3 = 1;
+                    } else {
+                        warning_pwck.setText("비밀번호가 일치하지 않습니다");
+                        click3 = 0;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -179,7 +201,6 @@ public class RegistActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String UserNick = ed_nickname.getText().toString();
                 int checkName = 0;
-
                 try {
                     if (UserNick.equals("")) {
                         warning_name.setText("닉네임을 입력해주세요");
@@ -193,15 +214,13 @@ public class RegistActivity extends AppCompatActivity {
                             checkName = 1;
                         }
                         if (checkName == 1) {
-                            Map nickname=new HashMap();
-                            nickname.put("u_nick",UserNick);
-
+                            Map nickname = new HashMap();
+                            nickname.put("u_nick", UserNick);
                             Call<Integer> setnink = RetrofitClient.getApiService().nickcheck(nickname);
                             setnink.enqueue(new Callback<Integer>() {
                                 @Override
                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
                                     int res = response.body();
-                                    Log.i("subin", "Name post 성공");
                                     Log.i("subin", "NCK:" + res);
                                     if (res == 1) {
                                         warning_name.setText(" ");
@@ -212,6 +231,7 @@ public class RegistActivity extends AppCompatActivity {
                                         Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
                                         return;
                                     } else {
+                                        click1 = 0;
                                         warning_name.setText("이미 사용중이거나 탈퇴한 닉네임 입니다.");
                                     }
                                 }
@@ -228,27 +248,6 @@ public class RegistActivity extends AppCompatActivity {
                 }
             }
         });
-        //이메일 형식
-        ed_reemail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (!Patterns.EMAIL_ADDRESS.matcher(editable.toString()).matches()) {
-                    warning_email.setText("이메일 형식으로 입력해주세요.");//경고
-                } else {
-                    warning_email.setText("");
-                }
-            }
-        });
         //이메일 중복확인
         btn_emaildoubleck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,43 +255,51 @@ public class RegistActivity extends AppCompatActivity {
                 String email = ed_reemail.getText().toString();
                 int checkEmail = 0;
                 try {
-                    if (email.equals("")){
+                    if (email.equals("")) {
                         warning_email.setText("이메일을 입력해주세요");
-                    }else{
-                        warning_email.setText("");
-                        checkEmail=1;
-                    }
-                    if (checkEmail==1){
-                        Map setemail = new HashMap();
-                        setemail.put("u_email", email);
-                        Call<Integer> CKemail = RetrofitClient.getApiService().checkemail(setemail);
-                        CKemail.enqueue(new Callback<Integer>() {
-                            @Override
-                            public void onResponse(Call<Integer> call, Response<Integer> response) {
-//                        int ckemail = response.body();
-                                Log.i("subin","//////////////email"+response.body());
-//                        if (ckemail == 1) {
-//                            warning_id.setText("");
-//                            click4 = 1;
-//                            Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
-//                            return;//검증완료
-//                        } else if (ckemail == 0) {
-//                            warning_id.setText("이미 사용중이거나 탈퇴한 이메일 입니다.");
-//                        }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Integer> call, Throwable t) {
-                                Log.i("subin", "연결실패" + t.getMessage());
-                            }
-                        });
-                    }else{
-
+                    } else {
+                        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            warning_email.setText("이메일 형식으로 입력해주세요.");//경고
+                            checkEmail = 0;
+                        } else {
+                            warning_email.setText("");
+                            checkEmail = 1;
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                if (checkEmail == 1) {
+                    Map setemail = new HashMap();
+                    setemail.put("u_email", email);
+                    Call<Integer> CKemail = RetrofitClient.getApiService().checkemail(setemail);
+                    CKemail.enqueue(new Callback<Integer>() {
+                        @Override
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                            int ckemail = response.body();
+                            //중복아님 0, 중복 1
+                            if (ckemail == 0) {
+                                warning_email.setText("");
+                                click4 = 1;
+                                inputEmail = email;
+                                Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
+                                return;//검증완료
+                            } else if (ckemail == 1) {
+                                Toast.makeText(RegistActivity.this, "이미 사용중이거나 탈퇴한 이메일 입니다 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                //서버오류
+                                Toast.makeText(RegistActivity.this, "서버오류입니다 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(Call<Integer> call, Throwable t) {
+                            Log.i("subin", "연결실패" + t.getMessage());
+                        }
+                    });
+                } else {
+                    Toast.makeText(RegistActivity.this, "올바른 형식의 이메일이 아닙니다 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         //아이디 중복체크
@@ -301,7 +308,6 @@ public class RegistActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String UserId = ed_id.getText().toString();
                 int checkId = 0;
-
                 if (UserId.equals("")) {
                     warning_id.setText("아이디를 입력해주세요");
                     return;
@@ -312,19 +318,14 @@ public class RegistActivity extends AppCompatActivity {
                         //아이디 8자 이상 입력 완료
                         checkId = 1;
                     }
-                    Log.i("subin", "" + checkId);
                     if (checkId == 1) {
-                        Log.i("subin", "" + checkId);
-                        Map id=new HashMap();
-                        id.put("u_id",UserId);
-
+                        Map id = new HashMap();
+                        id.put("u_id", UserId);
                         Call<Integer> test2 = RetrofitClient.getApiService().idcheck(id);
                         test2.enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                Log.i("subin", "id server 연결 성공");
                                 int resid = response.body();
-                                Log.i("subin", "Id response" + resid);
                                 if (resid == 1) {
                                     warning_id.setText(" ");
                                     click2 = 1;
@@ -341,9 +342,7 @@ public class RegistActivity extends AppCompatActivity {
                                 Log.i("subin", "id post 실패" + t.getMessage());
                             }
                         });
-
                     }
-
                 }
             }
         });
@@ -351,7 +350,6 @@ public class RegistActivity extends AppCompatActivity {
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -366,8 +364,6 @@ public class RegistActivity extends AppCompatActivity {
                         } else {
                             spinner.setText("");
                             checkBirth = 1;
-
-                            Log.i("subin", "b" + checkBirth);
                         }
                     }
                 } catch (NumberFormatException e) {
@@ -377,10 +373,8 @@ public class RegistActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
-
         //회원가입 버튼
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -398,24 +392,26 @@ public class RegistActivity extends AppCompatActivity {
                 Log.i("subin", "001");
                 if (!inputID.equals(UserId)) {
                     click1 = 0;
-                    warning_id.setText("다시 아이디 작성해주세요");
+                    warning_id.setText("다시 아이디 작성해주세요.");
                 }
                 Log.i("subin", "002");
                 if (!inputName.equals(UserName)) {
                     click2 = 0;
-                    warning_name.setText("다시 닉네임 입력해주세요");
+                    warning_name.setText("다시 닉네임 입력해주세요.");
                 }
                 Log.i("subin", "003");
                 if (!inputPw.equals(UserPw) && !inputPwCk.equals(pwcheck)) {
                     click3 = 0;
-                    warning_pw.setText("다시 비밀번호 입력해주세요");
+                    warning_pw.setText("다시 비밀번호 입력해주세요.");
                 }
-
-
+                if (!inputEmail.equals(email)) {
+                    click4 = 0;
+                    warning_email.setText("다시 이메일을 확인해주세요.");
+                }
                 try {
-                    if (click1 == click2 && click2 == click3 && click3 == checkBirth&&checkBirth==click4 && click1 ==1) {
-                        Log.i("subin", "로그인성공");
-                        UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender,email);
+                    if (click1 == click2 && click2 == click3 && click3 == checkBirth && checkBirth == click4 && click1 == 1) {
+                        Log.i("subin", "회원가입 성공?");
+                        UserVo inputuser = new UserVo(UserName, UserId, UserPw, Birth, gender, email);
                         Call<Integer> all = RetrofitClient.getApiService().all(inputuser);
                         all.enqueue(new Callback<Integer>() {
                             @Override
@@ -426,12 +422,11 @@ public class RegistActivity extends AppCompatActivity {
                                     Intent intent = new Intent(RegistActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                     Log.i("subin", "success!!");
-
                                 } else {
-                                    //로그인 실패
-                                    Toast.makeText(RegistActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                                    //회원가입 실패
+                                    Toast.makeText(RegistActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
 
-                                    Log.i("subin", "로그인 실패");
+                                    Log.i("subin", "회원가입 실패");
                                 }
                             }
 
@@ -448,7 +443,6 @@ public class RegistActivity extends AppCompatActivity {
                 }
             }
         });
-
         //Spinner 월/일
         spinner_m = findViewById(R.id.spinner_m);
 
@@ -476,18 +470,14 @@ public class RegistActivity extends AppCompatActivity {
         });
 
         spinner_d = findViewById(R.id.spinner_d);
-
         final ArrayList<String> list_d = new ArrayList<>();
         for (
                 int i = 1;
                 i < 32; i++) {
             list_d.add(i + "");
         }
-
         ArrayAdapter spinnerAdapter2 = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, list_d);
         spinner_d.setAdapter(spinnerAdapter2);
-
-
         spinner_d.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

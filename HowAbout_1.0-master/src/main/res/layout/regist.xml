@@ -113,7 +113,7 @@
             android:layout_marginBottom="5dp"
             android:textColor="#ff5757"
             android:textSize="10dp" />
-        /////////
+
         <TextView
             android:layout_width="280dp"
             android:layout_height="15dp"

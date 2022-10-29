@@ -1,10 +1,9 @@
 package com.example.howabout.API;
 
 import com.example.howabout.Search.CategoryResult;
-import com.example.howabout.Vo.IdVo;
-import com.example.howabout.Vo.NickNameVo;
+import com.example.howabout.Vo.LoginDTO;
 import com.example.howabout.Vo.UserVo;
-import com.example.howabout.Vo.signInVo;
+import com.example.howabout.Vo.UserDTO;
 
 
 import org.json.simple.JSONObject;
@@ -36,9 +35,9 @@ public interface RetrofitAPIService {
     @POST("/login/signUp")
     Call<Integer> all(@Body UserVo userVo);
 
-    //로그인 성공 여부
+    //로그인 성공 여부 ***
     @POST("/login/signIn")
-    Call<signInVo> login(@Body UserVo userVo);
+    Call<LoginDTO> login(@Body Map id_pw);
 
     //아이디 찾기
     @POST("/login/findMyId")

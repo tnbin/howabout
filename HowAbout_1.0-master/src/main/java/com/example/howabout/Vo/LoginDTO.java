@@ -1,15 +1,21 @@
 package com.example.howabout.Vo;
 
-public class signInVo {
-    public signInVo(int success, String msg, UserVo userVo) {
-        this.success = success;
-        this.msg = msg;
-        this.userVo = userVo;
-    }
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+public class LoginDTO {
+
+    @SerializedName("success")
+    @Expose
     private int success;
+
+    @SerializedName("msg")
+    @Expose
     private String msg;
-    private UserVo userVo;
+
+    @SerializedName("token")
+    @Expose
+    private String token;
 
     public int getSuccess() {
         return success;
@@ -27,20 +33,20 @@ public class signInVo {
         this.msg = msg;
     }
 
-    public UserVo getUserVo() {
-        return userVo;
+    public String getToken() {
+        return token;
     }
 
-    public void setUserVo(UserVo userVo) {
-        this.userVo = userVo;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
     public String toString() {
-        return "signInVo{" +
+        return "LoginDTO{" +
                 "success=" + success +
                 ", msg='" + msg + '\'' +
-                ", userVo=" + userVo +
+                ", token='" + token + '\'' +
                 '}';
     }
 }
