@@ -74,7 +74,6 @@ public interface RetrofitAPIService {
     //가게 정보
     Call<Map<String, String>> getLocationInfo(@Body Map place_info);
 
-
     //MyPage................................................................
     //마이페이지 내정보 가지고 오기
     @POST("/myPage/myInfo/getMyData")
