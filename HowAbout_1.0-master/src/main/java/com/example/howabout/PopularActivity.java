@@ -155,7 +155,7 @@ public class PopularActivity extends AppCompatActivity {
         }
         ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
         jsonObjectArrayList.add(popular);
-        Call<ArrayList<JSONObject>> polcourse = RetrofitClient.getApiService().popular(jsonObjectArrayList);
+        Call<ArrayList<JSONObject>> polcourse = RetrofitClient.getApiService().getCatCourse(jsonObjectArrayList);
         polcourse.enqueue(new Callback<ArrayList<JSONObject>>() {
             @Override
             public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {

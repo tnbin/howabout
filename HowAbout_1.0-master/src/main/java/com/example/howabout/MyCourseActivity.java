@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
+import com.example.howabout.function.HowAboutThere;
 import com.example.howabout.popular.PopularAdapter;
 import com.example.howabout.popular.Popular_item;
 
@@ -30,9 +31,7 @@ import retrofit2.Response;
 public class MyCourseActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
-    DrawerLayout drawerLayout;
     Intent intent;
-    View drawerView;
     ListView listView;
     PopularAdapter popularAdapter = new PopularAdapter();
     List<String> urllist;
@@ -40,26 +39,15 @@ public class MyCourseActivity extends AppCompatActivity {
     Popular_item popular_item;
     JSONObject jsonObject;
     ArrayList<JSONObject> mycourselist = new ArrayList<JSONObject>();
+    HowAboutThere FUNC = new HowAboutThere();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_course);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerView = findViewById(R.id.drawer);
-        ImageButton btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(click_Drawer);
         listView=findViewById(R.id.mycourse_list);
-
-        //drawer layout menu buttons
-        Button btn_homebar = findViewById(R.id.btn_homebar);
-        btn_homebar.setOnClickListener(click_DrawerMenu);
-        Button btn_courcebar = findViewById(R.id.btn_courcebar);
-        btn_courcebar.setOnClickListener(click_DrawerMenu);
-        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        btn_mypagebar.setOnClickListener(click_DrawerMenu);
-        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
-        btn_mycourcebar.setOnClickListener(click_DrawerMenu);
+        FUNC.sideBar(MyCourseActivity.this);
         //내 코스 서버연결
         urllist = new ArrayList<>();
         textlist = new ArrayList<>();
@@ -145,43 +133,4 @@ public class MyCourseActivity extends AppCompatActivity {
             }
         });
     }
-    //drawer Layout open button click event
-    View.OnClickListener click_Drawer = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            drawerLayout = findViewById(R.id.drawer_layout);
-            drawerView = findViewById(R.id.drawer);
-            drawerLayout.openDrawer(drawerView);
-        }
-    };
-    //drawer Layout menu click event
-    View.OnClickListener click_DrawerMenu = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int id = view.getId();
-            switch (id) {
-                case R.id.btn_homebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(MyCourseActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_courcebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(MyCourseActivity.this, FindActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_mypagebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(MyCourseActivity.this, MyPageActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_mycourcebar:
-                    drawerLayout.closeDrawers();
-                    break;
-            }
-        }
-    };
 }

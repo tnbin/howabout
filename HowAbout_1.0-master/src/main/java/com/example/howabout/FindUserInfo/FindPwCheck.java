@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
@@ -40,7 +41,11 @@ public class FindPwCheck extends Fragment {
 
     EditText ed_find_pw_id;
     EditText ed_find_pw_email;
+    EditText ed_find_pw_email_ck;
+    Button btn_email_ck;
     Button btn_find_pw_check;
+    LinearLayout layout_find_emailconfirm;
+    Button btn_emailconfirmck;
 
     public FindPwCheck() {
         // Required empty public constructor
@@ -81,12 +86,39 @@ public class FindPwCheck extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.findpwcheck, container, false);
+        //비밀번호 재설정 확인 버튼
         btn_find_pw_check=view.findViewById(R.id.btn_find_pw_check);
+        //아이디 입력창
         ed_find_pw_id=view.findViewById(R.id.ed_find_pw_id);
+        //이메일 주소
         ed_find_pw_email=view.findViewById(R.id.ed_find_pw_email);
+        //이메일 인증 버튼
+        btn_email_ck=view.findViewById(R.id.btn_email_ck);
+        //이메일 인증번호 입력 layout
+        layout_find_emailconfirm=view.findViewById(R.id.layout_find_emailconfirm);
+        //이메일 인증번호 입력란
+        ed_find_pw_email_ck=view.findViewById(R.id.ed_find_pw_email_ck);
+        //이메일 인증번호 입력 확인 버튼
+        btn_emailconfirmck=view.findViewById(R.id.btn_emailconfirmck);
+
+        btn_email_ck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout_find_emailconfirm.setVisibility(View.VISIBLE);
+                //서버로 이메일 입력값 보내서 이메일 인증하기
+            }
+        });
+        btn_emailconfirmck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //서버로 이메일로 받은 번호 입력해서 보내기 (이메일주소 입력값,인증번호)
+            }
+        });
         btn_find_pw_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //아이디 값과 이메일 값 보내기
+                //서버로 받은값 alert로 보여주기
                 String ed_pw_id=ed_find_pw_id.getText().toString();
                 String ed_pw_email=ed_find_pw_email.getText().toString();
                 Checkidemail(ed_pw_id,ed_pw_email);

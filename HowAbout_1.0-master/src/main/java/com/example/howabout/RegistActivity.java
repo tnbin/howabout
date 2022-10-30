@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -71,6 +72,9 @@ public class RegistActivity extends AppCompatActivity {
         EditText birth = findViewById(R.id.signBirth);
         EditText ed_repwcheck = findViewById(R.id.ed_repwcheck);
         EditText ed_reemail = findViewById(R.id.ed_reemail);
+        LinearLayout layout_email = findViewById(R.id.layout_emailconfirm);
+        EditText ed_emailconfirm = findViewById(R.id.ed_emailconfirm);
+        Button btn_emailconfirmck = findViewById(R.id.btn_emailconfirmck);
 
         //경고창 textview
         TextView warning_name = findViewById(R.id.warning_name);
@@ -271,23 +275,22 @@ public class RegistActivity extends AppCompatActivity {
                 if (checkEmail == 1) {
                     Map setemail = new HashMap();
                     setemail.put("u_email", email);
-                    Call<Integer> CKemail = RetrofitClient.getApiService().checkemail(setemail);
+                    Call<Integer> CKemail = RetrofitClient.getApiService().emailSendCheck(setemail);
                     CKemail.enqueue(new Callback<Integer>() {
                         @Override
                         public void onResponse(Call<Integer> call, Response<Integer> response) {
                             int ckemail = response.body();
+                            Log.i("subin", "email 중복확인 응답값: " + ckemail);
                             //중복아님 0, 중복 1
-                            if (ckemail == 0) {
+                            if (ckemail == 1) {
                                 warning_email.setText("");
-                                click4 = 1;
                                 inputEmail = email;
-                                Toast.makeText(RegistActivity.this, "검증완료", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistActivity.this, "완료", Toast.LENGTH_SHORT).show();
+                                layout_email.setVisibility(View.VISIBLE);
                                 return;//검증완료
-                            } else if (ckemail == 1) {
+
+                            } else if (ckemail == 0) {
                                 Toast.makeText(RegistActivity.this, "이미 사용중이거나 탈퇴한 이메일 입니다 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                //서버오류
-                                Toast.makeText(RegistActivity.this, "서버오류입니다 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -298,6 +301,46 @@ public class RegistActivity extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(RegistActivity.this, "올바른 형식의 이메일이 아닙니다 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //이메일 인증번호 확인
+        btn_emailconfirmck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailconfirm = ed_emailconfirm.getText().toString();
+                String email = ed_reemail.getText().toString();
+                try {
+                    if (emailconfirm.isEmpty()) {
+                        warning_email.setText("인증번호를 입력해주세요");
+                    } else {
+                        Map confirmemail = new HashMap();
+                        confirmemail.put("u_email", email);
+                        confirmemail.put("auth", emailconfirm);
+                        Call<Integer> CFemail = RetrofitClient.getApiService().emailAuthCheck(confirmemail);
+                        CFemail.enqueue(new Callback<Integer>() {
+                            @Override
+                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                Integer emailconfirm = response.body();
+                                Log.i("subin", "이메일 인증번호 확인: " + emailconfirm);
+                                if (emailconfirm == 1) {
+                                    click4 = 1;
+                                    warning_email.setText("");
+                                } else if (emailconfirm == 0) {
+                                    //인증 실패
+                                    click4 = 0;
+                                    warning_email.setText("이메일 인증에 실패했습니다 다시 확인해주세요.");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Integer> call, Throwable t) {
+                                Log.i("subin", "연결실패" + t.getMessage());
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -420,7 +463,7 @@ public class RegistActivity extends AppCompatActivity {
                                 if (allres == 1) {
                                     Intent intent = new Intent(RegistActivity.this, LoginActivity.class);
                                     startActivity(intent);
-                                    Log.i("subin", "success!!");
+                                    Log.i("subin", "regist success!!");
                                 } else {
                                     //회원가입 실패
                                     Toast.makeText(RegistActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();

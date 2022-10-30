@@ -24,11 +24,10 @@ import com.example.howabout.function.HowAboutThere;
 public class MainActivity extends AppCompatActivity {
 
     //Button
-    Button btn_login;
-    ImageButton btn_mypage;
-    ImageButton btn_mycource1;
-    ImageButton img_main1;
-    ImageButton img_main2;
+    Button btn_login, btn_popular, btn_find;
+    ImageButton btn_mypage, btn_mycourse;
+    TextView side_hello, main_hello;
+
     //login
     SharedPreferences sharedPreferences;
     TextView helloId;
@@ -41,12 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         FUNC.sideBar(MainActivity.this);
 
-        img_main1 = findViewById(R.id.img_main1);
-        img_main1.setClipToOutline(true);
-
-        img_main2 = findViewById(R.id.img_main2);
-        img_main2.setClipToOutline(true);
-
         viewFlipper = findViewById(R.id.viewFlipper);
         Animation showIn = AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left);
         viewFlipper.setInAnimation(showIn);
@@ -55,84 +48,58 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.startFlipping();
 
         sharedPreferences = getSharedPreferences("USER", Activity.MODE_PRIVATE);
-        //로그인시도 후 저장된 값
-        String u_nick = sharedPreferences.getString("u_nick", null);
         String token = sharedPreferences.getString("token", null);
-        Boolean autock = sharedPreferences.getBoolean("auto", false);
+        Log.i("subin", "main :: login token: "+token);
+        String nickname = sharedPreferences.getString("u_nick", null);
+        Log.i("subin", "main :: login nickname: "+nickname);
 
-        //로그인버튼
-        btn_login = findViewById(R.id.btn_login);
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intentl);
-            }
-        });
-        //마이페이지
-        btn_mypage = findViewById(R.id.btn_mypage);
-        btn_mypage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentmp = new Intent(MainActivity.this, MyPageActivity.class);
-                startActivity(intentmp);
-            }
-        });
-        //내코스
-        btn_mycource1 = findViewById(R.id.btn_mycource1);
-        btn_mycource1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentmc = new Intent(MainActivity.this, MyCourseActivity.class);
-                startActivity(intentmc);
-            }
-        });
+        btn_login = findViewById(R.id.main_btn_login);
+        btn_mypage = findViewById(R.id.main_btn_mypage);
+        btn_mycourse = findViewById(R.id.main_btn_mycourse);
+        btn_popular = findViewById(R.id.main_btn_popular);
+        btn_find = findViewById(R.id.main_btn_find);
+        side_hello = findViewById(R.id.helloId);
+        main_hello = findViewById(R.id.main_hello);
 
-        if (u_nick == null) {
-            Log.i("subin", "null 값이 오나요? ");
-        } else {
-            btn_login.setVisibility(View.INVISIBLE);
-            btn_mycource1.setVisibility(View.VISIBLE);
+        if(token != null){ //로그인을 한 경우
+            Toast.makeText(this, "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+            btn_login.setVisibility(View.GONE);
             btn_mypage.setVisibility(View.VISIBLE);
-            Log.i("subin", "user 정보가 오나요?: " + u_nick);
+            btn_mycourse.setVisibility(View.VISIBLE);
+            main_hello.setText(nickname+"님 환영합니다 🙌");
+        }else{
+            btn_login.setVisibility(View.VISIBLE);
+            btn_mypage.setVisibility(View.GONE);
+            btn_mycourse.setVisibility(View.GONE);
+            main_hello.setText("로그인을 해주세요! 🙏");
         }
-////////////////////
-        //intent button
-        Button btn_popular = findViewById(R.id.btn_popular);
-        Button btn_find = findViewById(R.id.btn_find);
 
-        btn_popular.setClipToOutline(true);
-        btn_popular.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentpo = new Intent(MainActivity.this, PopularActivity.class);
-                startActivity(intentpo);
-            }
-        });
-        btn_find.setClipToOutline(true);
-        btn_find.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentf = new Intent(MainActivity.this, FindActivity.class);
-                startActivity(intentf);
-            }
-        });
-
-        img_main1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "안녕", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        img_main2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "하세요", Toast.LENGTH_SHORT).show();
-            }
-        });
+        btn_login.setOnClickListener(click);
+        btn_mypage.setOnClickListener(click);
+        btn_mycourse.setOnClickListener(click);
+        btn_find.setOnClickListener(click);
+        btn_popular.setOnClickListener(click);
     }
-    /////////////////////
+
+    View.OnClickListener click = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int res = view.getId();
+            switch (res){
+                case R.id.main_btn_login:
+                    FUNC.activity_intent(MainActivity.this, LoginActivity.class);break;
+                case R.id.main_btn_mycourse:
+                    FUNC.activity_intent(MainActivity.this, MyCourseActivity.class);break;
+                case R.id.main_btn_mypage:
+                    FUNC.activity_intent(MainActivity.this, MyPageActivity.class);break;
+                case R.id.main_btn_popular:
+                    FUNC.activity_intent(MainActivity.this, PopularActivity.class);break;
+                case R.id.main_btn_find:
+                    FUNC.activity_intent(MainActivity.this, FindActivity.class);break;
+            }
+        }
+    };
+
 
     @Override
     protected void onDestroy() {
@@ -150,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
             editor.apply();
             btn_login.setVisibility(View.VISIBLE);
-            btn_mycource1.setVisibility(View.INVISIBLE);
+            btn_mycourse.setVisibility(View.INVISIBLE);
             btn_mypage.setVisibility(View.INVISIBLE);
 
         }

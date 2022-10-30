@@ -16,9 +16,18 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface RetrofitAPIService {
+
+    @POST("/splash/test")
+        //autoLogin. token 적용 필요
+    Call<String> test(@Header("Authorization") String token);
+
+    @POST("/splash/autoLogin")
+        //autoLogin. token 적용 필요
+    Call<Map<String, String>> autoLogin(@Header("Authorization") String token);
 
     //아이디 중복 여부
     @POST("/login/signUp/idCheck")
@@ -29,8 +38,12 @@ public interface RetrofitAPIService {
     Call<Integer> nickcheck(@Body Map nicknameck);
 
     //이메일 중복 여부
-    @POST("/login/signUp/emailCheck")
-    Call<Integer> checkemail(@Body Map emailck);
+    @POST("/login/signUp/emailSendAuth")
+    Call<Integer> emailSendCheck(@Body Map emailck);
+
+    //이메일 인증번호 확인
+    @POST("/login/signUp/emailAuthCheck")
+    Call<Integer> emailAuthCheck(@Body Map emailAuthck);
 
     //회원가입 성공 여부
     @POST("/login/signUp")
@@ -41,8 +54,8 @@ public interface RetrofitAPIService {
     Call<LoginDTO> login(@Body Map id_pw);
 
     //아이디 찾기
-    @POST("/login/findMyId")
-    Call<Map<String, String>> search_id(@Body Map email);
+    @POST("/login/sendIdEmail")
+    Call<Integer> search_id(@Body Map email);
 
     //비밀번호 재설정 회원확인
     @POST("/login/checkMyInfo")
@@ -61,17 +74,17 @@ public interface RetrofitAPIService {
         //카페 리스트
     Call<ArrayList<CategoryResult>> cafe(@Body ArrayList<JSONObject> arrayList);
 
-    @POST("/findCourse/saveCourse")
-        //코스 저장
-    Call<Map> saveCourse(@Body ArrayList<Object> arrayList);
+    @POST("/myCourse/saveCourse")
+        //코스 저장. token 적용 필요
+    Call<Map> saveCourse(@Body ArrayList<Object> arrayList, @Header("Authorization") String token);
 
-    @POST("/findCourse/courseDibs")
-        //내 코스 저장
-    Call<Integer> saveMyCourse(@Body Map saveMyCourse_data);
+    @POST("/myCourse/courseDibs")
+//내 코스 저장. token 적용 필요
+    Call<Integer> courseDibs(@Body Map saveMyCourse_data, @Header("Authorization") String token);
 
-    //가게 리뷰 가져오기
     @POST("/findCourse/getLocationInfo")
-    //가게 정보
+        //가게 정보
+        //가게 정보
     Call<Map<String, String>> getLocationInfo(@Body Map place_info);
 
     //MyPage................................................................
@@ -101,9 +114,9 @@ public interface RetrofitAPIService {
     @POST("/popularCourse/getSi")
     Call<ArrayList<String>> getSi(@Body String getsi);
 
-    //인기코스 구하기
     @POST("/popularCourse/getCatCourse")
-    Call<ArrayList<JSONObject>> popular(@Body ArrayList<JSONObject> po);
+        //인기코스 구하기
+    Call<ArrayList<JSONObject>> getCatCourse(@Body ArrayList<JSONObject> po);
 
     //mycourse
     @POST("/myCourse/myCourse")

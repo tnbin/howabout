@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/main_btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -45,17 +45,17 @@
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/btn_mypage"
+                android:id="@+id/main_btn_mypage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_toLeftOf="@+id/btn_mycource1"
+                android:layout_toLeftOf="@+id/main_btn_mycourse"
                 android:backgroundTint="#FF5757"
                 android:src="@drawable/ic_baseline_account_circle_24"
                 android:visibility="invisible" />
 
             <ImageButton
-                android:id="@+id/btn_mycource1"
+                android:id="@+id/main_btn_mycourse"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
@@ -67,6 +67,14 @@
                 android:src="@drawable/ic_baseline_location_on_24_red"
                 android:visibility="invisible" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/main_hello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="안녕" />
+
 
         <ViewFlipper
             android:id="@+id/viewFlipper"
@@ -121,7 +129,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/img_main1"
+                    android:id="@+id/main_img_main1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="6dp"
@@ -133,7 +141,7 @@
                     android:src="@drawable/rabbit" />
 
                 <android.widget.Button
-                    android:id="@+id/btn_popular"
+                    android:id="@+id/main_btn_popular"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -154,7 +162,7 @@
                 android:orientation="horizontal">
 
                 <android.widget.Button
-                    android:id="@+id/btn_find"
+                    android:id="@+id/main_btn_find"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -168,7 +176,7 @@
                     android:textSize="20dp" />
 
                 <ImageButton
-                    android:id="@+id/img_main2"
+                    android:id="@+id/main_img_main2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="6dp"

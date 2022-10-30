@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.howabout.API.RetrofitClient;
 import com.example.howabout.R;
@@ -88,33 +89,30 @@ public class FindId extends Fragment {
         Map postemail = new HashMap();
         postemail.put("u_email", email);
 
-        Call<Map<String, String>> FindId = RetrofitClient.getApiService().search_id(postemail);
-        FindId.enqueue(new Callback<Map<String, String>>() {
+        Call<Integer> FindId = RetrofitClient.getApiService().search_id(postemail);
+        FindId.enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
-                Map<String, String> result = response.body();
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                Integer result = response.body();
                 Log.i("subin", "연결 성공" + result);
-                String result_id = result.get("u_id");
-
+                if (result==0){
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("아이디 찾기");
-                if (result_id == null) {
-                    builder.setMessage("이메일 주소와 일치되는 아이디가 없습니다.");
-                } else {
-                    builder.setMessage(result_id);
-                }
+                builder.setMessage("이메일 주소와 일치되는 아이디가 없습니다.");
                 builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
                 builder.create();
                 builder.show();
+                }else if (result==1){
+                    Toast.makeText(getActivity(),"이메일 확인 부탁드려요",Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+            public void onFailure(Call<Integer> call, Throwable t) {
                 Log.i("subin", "연결 실패: " + t.getMessage());
             }
         });

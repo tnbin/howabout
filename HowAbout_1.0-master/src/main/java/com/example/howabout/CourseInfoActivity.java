@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
@@ -38,6 +40,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.howabout.API.RetrofitClient;
+import com.example.howabout.function.HowAboutThere;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -58,9 +61,8 @@ import retrofit2.Response;
 
 public class CourseInfoActivity extends AppCompatActivity {
 
-    DrawerLayout drawerLayout;
-    View drawerView;
-    Intent intent;
+    HowAboutThere FUNC = new HowAboutThere();
+    SharedPreferences sharedPreferences;
     TextView storeInfo_tv_time;
     CompoundButton compoundButton;
     ScaleAnimation scaleAnimation;
@@ -72,21 +74,7 @@ public class CourseInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_info);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerView = findViewById(R.id.drawer);
-        //DrawerLayout Menu
-        ImageButton btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(click_Drawer);
-
-        //drawer layout menu buttons
-        Button btn_homebar = findViewById(R.id.btn_homebar);
-        btn_homebar.setOnClickListener(click_DrawerMenu);
-        Button btn_courcebar = findViewById(R.id.btn_courcebar);
-        btn_courcebar.setOnClickListener(click_DrawerMenu);
-        Button btn_mypagebar = findViewById(R.id.btn_mypagebar);
-        btn_mypagebar.setOnClickListener(click_DrawerMenu);
-        Button btn_mycourcebar = findViewById(R.id.btn_mycourcebar);
-        btn_mycourcebar.setOnClickListener(click_DrawerMenu);
+        FUNC.sideBar(CourseInfoActivity.this);
 
         //heart animation
         scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
@@ -135,6 +123,10 @@ public class CourseInfoActivity extends AppCompatActivity {
         String c_url = aa.get("c_url").toString();
         String r_id = aa.get("r_id").toString();
         String c_id = aa.get("c_id").toString();
+
+        savePopularCourse_data.put("r_id", r_id);
+        savePopularCourse_data.put("c_id", c_id);
+
         Log.i("subin", "음식점 경도 위도 정보 값:" + r_lon + "," + r_lat);
         Log.i("subin", "카페 경도 위도 정보 값:" + c_lon + "," + c_lat);
         //marker 찍기
@@ -163,45 +155,10 @@ public class CourseInfoActivity extends AppCompatActivity {
             }
         });
 
-        compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        //favorit button event
+        compoundButton.setOnTouchListener(touch_favoritBtn);
+        compoundButton.startAnimation(scaleAnimation);
 
-                compoundButton.startAnimation(scaleAnimation);
-                if (b) {
-                    try {
-                        Log.i("subin", "click sucess!!");
-                        savePopularCourse_data.put("r_id", r_id);
-                        savePopularCourse_data.put("c_id", c_id);
-                        savePopularCourse_data.put("u_id", "맹구");
-
-                        Call<Integer> save_myCourse = RetrofitClient.getApiService().saveMyCourse(savePopularCourse_data);
-                        save_myCourse.enqueue(new Callback<Integer>() {
-                            @Override
-                            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                Log.i("subin", "성공 시 return value는 1: " + response.body());
-                                Integer savemycourse = response.body();
-                                if (savemycourse == 1) {
-                                    Toast.makeText(CourseInfoActivity.this, "내 코스에 저장됐습니다.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(CourseInfoActivity.this, "저장이 실패했습니다.", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Integer> call, Throwable t) {
-                                Log.i("subin", "server" + t.getMessage());
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    //내 코스 저장 취소하기
-                    Log.i("subin", "noclick sucess!!");
-                }
-            }
-        });
     }
 
     public void Information(String name, String cat, String image_url, String address, String phone, String url, String first_lat, String first_lon, String second_lat, String second_lon) {
@@ -333,46 +290,63 @@ public class CourseInfoActivity extends AppCompatActivity {
         mapView.fitMapViewAreaToShowAllPOIItems();
     }
 
-    //drawer Layout open button click event
-    View.OnClickListener click_Drawer = new View.OnClickListener() {
+    //내 코스 저장하기 버튼 클릭 이벤트
+    View.OnTouchListener touch_favoritBtn = new View.OnTouchListener() {
         @Override
-        public void onClick(View view) {
-            drawerLayout = findViewById(R.id.drawer_layout);
-            drawerView = findViewById(R.id.drawer);
-            drawerLayout.openDrawer(drawerView);
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            sharedPreferences = getSharedPreferences("USER", Activity.MODE_PRIVATE);
+            String token = sharedPreferences.getString("token", null);
+            if (token != null) {
+                Log.i("leehj", "token: " + token);
+                compoundButton.setOnCheckedChangeListener(check_favoritBtn);
+                return false;
+            } else {
+                Toast.makeText(CourseInfoActivity.this, "로그인 후 이용 가능한 서비스입니다.", Toast.LENGTH_SHORT).show();
+                return true;
+            }
         }
     };
 
-    //drawer Layout menu click event
-    View.OnClickListener click_DrawerMenu = new View.OnClickListener() {
+    CompoundButton.OnCheckedChangeListener check_favoritBtn = new CompoundButton.OnCheckedChangeListener() {
         @Override
-        public void onClick(View view) {
-            int id = view.getId();
-            switch (id) {
-                case R.id.btn_homebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(CourseInfoActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_courcebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = getIntent();
-                    startActivity(intent);
-                    break;
-                case R.id.btn_mypagebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(CourseInfoActivity.this, MyPageActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_mycourcebar:
-                    drawerLayout.closeDrawers();
-                    finish();
-                    intent = new Intent(CourseInfoActivity.this, MyCourseActivity.class);
-                    startActivity(intent);
-                    break;
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            sharedPreferences = getSharedPreferences("USER", Activity.MODE_PRIVATE);
+            String token = sharedPreferences.getString("token", null);
+            String request_token = "Bearer " + token;
+
+            if (b) {
+                Log.e("leehj", "스위치 on 서버에 내코스 저장 해요!!");
+//                saveMyCourse_data.put("u_id", "leehj");
+                Call<Integer> save_myCourse = RetrofitClient.getApiService().courseDibs(savePopularCourse_data, request_token);
+                save_myCourse.enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        Log.i("leehj", "성공 시 return value는 1: " + response.body());
+                        Toast.makeText(CourseInfoActivity.this, "내 코스에 저장됐습니다.", Toast.LENGTH_SHORT).show();
+//                            compoundButton.setClickable(false);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
+            } else {
+                Log.e("leehj", "스위치 off!!! 서버에 내코스 삭제해요");
+                //내 코스 삭제
+                Call<Integer> save_myCourse = RetrofitClient.getApiService().courseDibs(savePopularCourse_data, request_token);
+                save_myCourse.enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        Log.i("leehj", "성공 시 return value는 1: " + response.body());
+                        Toast.makeText(CourseInfoActivity.this, "내 코스에서 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
             }
         }
     };
