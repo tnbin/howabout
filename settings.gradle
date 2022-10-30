@@ -16,3 +16,4 @@ rootProject.name = "HowAbout"
 include ':app'
 include ':HowAbout_1.0-master'
 include ':howabout_2.0'
+include ':HowAbout_2.0-master'

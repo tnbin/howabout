@@ -88,24 +88,25 @@ public class FindId extends Fragment {
     public void Search_id(String email) {
         Map postemail = new HashMap();
         postemail.put("u_email", email);
-
+        Log.i("subin","email: "+postemail);
         Call<Integer> FindId = RetrofitClient.getApiService().search_id(postemail);
+        Log.i("subin","2.email: "+postemail);
         FindId.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Integer result = response.body();
                 Log.i("subin", "연결 성공" + result);
                 if (result==0){
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("아이디 찾기");
-                builder.setMessage("이메일 주소와 일치되는 아이디가 없습니다.");
-                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
-                builder.create();
-                builder.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("아이디 찾기");
+                    builder.setMessage("이메일 주소와 일치되는 아이디가 없습니다.");
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    builder.create();
+                    builder.show();
                 }else if (result==1){
                     Toast.makeText(getActivity(),"이메일 확인 부탁드려요",Toast.LENGTH_SHORT).show();
                 }

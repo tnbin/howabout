@@ -45,6 +45,10 @@ public interface RetrofitAPIService {
     @POST("/login/signUp/emailAuthCheck")
     Call<Integer> emailAuthCheck(@Body Map emailAuthck);
 
+    //이메일 인증번호
+    @POST("/login/sendPwEmail")
+    Call<Integer> emailSend(@Body Map email);
+
     //회원가입 성공 여부
     @POST("/login/signUp")
     Call<Integer> all(@Body UserDTO userDTO);
@@ -79,7 +83,7 @@ public interface RetrofitAPIService {
     Call<Map> saveCourse(@Body ArrayList<Object> arrayList, @Header("Authorization") String token);
 
     @POST("/myCourse/courseDibs")
-//내 코스 저장. token 적용 필요
+        //내 코스 저장. token 적용 필요
     Call<Integer> courseDibs(@Body Map saveMyCourse_data, @Header("Authorization") String token);
 
     @POST("/findCourse/getLocationInfo")
@@ -103,7 +107,6 @@ public interface RetrofitAPIService {
     //비밀번호 확인
     @POST("/myPage/myInfo/CheckPW")
     Call<Integer> checkPW(@Body List jsonList);
-
 
     //PopularCourse........................................................
     //DB에서 ‘도’ 를 반환
