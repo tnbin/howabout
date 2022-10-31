@@ -89,7 +89,6 @@ public class PopularActivity extends AppCompatActivity {
                 bottomSheet_region.show(getSupportFragmentManager(), bottomSheet_region.getTag());
             }
         });
-        /////////////////////drawerlayout finish
         //검색 버튼 눌렀을 때
         Button btn_casearch = findViewById(R.id.btn_casearch);
         btn_casearch.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +119,7 @@ public class PopularActivity extends AppCompatActivity {
                 Log.i("subin", js + "");
                 String string = js.toString();
                 intent.putExtra("storeInfo", string);
-
+                intent.putExtra("flag","0");
                 startActivity(intent);
 
             }
@@ -197,7 +196,7 @@ public class PopularActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(PopularActivity.this,"인기 코스가 없습니다",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopularActivity.this, "인기 코스가 없습니다", Toast.LENGTH_SHORT).show();
                 }
             }
 

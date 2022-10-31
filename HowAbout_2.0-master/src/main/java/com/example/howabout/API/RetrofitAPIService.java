@@ -101,4 +101,8 @@ public interface RetrofitAPIService {
 
     @POST("/popularCourse/getCatCourse") //인기코스 구하기
     Call<ArrayList<JSONObject>> getCatCourse(@Body ArrayList<JSONObject> po);
+
+    //mycourse
+    @POST("/myCourse/myCourse")
+    Call<ArrayList<JSONObject>> mycourse(@Header("Authorization") String token);
 }

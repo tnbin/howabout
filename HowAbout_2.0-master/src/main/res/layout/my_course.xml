@@ -16,42 +16,38 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/btn_open"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFF"
                 android:src="@drawable/ic_baseline_dehaze_24" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:text="My Course"
-                android:textColor="#6A6666"
-                android:textSize="23dp" />
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:text="My Course"-->
+            <!--                android:textColor="#6A6666"-->
+            <!--                android:textSize="23dp" />-->
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:background="@drawable/edge_howaboutfull"
                 android:gravity="center"
                 android:text="내가 찜한 코스 목록"
@@ -59,11 +55,11 @@
                 android:textSize="20dp" />
 
             <ListView
+                android:id="@+id/mycourse_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/edge_howabout" />
+                android:divider="#FFF"
+                android:dividerHeight="0px" />
         </LinearLayout>
 
     </LinearLayout>

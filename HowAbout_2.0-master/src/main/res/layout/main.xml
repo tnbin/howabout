@@ -43,6 +43,7 @@
                 android:background="@drawable/round_btn"
                 android:backgroundTint="#FF5757"
                 android:fontFamily="@font/jalnan_main"
+                android:gravity="center"
                 android:text="Login"
                 android:visibility="visible" />
 
@@ -76,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/godo_m"
-            android:text="안녕" />
+            android:text="안녕하세요 howabout 입니다" />
 
         <ViewFlipper
             android:id="@+id/viewFlipper"
@@ -150,12 +151,15 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/edge_circlemain"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="centerCrop"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/playing_rocket_animation" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/main_btn_popular"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
@@ -179,6 +183,7 @@
 
                 <android.widget.Button
                     android:id="@+id/main_btn_find"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
@@ -196,20 +201,12 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/edge_circlemain"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="centerCrop"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/location_animation_red" />
 
-                <!--                <ImageButton-->
-                <!--                    android:id="@+id/main_img_main2"-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_marginTop="6dp"-->
-                <!--                    android:layout_marginBottom="10dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:background="@drawable/edge_circlemain"-->
-                <!--                    android:scaleType="centerCrop"-->
-                <!--                    android:src="@drawable/rabbit" />-->
             </LinearLayout>
 
         </LinearLayout>

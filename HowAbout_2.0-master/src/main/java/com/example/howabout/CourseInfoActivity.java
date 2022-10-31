@@ -2,16 +2,11 @@ package com.example.howabout;
 
 import static net.daum.mf.map.api.MapPoint.mapPointWithGeoCoord;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -92,10 +87,14 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         //popular에서 보낸 intent 받기
         Intent couseintent = getIntent();
-//        String heart=couseintent.getStringExtra("heart");
-//        if (heart.equals("mycourse")){
-//            compoundButton.setVisibility(View.INVISIBLE);
-//        }
+        //찜하기 체크
+        String favoriteheart=couseintent.getStringExtra("flag");
+        Log.i("subin","flag값 1이면 mycourse에서 0이면 인기코스에서: "+favoriteheart);
+        if (favoriteheart.equals("1")){
+            compoundButton.setChecked(true);
+        }else if (favoriteheart.equals("0")){
+            compoundButton.setChecked(false);
+        }
         String jsonObject = couseintent.getStringExtra("storeInfo");
         JSONParser parser = new JSONParser();
         JSONObject aa = null;
@@ -127,8 +126,6 @@ public class CourseInfoActivity extends AppCompatActivity {
         savePopularCourse_data.put("r_id", r_id);
         savePopularCourse_data.put("c_id", c_id);
 
-        Log.i("subin", "음식점 경도 위도 정보 값:" + r_lon + "," + r_lat);
-        Log.i("subin", "카페 경도 위도 정보 값:" + c_lon + "," + c_lat);
         //marker 찍기
         MapMarker(mapView, r_name, r_lat, r_lon);
         MapMarker(mapView, c_name, c_lat, c_lon);
@@ -203,7 +200,6 @@ public class CourseInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String road = "kakaomap://route?sp=" + first_lat + "," + first_lon + "&ep=" + second_lat + "," + second_lon + "&by=FOOT";
-//                Log.i("subin", "길찾기 카카오 주소: " + road);
                 Intent roadintent = new Intent(Intent.ACTION_VIEW);
                 roadintent.setData(Uri.parse(road));
                 roadintent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -234,15 +230,12 @@ public class CourseInfoActivity extends AppCompatActivity {
             public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
 
                 Map<String, String> result = response.body();
-//                Log.i("subin", "/////////////////" + result.get("storeTime"));
                 String storeTime = result.get("storeTime");
                 storeInfo_tv_time = storeInfo_dialog.findViewById(R.id.storeInfo_tv_time);
                 storeInfo_tv_time.setText("  " + storeTime);
                 storeInfo_tv_time.setTextIsSelectable(true);
-//                Log.i("subin", storeTime);
                 storeInfo_tv_time.setSelected(true);
                 String review1 = result.get("review_1");
-//                Log.i("subin", "review: " + review1);
                 TextView storeInfo_tv_reivew1 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew1);
                 storeInfo_tv_reivew1.setText(review1);
                 String review2 = result.get("review_2");
@@ -324,6 +317,7 @@ public class CourseInfoActivity extends AppCompatActivity {
                         Log.i("leehj", "성공 시 return value는 1: " + response.body());
                         Toast.makeText(CourseInfoActivity.this, "내 코스에 저장됐습니다.", Toast.LENGTH_SHORT).show();
 //                            compoundButton.setClickable(false);
+
                     }
 
                     @Override

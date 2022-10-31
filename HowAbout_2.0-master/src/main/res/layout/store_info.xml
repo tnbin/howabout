@@ -33,6 +33,7 @@
                 android:src="@drawable/ic_round_cancel_24" />
         </FrameLayout>
 
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -41,141 +42,171 @@
             android:layout_marginBottom="-30dp"
             app:cardCornerRadius="40dp">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_placeName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="가게명"
-                        android:textIsSelectable="true"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_cat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:text="인도 음식점"
-                        android:textIsSelectable="true"
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:drawableLeft="@drawable/ic_baseline_location_on_24"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="  냠냠북도 냠냠시 냠냠구 냠냠동 111-1"
-                        android:textIsSelectable="true" />
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
-                        android:text="  010-0000-1111"
-                        android:textIsSelectable="true" />
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_url"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/ic_baseline_home_24_black"
-                        android:ellipsize="marquee"
-                        android:gravity="start"
-                        android:singleLine="true"
-                        android:text="  http://place.map.kakao.com/1311dddddddddddddddddd0298"
-                        android:textIsSelectable="true" />
-
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/ic_baseline_access_time_24"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="  월 화 휴무"
-                        android:textIsSelectable="true" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="review"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_reivew1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text=" 맛있고 친절함. 혼자 갔는데도 큰 냄비에 내 주심" />
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_reivew2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="맛집입니다, 첨가봤는데 넘맛있게먹고 왔어요^^" />
-
-                    <TextView
-                        android:id="@+id/storeInfo_tv_reivew3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="맛집입니다, 첨가봤는데 넘맛있게먹고 왔어요^^" />
-                </LinearLayout>
-
-            </ScrollView>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
-                android:gravity="bottom"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/storeInfo_btn_phone"
-                    android:layout_width="wrap_content"
+                <ScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/edge_circlemain2"
-                    android:backgroundTint="#EEE"
-                    android:text="전화걸기" />
+                    android:nestedScrollingEnabled="true">
 
-                <Button
-                    android:id="@+id/storeInfo_btn_road"
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_placeName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="가게명"
+                            android:textIsSelectable="true"
+                            android:textSize="25dp" />
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_cat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:text="인도 음식점"
+                            android:textIsSelectable="true"
+                            android:textSize="13dp" />
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"
+                            android:text="  냠냠북도 냠냠시 냠냠구 냠냠동 111-1"
+                            android:textIsSelectable="true" />
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+                            android:text="  010-0000-1111"
+                            android:textIsSelectable="true" />
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_url"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:drawableLeft="@drawable/ic_baseline_home_24_black"
+                            android:ellipsize="marquee"
+                            android:gravity="start"
+                            android:singleLine="true"
+                            android:text="  http://place.map.kakao.com/1311dddddddddddddddddd0298"
+                            android:textIsSelectable="true" />
+
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:drawableLeft="@drawable/ic_baseline_access_time_24"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"
+                            android:text="  월 화 휴무"
+                            android:textIsSelectable="true" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="review"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_reivew1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text=" 맛있고 친절함. 혼자 갔는데도 큰 냄비에 내 주심" />
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_reivew2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="맛집입니다, 첨가봤는데 넘맛있게먹고 왔어요^^" />
+
+                        <TextView
+                            android:id="@+id/storeInfo_tv_reivew3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="맛집입니다, 첨가봤는데 넘맛있게먹고 왔어요^^" />
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/edge_circlemain2"
-                    android:backgroundTint="#EEE"
-                    android:text="길찾기" />
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_marginLeft="4dip"
+                        android:layout_marginRight="4dip"
+                        android:background="?android:attr/dividerVertical" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="40dp">
+
+                        <Button
+                            android:id="@+id/storeInfo_btn_phone"
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edge_circlemain2"
+                            android:backgroundTint="#EEE"
+                            android:text="전화걸기" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:background="?android:attr/dividerVertical" />
+
+                        <Button
+                            android:id="@+id/storeInfo_btn_road"
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edge_circlemain2"
+                            android:backgroundTint="#EEE"
+                            android:text="길찾기" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
 

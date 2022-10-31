@@ -743,6 +743,23 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                             String phone = marker_document.getPhone();
                             String store_url = marker_document.getPlaceUrl();
 
+                            TextView storeInfo_tv_placeName = storeInfo_dialog.findViewById(R.id.storeInfo_tv_placeName);
+                            TextView storeInfo_tv_cat = storeInfo_dialog.findViewById(R.id.storeInfo_tv_cat);
+                            TextView storeInfo_tv_address = storeInfo_dialog.findViewById(R.id.storeInfo_tv_address);
+                            TextView storeInfo_tv_phone = storeInfo_dialog.findViewById(R.id.storeInfo_tv_phone);
+                            TextView storeInfo_tv_url = storeInfo_dialog.findViewById(R.id.storeInfo_tv_url);
+                            storeInfo_tv_placeName.setText(placeName);
+                            storeInfo_tv_placeName.setTextIsSelectable(true);
+                            storeInfo_tv_cat.setText(category);
+                            storeInfo_tv_cat.setTextIsSelectable(true);
+                            storeInfo_tv_address.setText("  " + address);
+                            storeInfo_tv_address.setSelected(true);
+                            storeInfo_tv_address.setTextIsSelectable(true);
+                            storeInfo_tv_phone.setText("  " + phone);
+                            storeInfo_tv_url.setText("  " + store_url);
+                            storeInfo_tv_url.setTextIsSelectable(true);
+                            storeInfo_tv_url.setSelected(true);
+
                             String url = "http:" + result.get("imgUrl"); //response data img Url 가져오기
                             Log.e("leehj", "img url : " + url);
                             String review1 = result.get("review_1");
@@ -757,7 +774,14 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                             ImageView img = (ImageView) storeInfo_dialog.findViewById(R.id.storeInfo_img);
                             Glide.with(storeInfo_dialog.getContext()).load(url).into(img);
 
-                            TextView place_name = (TextView) storeInfo_dialog.findViewById(R.id.storeInfo_tv_placeName);
+                            TextView storeInfo_tv_reivew1 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew1);
+                            storeInfo_tv_reivew1.setText(review1);
+                            TextView storeInfo_tv_reivew2 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew2);
+                            storeInfo_tv_reivew2.setText(review2);
+                            TextView storeInfo_tv_reivew3 = storeInfo_dialog.findViewById(R.id.storeInfo_tv_reivew3);
+                            storeInfo_tv_reivew3.setText(review3);
+                            TextView storeInfo_tv_time = storeInfo_dialog.findViewById(R.id.storeInfo_tv_time);
+                            storeInfo_tv_time.setText("  " + storeTime);
 
 
                             //창닫기 버튼 클릭 이벤트
