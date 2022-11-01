@@ -46,7 +46,7 @@ public class BottomSheet_region extends BottomSheetDialogFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.bottonsheet_region, container, false);
+        View view = inflater.inflate(R.layout.bottomsheet_region, container, false);
         preferences = context.getSharedPreferences("popular", MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
 

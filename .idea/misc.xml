@@ -63,17 +63,60 @@
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/layout/sidebar.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/layout/store_info.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_1.0-master/src/main/res/layout/update_info.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable-v24/button_favorite.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable-v24/ic_baseline_arrow_back_ios_new_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable-v24/ic_baseline_lock_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable-v24/ic_baseline_search_24_red.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/button_back.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/edge_circlemain2.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_baseline_addw_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.259" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_baseline_key_24.xml" value="0.1" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_baseline_search_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_launcher_background.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/ic_round_cancel_24.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/round_back.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/switch_on.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/drawable/switch_thumb.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/activity_find_user_info.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/bottomsheet_gender.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/bottonsheet_gender.xml" value="0.2" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/bottonsheet_region.xml" value="0.23324275362318841" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/course_info.xml" value="0.1" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/custom_callout_balloon.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/dialog_inputpw.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/dialog_withdrawal.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/drawing_test.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/find.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/findid.xml" value="0.12335359675785208" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/findpwcheck.xml" value="0.1" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/first_balloon_click_dialog.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/fragment_1.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/fragment_2.xml" value="0.12335359675785208" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/fragment_3.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/item_location.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/login.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/main.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/map_dialog.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/my_course.xml" value="0.23324275362318841" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/my_page.xml" value="0.25364583333333335" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/popular.xml" value="0.23324275362318841" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/popular_item.xml" value="0.12335359675785208" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/regist.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/resetpw.xml" value="0.12335359675785208" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/sidebar.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/splash.xml" value="0.12335359675785208" />
         <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/store_info.xml" value="0.264" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/layout/update_info.xml" value="0.2" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_2.0-master/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.259" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_3.0-master/src/main/res/layout/find_dialog_balloon_click.xml" value="0.25364583333333335" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_3.0/src/main/res/layout/activity_find_user_info.xml" value="0.1125" />
+        <entry key="..\:/subin/Android/HowAbout-master/HowAbout_3.0/src/main/res/layout/main.xml" value="0.2" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable-v24/ic_baseline_account_howaboutcircle_24.xml" value="0.166" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable-v24/ic_baseline_home_24_black.xml" value="0.184" />
         <entry key="..\:/subin/Android/HowAbout-master/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1145" />

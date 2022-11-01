@@ -71,7 +71,6 @@ public class MyCourseActivity extends AppCompatActivity {
                 JSONObject json= mycourselist.get(i);
                 String string=json.toString();
                 Log.i("subin",i+": listview click: "+string);
-                intent.putExtra("flag","1");
                 intent.putExtra("storeInfo",string);
                 startActivity(intent);
             }
@@ -85,9 +84,7 @@ public class MyCourseActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
                 mycourselist=response.body();
                 Log.i("subin","내코스 값:"+mycourselist);
-//                String str=mycourselist.toString();
-//                Log.i("subin","내 코스 서버 연결 성공: "+str);
-//                Log.i("subin","내코스 개수: "+mycourselist.size());
+
                 //서버에서 받은 값 키값으로 불러오기 위해서 jsonobject 생성
                 try {
                     if (mycourselist.isEmpty()) {

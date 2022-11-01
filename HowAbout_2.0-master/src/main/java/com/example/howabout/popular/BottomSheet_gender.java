@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -35,7 +34,7 @@ public class BottomSheet_gender extends BottomSheetDialogFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.bottonsheet_gender, container, false);
+        View view = inflater.inflate(R.layout.bottomsheet_gender, container, false);
         preferences = context.getSharedPreferences("popular", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         RadioGroup radioGroup_gender = view.findViewById(R.id.radiogroup_gender);

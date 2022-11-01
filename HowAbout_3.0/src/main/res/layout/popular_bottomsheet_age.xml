@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/choosetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Age"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/layoutEdit1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RadioGroup
+            android:id="@+id/radiogroup_age"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/age_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 10대" />
+
+            <RadioButton
+                android:id="@+id/age_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 20대" />
+
+            <RadioButton
+                android:id="@+id/age_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 30대" />
+
+            <RadioButton
+                android:id="@+id/age_40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 40대" />
+
+            <RadioButton
+                android:id="@+id/age_50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 50대 이상" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/replay_age"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/edge_circlemain2"
+                android:drawableLeft="@drawable/ic_baseline_replay_24"
+                android:gravity="center"
+                android:paddingLeft="30dp"
+                android:paddingRight="10dp"
+                android:text="재설정"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/select_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/edge_circlemain2"
+                android:backgroundTint="#ff5757"
+                android:text="선택하기"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

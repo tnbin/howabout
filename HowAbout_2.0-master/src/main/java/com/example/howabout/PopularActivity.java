@@ -119,7 +119,6 @@ public class PopularActivity extends AppCompatActivity {
                 Log.i("subin", js + "");
                 String string = js.toString();
                 intent.putExtra("storeInfo", string);
-                intent.putExtra("flag","0");
                 startActivity(intent);
 
             }

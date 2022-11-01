@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -37,7 +36,7 @@ public class BottomSheet_age extends BottomSheetDialogFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.bottonsheet_age, container, false);
+        View view = inflater.inflate(R.layout.bottomsheet_age, container, false);
         preferences = context.getSharedPreferences("popular", MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         RadioGroup radioGroup_age = view.findViewById(R.id.radiogroup_age);
