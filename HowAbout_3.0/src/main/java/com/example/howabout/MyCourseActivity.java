@@ -44,23 +44,20 @@ public class MyCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mycourse);
 
-
+        //sidebar
+        FUNC.sideBar(MyCourseActivity.this);
+        //token여부 확인하기
         sharedPreferences = getSharedPreferences("USER", Activity.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", null);
         String request_token = "Bearer " + token;
-        Log.i("subin","1. token : "+token);
-        Log.i("subin","2. token : "+request_token);
-
+        //코스 목록 리스트 확인
         listView=findViewById(R.id.mycourse_list);
-        FUNC.sideBar(MyCourseActivity.this);
         //내 코스 서버연결
         urllist = new ArrayList<>();
         textlist = new ArrayList<>();
         popularAdapter.clear();
         popularAdapter.notifyDataSetChanged();
         mycourse(request_token);
-
-        listView=findViewById(R.id.mycourse_list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -68,12 +65,24 @@ public class MyCourseActivity extends AppCompatActivity {
                 JSONObject json= mycourselist.get(i);
                 String string=json.toString();
                 Log.i("subin",i+": listview click: "+string);
-                intent.putExtra("heart","mycourse");
                 intent.putExtra("storeInfo",string);
                 startActivity(intent);
             }
         });
-
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        sharedPreferences = getSharedPreferences("USER", Activity.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", null);
+        String request_token = "Bearer " + token;
+        listView = findViewById(R.id.mycourse_list);
+        //내 코스 서버연결
+        urllist = new ArrayList<>();
+        textlist = new ArrayList<>();
+        popularAdapter.clear();
+        popularAdapter.notifyDataSetChanged();
+        mycourse(request_token);
     }
     public void mycourse(String token){
         Call<ArrayList<JSONObject>>mycourse= RetrofitClient.getApiService().myCourse(token);
@@ -82,9 +91,6 @@ public class MyCourseActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<JSONObject>> call, Response<ArrayList<JSONObject>> response) {
                 mycourselist=response.body();
                 Log.i("subin","내코스 값:"+mycourselist);
-//                String str=mycourselist.toString();
-//                Log.i("subin","내 코스 서버 연결 성공: "+str);
-//                Log.i("subin","내코스 개수: "+mycourselist.size());
                 //서버에서 받은 값 키값으로 불러오기 위해서 jsonobject 생성
                 try {
                     if (mycourselist.isEmpty()) {
@@ -94,13 +100,10 @@ public class MyCourseActivity extends AppCompatActivity {
                         for (int i = 0; i < mycourselist.size(); i++) {
                             //jsonobject에 list 값 끝까지 저장
                             jsonObject = mycourselist.get(i);
-                            Log.i("subin","내코스 개수: "+jsonObject);
-//                            //보여줄 listview 불러오기
+                            Log.i("subin","내코스 : "+jsonObject);
+                            //보여줄 listview 불러오기
                             listView = findViewById(R.id.mycourse_list);
                             //arraylist url에 서버에서 받은 값 (카페 url) 저장
-                            if (jsonObject.get("c_image_url").toString().isEmpty()){
-
-                            }
                             Log.i("subin","내코스 url: "+jsonObject.get("c_image_url"));
                             urllist.add("http:" + jsonObject.get("c_image_url").toString());
                             Log.i("subin","url: "+urllist);
@@ -114,8 +117,6 @@ public class MyCourseActivity extends AppCompatActivity {
                             popular_item.setImage(urllist.get(i));
                             //adapter에 값이 저장된 객체를 추가
                             popularAdapter.addItem(popular_item);
-//                        Log.i("subin","imageurl: "+urllist);
-//                        Log.i("subin","imageurl: "+textlist);
                             //listview와 adapter 연결
                             listView.setAdapter(popularAdapter);
                             //adapter 업데이트
@@ -126,7 +127,6 @@ public class MyCourseActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailure(Call<ArrayList<JSONObject>> call, Throwable t) {
                 Log.i("subin","내코스 서버연결 실패: "+t.getMessage());

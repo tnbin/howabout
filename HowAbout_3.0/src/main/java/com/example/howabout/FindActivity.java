@@ -947,8 +947,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
             sharedPreferences = getSharedPreferences("USER", Activity.MODE_PRIVATE);
             String token = sharedPreferences.getString("token", null);
             String request_token = "Bearer " + token;
-//            if(token != null){
-//                Log.i("leehj", "token: " + token);
 
             if (b) {
                 Log.e("leehj", "스위치 on 서버에 내코스 저장 해요!!");

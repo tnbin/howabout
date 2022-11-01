@@ -87,10 +87,6 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         //popular에서 보낸 intent 받기
         Intent couseintent = getIntent();
-//        String heart=couseintent.getStringExtra("heart");
-//        if (heart.equals("mycourse")){
-//            compoundButton.setVisibility(View.INVISIBLE);
-//        }
         String jsonObject = couseintent.getStringExtra("storeInfo");
         JSONParser parser = new JSONParser();
         JSONObject aa = null;
@@ -118,6 +114,16 @@ public class CourseInfoActivity extends AppCompatActivity {
         String c_url = aa.get("c_url").toString();
         String r_id = aa.get("r_id").toString();
         String c_id = aa.get("c_id").toString();
+        String flag= aa.get("flag").toString();
+        Log.i("subin","내 코스 flag값: "+flag);
+
+        if (flag.isEmpty()){
+            Toast.makeText(CourseInfoActivity.this,"내 코스 정보가 없습니다",Toast.LENGTH_SHORT).show();
+        }else if (flag.equals("1.0")){
+            compoundButton.setChecked(true);
+        }else if (flag.equals("0.0")){
+            compoundButton.setChecked(false);
+        }
 
         savePopularCourse_data.put("r_id", r_id);
         savePopularCourse_data.put("c_id", c_id);
@@ -312,13 +318,13 @@ public class CourseInfoActivity extends AppCompatActivity {
             String request_token = "Bearer " + token;
 
             if (b) {
-                Log.e("leehj", "스위치 on 서버에 내코스 저장 해요!!");
+                Log.e("subin", "스위치 on 서버에 내코스 저장 해요!!");
 //                saveMyCourse_data.put("u_id", "leehj");
                 Call<Integer> save_myCourse = RetrofitClient.getApiService().courseDibs(savePopularCourse_data, request_token);
                 save_myCourse.enqueue(new Callback<Integer>() {
                     @Override
                     public void onResponse(Call<Integer> call, Response<Integer> response) {
-                        Log.i("leehj", "성공 시 return value는 1: " + response.body());
+                        Log.i("subin", "성공 시 return value는 1: " + response.body());
                         Toast.makeText(CourseInfoActivity.this, "내 코스에 저장됐습니다.", Toast.LENGTH_SHORT).show();
 //                            compoundButton.setClickable(false);
                     }
@@ -329,13 +335,13 @@ public class CourseInfoActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                Log.e("leehj", "스위치 off!!! 서버에 내코스 삭제해요");
+                Log.e("subin", "스위치 off!!! 서버에 내코스 삭제해요");
                 //내 코스 삭제
                 Call<Integer> save_myCourse = RetrofitClient.getApiService().courseDibs(savePopularCourse_data, request_token);
                 save_myCourse.enqueue(new Callback<Integer>() {
                     @Override
                     public void onResponse(Call<Integer> call, Response<Integer> response) {
-                        Log.i("leehj", "성공 시 return value는 1: " + response.body());
+                        Log.i("subin", "성공 시 return value는 1: " + response.body());
                         Toast.makeText(CourseInfoActivity.this, "내 코스에서 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
                     }
 

@@ -150,6 +150,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/edge_circlemain"
+                    android:scaleType="fitXY"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/playing_rocket_animation" />
@@ -196,6 +197,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/edge_circlemain"
+                    android:scaleType="fitXY"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/select_your_course" />
