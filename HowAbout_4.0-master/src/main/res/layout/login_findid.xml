@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center_horizontal"
+            android:text="아이디 찾기"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="회원가입 시 등록한 이메일 주소를 입력해주세요"
+            android:textColor="#9C9B9B"
+            android:textSize="13dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="50dp"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edge_black"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:hint="  이메일 주소"
+            android:id="@+id/ed_search_id_email"
+            android:padding="10dp"
+            android:textColorHighlight="#EC9393"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSelectHandle="@drawable/select_handler"
+            android:textSelectHandleLeft="@drawable/select_handler"
+            android:textSelectHandleRight="@drawable/select_handler"
+            android:textSize="15dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/btn_search_id"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="50dp"
+            android:padding="10dp"
+            android:text="확인" />
+
+    </LinearLayout>
+
+</FrameLayout>
