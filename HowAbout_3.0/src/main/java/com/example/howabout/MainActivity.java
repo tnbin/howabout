@@ -43,15 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     ViewFlipper viewFlipper;
 
-    //login
-//    final static int REQUEST_CODE_START_INPUT = 1;
-    //viewpager
-//    private ViewPager2 mPager;
-//    private FragmentStateAdapter pagerAdapter;
-//    private int num_page = 4;
-//    private CircleIndicator3 mIndicator;
-//    TextView helloId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

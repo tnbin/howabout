@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="#FFF"
+        app:tabTextAppearance="@style/tab_text"
         android:minHeight="?actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_idpw"

@@ -48,7 +48,7 @@ public class PopularAdapter extends BaseAdapter {
 
         ImageView imageView = view.findViewById(R.id.popular_img);
         Glide.with(context).load(list.get(i).getImage()).placeholder(R.drawable.rabbit_and_bear).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
-                new RoundedCorners(25))).into(imageView);
+                new RoundedCorners(40))).into(imageView);
         TextView textView = view.findViewById(R.id.popular_text);
 //        Log.e("leehj", "Popular Adapter place data : "+list.get(i).getPlace());
         textView.setText(list.get(i).getPlace());

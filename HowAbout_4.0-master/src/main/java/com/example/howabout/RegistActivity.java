@@ -285,7 +285,8 @@ public class RegistActivity extends AppCompatActivity {
                             if (ckemail == 1) {
                                 warning_email.setText("");
                                 inputEmail = email;
-                                Toast.makeText(RegistActivity.this, "완료", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(RegistActivity.this, "완료", Toast.LENGTH_SHORT).show();
+                                warning_email.setText("인증변호를 발송했습니다. 인증번호가 오지 않으면 정보가 정확한지 또는 스팸문자함을 확인해주세요.");
                                 layout_email.setVisibility(View.VISIBLE);
                                 return;//검증완료
 

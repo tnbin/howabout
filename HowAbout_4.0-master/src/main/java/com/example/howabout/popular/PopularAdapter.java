@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -47,8 +48,8 @@ public class PopularAdapter extends BaseAdapter {
         }
 
         ImageView imageView = view.findViewById(R.id.popular_img);
-        Glide.with(context).load(list.get(i).getImage()).placeholder(R.drawable.rabbit_and_bear).override(Target.SIZE_ORIGINAL).apply(new RequestOptions().transforms(new CenterCrop(),
-                new RoundedCorners(25))).into(imageView);
+        MultiTransformation multiTransformation=new MultiTransformation(new CenterCrop(),new RoundedCorners(40));
+        Glide.with(context).load(list.get(i).getImage()).placeholder(R.drawable.rabbit_and_bear).error(R.drawable.rabbit_and_bear).fallback(R.drawable.rabbit_and_bear).override(Target.SIZE_ORIGINAL).apply(RequestOptions.bitmapTransform(multiTransformation)).into(imageView);
         TextView textView = view.findViewById(R.id.popular_text);
 //        Log.e("leehj", "Popular Adapter place data : "+list.get(i).getPlace());
         textView.setText(list.get(i).getPlace());

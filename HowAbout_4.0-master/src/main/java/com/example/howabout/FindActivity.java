@@ -198,10 +198,6 @@ public class FindActivity extends AppCompatActivity implements MapView.CurrentLo
                 mapView.removeAllPOIItems();
                 searchKeyword(keyword);
             }
-//            else {
-//                searchAdapter.clear();
-//                searchAdapter.notifyDataSetChanged();
-//            }
         }
 
         @Override

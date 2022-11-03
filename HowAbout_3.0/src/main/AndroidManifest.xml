@@ -18,6 +18,9 @@
         android:theme="@style/Theme.HowAbout"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Test"
+            android:exported="false" />
+        <activity
             android:name=".FindUserInfoActivity"
             android:exported="true"
             android:screenOrientation="portrait" />

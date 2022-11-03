@@ -15,8 +15,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.howabout.API.RetrofitClient;
 import com.example.howabout.functions.HowAboutThere;
 import com.example.howabout.popular.BottomSheet_age;
@@ -44,9 +46,11 @@ public class PopularActivity extends AppCompatActivity {
     List<String> urllist;
     List<String> textlist;
     Popular_item popular_item;
+    TextView popularnull;
     //인기코스 리스트
     ArrayList<JSONObject> popularlist = new ArrayList<JSONObject>();
     JSONObject jsonObject;
+    LottieAnimationView animationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,8 @@ public class PopularActivity extends AppCompatActivity {
 
         FUNC.sideBar(PopularActivity.this);
 
+        animationView=findViewById(R.id.animateHi);
+        popularnull=findViewById(R.id.tv_popularnull);
         //인기차트 들어갈때 oncreate시 전체 인기코스 불러오기
         //서버 연결
         urllist = new ArrayList<>();
@@ -181,9 +187,15 @@ public class PopularActivity extends AppCompatActivity {
                 //서버에서 받은 값 키값으로 불러오기 위해서 jsonobject 생성
                 try {
                     if (popularlist.size() == 0) {
-                        Toast.makeText(PopularActivity.this, "인기 코스가 없습니다", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(PopularActivity.this, "인기 코스가 없습니다", Toast.LENGTH_SHORT).show();
+                        animationView.setVisibility(View.VISIBLE);
+                        popularnull.setVisibility(View.VISIBLE);
+                        animationView.loop(true);
+                        animationView.playAnimation();
                     } else {
                         //불러온 값 크기에 맞추어 list에 저장 size
+                        animationView.setVisibility(View.GONE);
+                        popularnull.setVisibility(View.GONE);
                         for (int i = 0; i < popularlist.size(); i++) {
                             //jsonobject에 list 값 끝까지 저장
                             jsonObject = popularlist.get(i);

@@ -76,10 +76,32 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animateHi"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="REPLACE_JSON_URL" />
+
+            <TextView
+                android:id="@+id/tv_popularnull"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/animateHi"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/jalnan_main"
+                android:gravity="center"
+                android:text="인기코스가 텅 비었습니다"
+                android:textSize="20dp"
+                android:visibility="gone" />
 
             <ListView
                 android:id="@+id/popular_list"
@@ -87,7 +109,7 @@
                 android:layout_height="match_parent"
                 android:divider="#FFF"
                 android:dividerHeight="0px" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <include layout="@layout/main_sidebar" />

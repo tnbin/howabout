@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탈퇴 사유를 입력해주세요. 🥲"
+            android:fontFamily="@font/godo_m"
+            android:textSize="20dp"/>
+
+        <RadioGroup
+            android:id="@+id/dialog_with_radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/dialog_radio1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이용기회 상실"
+                android:fontFamily="@font/nanumsquareneo_cbd"/>
+            <RadioButton
+                android:id="@+id/dialog_radio2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이용방법이 어려움"
+                android:fontFamily="@font/nanumsquareneo_cbd"/>
+            <RadioButton
+                android:id="@+id/dialog_radio3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="서비스 불만족"
+                android:fontFamily="@font/nanumsquareneo_cbd"/>
+            <RadioButton
+                android:id="@+id/dialog_radio4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="기타"
+                android:fontFamily="@font/nanumsquareneo_cbd"/>
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialog_with_btn_withdrawal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_btn"
+            android:backgroundTint="@color/main_color_light2"
+            android:text="탈퇴하기"
+            android:textColor="@color/white"
+            android:fontFamily="@font/godo_m"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

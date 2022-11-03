@@ -21,7 +21,6 @@ import retrofit2.Response;
 public class SplashActivity extends AppCompatActivity {
 
     HowAboutThere FUNC = new HowAboutThere();
-    Intent intent;
     SharedPreferences sharedPreferences;
 
     @Override

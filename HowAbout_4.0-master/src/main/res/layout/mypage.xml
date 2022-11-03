@@ -24,7 +24,7 @@
                 android:scaleType="fitXY"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/mypage_earth"/>
+                app:lottie_rawRes="@raw/mypage_earth" />
 
             <ImageButton
                 android:id="@+id/btn_open"

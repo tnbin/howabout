@@ -59,7 +59,7 @@ public class BottomSheet_region extends BottomSheetDialogFragment {
                     al_do.add(response.body().get(i));
                 }
                 ArrayAdapter<String> aa;
-                aa = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, al_do);
+                aa = new ArrayAdapter<String>(context, R.layout.popular_bottomsheet_text, al_do);
                 ListView lv_do = view.findViewById(R.id.region_do);
                 lv_do.setAdapter(aa);
 
@@ -83,7 +83,7 @@ public class BottomSheet_region extends BottomSheetDialogFragment {
                                 }
 
                                 ArrayAdapter<String> bb;
-                                bb = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, al_si);
+                                bb = new ArrayAdapter<String>(context, R.layout.popular_bottomsheet_text, al_si);
                                 lv_si.setAdapter(bb);
 
                                 lv_si.setOnItemClickListener(new AdapterView.OnItemClickListener() {
