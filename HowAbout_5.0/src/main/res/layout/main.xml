@@ -100,10 +100,10 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             app:cardCornerRadius="50dp"
             app:cardElevation="10dp">
 
@@ -175,9 +175,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:lottie_autoPlay="true"
-                        app:lottie_rawRes="@raw/find"
                         app:lottie_loop="true"
-                        />
+                        app:lottie_rawRes="@raw/find" />
 
                     <TextView
                         android:id="@+id/main_btn_find"
@@ -185,8 +184,12 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jalnan_main"
                         android:gravity="center"
+                        android:shadowColor="@color/white"
+                        android:shadowDx="7.0"
+                        android:shadowDy="7.0"
+                        android:shadowRadius="2.0"
                         android:text="코스찾기"
-                        android:textColor="@color/purple"
+                        android:textColor="@color/black"
                         android:textSize="25dp" />
                 </FrameLayout>
 
@@ -201,22 +204,27 @@
                     android:background="@drawable/round_square"
                     app:cardCornerRadius="20dp"
                     app:cardMaxElevation="20dp">
+
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:lottie_autoPlay="true"
-                        app:lottie_rawRes="@raw/popular"
                         app:lottie_loop="true"
-                        />
+                        app:lottie_rawRes="@raw/popular" />
+
                     <TextView
                         android:id="@+id/main_btn_popular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/jalnan_main"
                         android:layout_gravity="center"
-                        android:text="인기코스"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/pink2"
+                        android:fontFamily="@font/jalnan_main"
+                        android:shadowColor="@color/white"
+                        android:shadowDx="7.0"
+                        android:shadowDy="7.0"
+                        android:shadowRadius="2.0"
+                        android:text="인기코스"
+                        android:textColor="@color/black"
                         android:textSize="25dp" />
                 </FrameLayout>
             </LinearLayout>
@@ -238,15 +246,15 @@
                     android:background="@drawable/round_square"
                     app:cardCornerRadius="20dp"
                     app:cardMaxElevation="20dp">
+
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:lottie_autoPlay="true"
-                        android:layout_margin="20dp"
                         android:layout_gravity="center"
-                        app:lottie_rawRes="@raw/mycourse"
+                        android:layout_margin="20dp"
+                        app:lottie_autoPlay="true"
                         app:lottie_loop="true"
-                        />
+                        app:lottie_rawRes="@raw/mycourse" />
 
                     <TextView
                         android:id="@+id/main_btn_mycourse"
@@ -254,8 +262,12 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jalnan_main"
                         android:gravity="center"
+                        android:shadowColor="@color/white"
+                        android:shadowDx="7.0"
+                        android:shadowDy="7.0"
+                        android:shadowRadius="2.0"
                         android:text="내 코스"
-                        android:textColor="@color/pink2"
+                        android:textColor="@color/black"
                         android:textSize="25dp" />
 
                 </FrameLayout>
@@ -271,15 +283,15 @@
                     android:background="@drawable/round_square"
                     app:cardCornerRadius="20dp"
                     app:cardMaxElevation="20dp">
+
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:lottie_autoPlay="true"
-                        android:layout_margin="20dp"
                         android:layout_gravity="center"
-                        app:lottie_rawRes="@raw/mypage"
+                        android:layout_margin="20dp"
+                        app:lottie_autoPlay="true"
                         app:lottie_loop="true"
-                        />
+                        app:lottie_rawRes="@raw/mypage" />
 
                     <TextView
                         android:id="@+id/main_btn_mypage"
@@ -287,8 +299,12 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jalnan_main"
                         android:gravity="center"
+                        android:shadowColor="@color/white"
+                        android:shadowDx="7.0"
+                        android:shadowDy="7.0"
+                        android:shadowRadius="2.0"
                         android:text="마이페이지"
-                        android:textColor="#8028FF"
+                        android:textColor="@color/black"
                         android:textSize="25dp" />
 
                 </FrameLayout>
