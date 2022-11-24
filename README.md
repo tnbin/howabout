@@ -3,10 +3,11 @@
 ![image](https://user-images.githubusercontent.com/96921957/203686720-7eb4634f-fd03-4400-bb65-08ee3078facf.png)
 
 
-**저기어때**
+
 <aside>
 💡 데이트 코스를 찾기 어려워하는 사람들을 위한 맞춤 데이트 코스 저장기능을 제공하는 서비스
 </aside>
+
 
  ⛳ 프로젝트 요약
 
