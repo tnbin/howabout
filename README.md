@@ -1,5 +1,11 @@
 # howabout
-![image](https://user-images.githubusercontent.com/96921957/203686020-52407ed4-e028-435e-a3bd-d90c3a2825bc.png)
+저기어때
+<aside>
+💡 **데이트 코스를 찾기 어려워하는 사람들을 위한 맞춤 데이트 코스 저장기능을**
+
+**제공하는 서비스**
+
+</aside>
 ## ⛳ 프로젝트 요약
 
 - 기간 2022.09.01~2022.11.04
